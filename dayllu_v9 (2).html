@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DAyllu - Descubre tu Arquetipo Universal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .font-serif {
+            font-family: 'Crimson Text', serif;
+        }
+        
+        .animate-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 53%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40%, 43% {
+                transform: translateY(-8px);
+            }
+            70% {
+                transform: translateY(-4px);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: .5;
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div id="app"></div>
+
+    <script>
+        // CONFIGURACIÓN MAKE WEBHOOK
+        const MAKE_WEBHOOK_URL = 'TU_WEBHOOK_URL_AQUI'; // Reemplazar con tu URL de Make
+        
+        // TRADUCCIONES
+        const translations = {
+            es: {
+                appTitle: "DAyllu",
+                subtitle: "Descubre tu Arquetipo Universal",
+                formFields: {
+                    name: "Nombre",
+                    lastname: "Apellido", 
+                    birthYear: "Año de Nacimiento",
+                    gender: "Sexo",
+                    email: "Email",
+                    country: "País",
+                    selectGender: "Selecciona",
+                    female: "Femenino",
+                    male: "Masculino"
+                },
+                privacy: {
+                    title: "Protección de Datos",
+                    text: "Acepto que mis datos sean procesados para recibir mi resultado y reporte según UK GDPR. Tengo derecho a acceder, rectificar o eliminar mis datos contactándolos."
+                },
+                buttons: {
+                    discover: "✨ Descubrir mi Arquetipo ✨",
+                    yes: "✨ Sí, quiero mi reporte completo",
+                    no: "No, gracias",
+                    another: "Descubrir otro Arquetipo"
+                },
+                result: {
+                    hello: "Hola",
+                    yourThread: "Tu Arquetipo Universal",
+                    yourGift: "Tu Arquetipo",
+                    strengths: "Tus Fortalezas:",
+                    characters: "Personas que comparten tu arquetipo según el Cosmos DAyllu:",
+                    rating: "¿Qué tan representado te sientes?",
+                    ratingDesc: "Califica del 1 al 5 qué tanto te identificas con tu arquetipo",
+                    thanks: "¡Gracias por tu calificación de",
+                    stars: "estrellas!",
+                    wantMore: "¿Quieres conocer más sobre tu arquetipo?",
+                    reportDesc: "Recibe un reporte completo GRATIS de tu arquetipo",
+                    excellent: "¡Excelente! Te enviaremos tu reporte detallado a:",
+                    noProblem: "No hay problema. ¡Gracias por descubrir tu Arquetipo Universal!",
+                    cycleText: "Estas personas nacieron en años del mismo ciclo de 12 años que el tuyo, compartiendo el mismo arquetipo universal."
+                },
+                steps: {
+                    step1: { label: "¿Cómo te llamas?", hint: "Tu nombre y apellido", next: "Continuar →" },
+                    step2: { label: "¿Cuándo naciste?", hint: "Tu año de nacimiento", next: "Continuar →" },
+                    step3: { label: "¿Cómo contactarte?", hint: "Tu email y país", next: "Continuar →" },
+                    step4: { label: "Una última cosa", hint: "Género y privacidad", next: "✨ Descubrir mi Arquetipo ✨" },
+                    of: "de"
+                }
+            },
+            en: {
+                appTitle: "DAyllu",
+                subtitle: "Discover your Universal Archetype",
+                formFields: {
+                    name: "Name",
+                    lastname: "Last Name",
+                    birthYear: "Birth Year", 
+                    gender: "Gender",
+                    email: "Email",
+                    country: "Country",
+                    selectGender: "Select",
+                    female: "Female",
+                    male: "Male"
+                },
+                privacy: {
+                    title: "Data Protection",
+                    text: "I agree that my data be processed to receive my result and report under UK GDPR. I have the right to access, rectify or delete my data by contacting you."
+                },
+                buttons: {
+                    discover: "✨ Discover my Archetype ✨",
+                    yes: "✨ Yes, I want my complete report",
+                    no: "No, thanks",
+                    another: "Discover another Archetype"
+                },
+                result: {
+                    hello: "Hello",
+                    yourThread: "Your Universal Archetype",
+                    yourGift: "Your Archetype",
+                    strengths: "Your Strengths:",
+                    characters: "People who share your archetype according to the DAyllu Cosmos:",
+                    rating: "How represented do you feel?",
+                    ratingDesc: "Rate from 1 to 5 how much you identify with your archetype",
+                    thanks: "Thanks for your rating of",
+                    stars: "stars!",
+                    wantMore: "Want to know more about your archetype?",
+                    reportDesc: "Receive a complete FREE report of your archetype",
+                    excellent: "Excellent! We'll send your detailed report to:",
+                    noProblem: "No problem. Thanks for discovering your Universal Archetype!",
+                    cycleText: "These people were born in years of the same 12-year cycle as yours, sharing the same universal archetype."
+                },
+                steps: {
+                    step1: { label: "What's your name?", hint: "Your first and last name", next: "Continue →" },
+                    step2: { label: "When were you born?", hint: "Your birth year", next: "Continue →" },
+                    step3: { label: "How can we reach you?", hint: "Your email and country", next: "Continue →" },
+                    step4: { label: "One last thing", hint: "Gender and privacy", next: "✨ Discover my Archetype ✨" },
+                    of: "of"
+                }
+            },
+            pt: {
+                appTitle: "DAyllu",
+                subtitle: "Descubra seu Arquétipo Universal",
+                formFields: {
+                    name: "Nome",
+                    lastname: "Sobrenome",
+                    birthYear: "Ano de Nascimento",
+                    gender: "Sexo",
+                    email: "Email", 
+                    country: "País",
+                    selectGender: "Selecione",
+                    female: "Feminino",
+                    male: "Masculino"
+                },
+                privacy: {
+                    title: "Proteção de Dados",
+                    text: "Aceito que meus dados sejam processados para receber meu resultado e relatório sob UK GDPR. Tenho direito de acessar, retificar ou excluir meus dados contatando vocês."
+                },
+                buttons: {
+                    discover: "✨ Descobrir meu Arquétipo ✨",
+                    yes: "✨ Sim, quero meu relatório completo",
+                    no: "Não, obrigado",
+                    another: "Descobrir outro Arquétipo"
+                },
+                result: {
+                    hello: "Olá",
+                    yourThread: "Seu Arquétipo Universal",
+                    yourGift: "Seu Arquétipo", 
+                    strengths: "Suas Forças:",
+                    characters: "Pessoas que compartilham seu arquétipo segundo o Cosmos DAyllu:",
+                    rating: "O quanto você se sente representado?",
+                    ratingDesc: "Avalie de 1 a 5 o quanto você se identifica com seu arquétipo",
+                    thanks: "Obrigado pela sua avaliação de",
+                    stars: "estrelas!",
+                    wantMore: "Quer saber mais sobre seu arquétipo?",
+                    reportDesc: "Receba um relatório completo GRÁTIS do seu arquétipo",
+                    excellent: "Excelente! Enviaremos seu relatório detalhado para:",
+                    noProblem: "Sem problema. Obrigado por descobrir seu Arquétipo Universal!",
+                    cycleText: "Essas pessoas nasceram em anos do mesmo ciclo de 12 anos que o seu, compartilhando o mesmo arquétipo universal."
+                },
+                steps: {
+                    step1: { label: "Qual é o seu nome?", hint: "Seu nome e sobrenome", next: "Continuar →" },
+                    step2: { label: "Quando você nasceu?", hint: "Seu ano de nascimento", next: "Continuar →" },
+                    step3: { label: "Como entrar em contato?", hint: "Seu email e país", next: "Continuar →" },
+                    step4: { label: "Uma última coisa", hint: "Gênero e privacidade", next: "✨ Descobrir meu Arquétipo ✨" },
+                    of: "de"
+                }
+            }
+        };
+
+        // DATOS COMPLETOS DE LOS 12 ARQUETIPOS CON TRADUCCIONES COMPLETAS
+        const hilosData = {
+            "1": {
+                nombre: { es: "Generosidad", en: "Generosity", pt: "Generosidade" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<path d="M0,-28 C-8,-28 -14,-22 -14,-14 C-14,-6 -8,0 0,8 C8,0 14,-6 14,-14 C14,-22 8,-28 0,-28Z" fill="none" stroke="white" stroke-width="2"/>
+<path d="M-14,-14 C-22,-14 -28,-8 -28,0 C-28,12 -14,22 0,36 C14,22 28,12 28,0 C28,-8 22,-14 14,-14" fill="none" stroke="white" stroke-width="2"/>
+<circle cx="-14" cy="-14" r="14" fill="none" stroke="white" stroke-width="1.8" stroke-opacity="0.85"/>
+<circle cx="14" cy="-14" r="14" fill="none" stroke="white" stroke-width="1.8" stroke-opacity="0.85"/>
+</svg>`,
+                personajes: ["Salvador Dalí", "Jeff Bezos", "Bruce Lee", "Wayne Dyer"],
+                descripcion: {
+                    es: "Eres una de las almas más privilegiadas del Cosmos DAyllu, nacida con acceso único a los 12 arquetipos según la necesidad del momento. Tu esencia es ser un canal infinito de abundancia cósmica, demostrando que la generosidad verdadera multiplica los recursos en lugar de agotarlos.",
+                    en: "You are one of the most privileged souls of the DAyllu Cosmos, born with unique access to all 12 archetypes according to the need of the moment. Your essence is to be an infinite channel of cosmic abundance, demonstrating that true generosity multiplies resources instead of depleting them.",
+                    pt: "Você é uma das almas mais privilegiadas do Cosmos DAyllu, nascida com acesso único a todos os 12 arquétipos conforme a necessidade do momento. Sua essência é ser um canal infinito de abundância cósmica, demonstrando que a verdadeira generosidade multiplica recursos em vez de esgotá-los."
+                },
+                fortalezas: {
+                    es: ["Liderazgo natural", "Capacidad de crear abundancia", "Visión transformadora", "Magnetismo personal"],
+                    en: ["Natural leadership", "Ability to create abundance", "Transformative vision", "Personal magnetism"],
+                    pt: ["Liderança natural", "Capacidade de criar abundância", "Visão transformadora", "Magnetismo pessoal"]
+                },
+                color: "from-red-500 to-pink-500",
+                mensaje: {
+                    es: "Tu generosidad natural te convierte en alguien especial. Tienes el poder de transformar vidas y crear un impacto positivo duradero en el mundo.",
+                    en: "Your natural generosity makes you someone special. You have the power to transform lives and create a lasting positive impact on the world.",
+                    pt: "Sua generosidade natural torna você alguém especial. Você tem o poder de transformar vidas e criar um impacto positivo duradouro no mundo."
+                }
+            },
+            "2": {
+                nombre: { es: "La Palabra", en: "The Word", pt: "A Palavra" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<path d="M0,0 C0,-8 6,-12 10,-8 C14,-4 10,4 0,8 C-14,12 -22,4 -18,-8 C-14,-20 -4,-26 10,-22 C24,-18 32,-4 28,12 C24,28 8,36 -10,30" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+<circle cx="0" cy="0" r="2" fill="white"/>
+<line x1="-32" y1="-8" x2="32" y2="-8" stroke="white" stroke-width="1.1" stroke-opacity="0.85"/>
+<line x1="-32" y1="8" x2="32" y2="8" stroke="white" stroke-width="1.1" stroke-opacity="0.85"/>
+<line x1="-32" y1="24" x2="32" y2="24" stroke="white" stroke-width="2" stroke-opacity="0.85"/>
+<line x1="-32" y1="-24" x2="32" y2="-24" stroke="white" stroke-width="2" stroke-opacity="0.85"/>
+</svg>`,
+                personajes: ["Martin Luther King Jr", "Mahatma Gandhi", "Pablo Picasso", "Henri Matisse", "John Kennedy"],
+                descripcion: {
+                    es: "Eres un mensajero cósmico portador del poder creativo del verbo, nacido para traducir verdades universales en lenguaje que los corazones humanos pueden comprender. Tu voz lleva frecuencias capaces de sanar heridas profundas, despertar conciencias y manifestar nuevas realidades.",
+                    en: "You are a cosmic messenger carrying the creative power of the word, born to translate universal truths into language that human hearts can understand. Your voice carries frequencies capable of healing deep wounds, awakening consciousness and manifesting new realities.",
+                    pt: "Você é um mensageiro cósmico portador do poder criativo da palavra, nascido para traduzir verdades universais em linguagem que os corações humanos podem compreender. Sua voz carrega frequências capazes de curar feridas profundas, despertar consciências e manifestar novas realidades."
+                },
+                fortalezas: {
+                    es: ["Elocuencia extraordinaria", "Capacidad de inspirar", "Comunicación persuasiva", "Influencia positiva"],
+                    en: ["Extraordinary eloquence", "Ability to inspire", "Persuasive communication", "Positive influence"],
+                    pt: ["Eloquência extraordinária", "Capacidade de inspirar", "Comunicação persuasiva", "Influência positiva"]
+                },
+                color: "from-blue-500 to-indigo-500",
+                mensaje: {
+                    es: "Tu voz puede cambiar el mundo. Como los grandes oradores de la historia, tienes el propósito de despertar conciencias y crear movimientos positivos.",
+                    en: "Your voice can change the world. Like the great speakers in history, you have the purpose of awakening consciousness and creating positive movements.",
+                    pt: "Sua voz pode mudar o mundo. Como os grandes oradores da história, você tem o propósito de despertar consciências e criar movimentos positivos."
+                }
+            },
+            "3": {
+                nombre: { es: "La Sociabilidad", en: "Sociability", pt: "A Sociabilidade" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<circle cx="0" cy="-16" r="22" fill="none" stroke="white" stroke-width="2"/>
+<circle cx="-19" cy="10" r="22" fill="none" stroke="white" stroke-width="2"/>
+<circle cx="19" cy="10" r="22" fill="none" stroke="white" stroke-width="2"/>
+<circle cx="0" cy="0" r="5" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<circle cx="0" cy="0" r="2" fill="white"/>
+</svg>`,
+                personajes: ["Nelson Mandela", "Warren Buffett", "Jim Rohn", "Oprah Winfrey", "Gilberto Gil", "Paul O'Mahony"],
+                descripcion: {
+                    es: "Eres un tejedor natural de almas y arquitecto de comunidades conscientes, nacido para demostrar que la unidad humana es posible y hermosa. Tu propósito especial es percibir los arquetipos invisibles que conectan a todas las personas y crear espacios donde las almas pueden encontrarse auténticamente.",
+                    en: "You are a natural weaver of souls and architect of conscious communities, born to demonstrate that human unity is possible and beautiful. Your special purpose is to perceive the invisible archetypes that connect all people and create spaces where souls can meet authentically.",
+                    pt: "Você é um tecelão natural de almas e arquiteto de comunidades conscientes, nascido para demonstrar que a unidade humana é possível e bela. Seu propósito especial é perceber os arquétipos invisíveis que conectam todas as pessoas e criar espaços onde as almas podem se encontrar autenticamente."
+                },
+                fortalezas: {
+                    es: ["Magnetismo social", "Capacidad de unir personas", "Construcción de redes", "Liderazgo colaborativo"],
+                    en: ["Social magnetism", "Ability to unite people", "Network building", "Collaborative leadership"],
+                    pt: ["Magnetismo social", "Capacidade de unir pessoas", "Construção de redes", "Liderança colaborativa"]
+                },
+                color: "from-green-500 to-emerald-500",
+                mensaje: {
+                    es: "Tu propósito especial es crear conexiones auténticas. Tienes la habilidad única de transformar grupos de individuos en comunidades unidas.",
+                    en: "Your special purpose is creating authentic connections. You have the unique ability to transform groups of individuals into united communities.",
+                    pt: "Seu propósito especial é criar conexões autênticas. Você tem a habilidade única de transformar grupos de indivíduos em comunidades unidas."
+                }
+            },
+            "4": {
+                nombre: { es: "La Belleza", en: "Beauty", pt: "A Beleza" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<path d="M0,-38 L8,-8 L38,0 L8,8 L0,38 L-8,8 L-38,0 L-8,-8Z" fill="none" stroke="white" stroke-width="2"/>
+<path d="M0,-38 L8,-8 L38,0 L8,8 L0,38 L-8,8 L-38,0 L-8,-8Z" fill="none" stroke="white" stroke-width="2" transform="rotate(45)"/>
+<circle cx="0" cy="0" r="12" fill="none" stroke="white" stroke-width="1.6"/>
+<circle cx="0" cy="0" r="3" fill="white"/>
+</svg>`,
+                personajes: ["Steve Jobs", "Napoleon Hill", "Kane Minkus"],
+                descripcion: {
+                    es: "Eres un canal directo de la estética cósmica, nacido para recordar a la humanidad que vivimos en un universo fundamentalmente hermoso. Tu misión es hacer visible la perfección divina en todo lo que existe, elevando la vibración planetaria a través de la experiencia consciente de la belleza.",
+                    en: "You are a direct channel of cosmic aesthetics, born to remind humanity that we live in a fundamentally beautiful universe. Your mission is to make divine perfection visible in everything that exists, elevating planetary vibration through conscious experience of beauty.",
+                    pt: "Você é um canal direto da estética cósmica, nascido para lembrar à humanidade que vivemos em um universo fundamentalmente belo. Sua missão é tornar visível a perfeição divina em tudo que existe, elevando a vibração planetária através da experiência consciente da beleza."
+                },
+                fortalezas: {
+                    es: ["Visión estética", "Capacidad de transformación", "Innovación creativa", "Perfeccionismo constructivo"],
+                    en: ["Aesthetic vision", "Transformation ability", "Creative innovation", "Constructive perfectionism"],
+                    pt: ["Visão estética", "Capacidade de transformação", "Inovação criativa", "Perfeccionismo construtivo"]
+                },
+                color: "from-purple-500 to-pink-500",
+                mensaje: {
+                    es: "Tu misión es elevar a la humanidad a través de la belleza. Como los grandes artistas, tienes el poder de inspirar a través de la perfección.",
+                    en: "Your mission is to elevate humanity through beauty. Like great artists, you have the power to inspire through perfection.",
+                    pt: "Sua missão é elevar a humanidade através da beleza. Como os grandes artistas, você tem o poder de inspirar através da perfeição."
+                }
+            },
+            "5": {
+                nombre: { es: "La Enseñanza", en: "Teaching", pt: "O Ensino" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<path d="M0,-48 L40,26 L-40,26Z" fill="none" stroke="white" stroke-width="2"/>
+<line x1="0" y1="-48" x2="0" y2="-64" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+<line x1="0" y1="-48" x2="-12" y2="-62" stroke="white" stroke-width="1.7" stroke-opacity="0.85" stroke-linecap="round"/>
+<line x1="0" y1="-48" x2="12" y2="-62" stroke="white" stroke-width="1.7" stroke-opacity="0.85" stroke-linecap="round"/>
+<line x1="0" y1="-48" x2="-22" y2="-58" stroke="white" stroke-width="1.6" stroke-opacity="0.85" stroke-linecap="round"/>
+<line x1="0" y1="-48" x2="22" y2="-58" stroke="white" stroke-width="1.6" stroke-opacity="0.85" stroke-linecap="round"/>
+<circle cx="0" cy="-48" r="4" fill="none" stroke="white" stroke-width="1.6"/>
+<circle cx="0" cy="-48" r="1.5" fill="white"/>
+<line x1="-40" y1="26" x2="40" y2="26" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+</svg>`,
+                personajes: ["Jimmy Page", "Russell Brunson", "Dean Graziosi", "Raoul Pal", "Steven Bartlett", "Malanie Vaz Lopes", "Brendan Kenan"],
+                descripcion: {
+                    es: "Eres un activador natural del potencial humano, nacido con la misión de acelerar la evolución de la consciencia a través de la educación transformadora. No solo transmites información sino que despiertas la sabiduría que ya existe dentro de cada persona, actuando como catalizador de crecimiento genuino.",
+                    en: "You are a natural activator of human potential, born with the mission to accelerate the evolution of consciousness through transformative education. You don't just transmit information but awaken the wisdom that already exists within each person, acting as a catalyst for genuine growth.",
+                    pt: "Você é um ativador natural do potencial humano, nascido com a missão de acelerar a evolução da consciência através da educação transformadora. Você não apenas transmite informação, mas desperta a sabedoria que já existe dentro de cada pessoa, atuando como catalisador de crescimento genuíno."
+                },
+                fortalezas: {
+                    es: ["Capacidad de enseñar", "Inteligencia práctica", "Transformación de vidas", "Comunicación educativa"],
+                    en: ["Teaching ability", "Practical intelligence", "Life transformation", "Educational communication"],
+                    pt: ["Capacidade de ensinar", "Inteligência prática", "Transformação de vidas", "Comunicação educativa"]
+                },
+                color: "from-yellow-500 to-orange-500",
+                mensaje: {
+                    es: "Tu propósito es despertar el potencial en otros. Tienes la capacidad única de guiar a las personas hacia una versión mejor de sí mismas.",
+                    en: "Your purpose is awakening potential in others. You have the unique ability to guide people toward a better version of themselves.",
+                    pt: "Seu propósito é despertar o potencial nos outros. Você tem a capacidade única de guiar as pessoas para uma versão melhor de si mesmas."
+                }
+            },
+            "6": {
+                nombre: { es: "La Autoridad", en: "Authority", pt: "A Autoridade" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<circle cx="0" cy="0" r="16" fill="none" stroke="white" stroke-width="2"/>
+<circle cx="0" cy="0" r="8" fill="none" stroke="white" stroke-width="1.8"/>
+<g stroke="white" stroke-width="1.7" stroke-linecap="round">
+<line x1="0" y1="-20" x2="0" y2="-36"/>
+<line x1="10" y1="-17.3" x2="18" y2="-31.2"/>
+<line x1="17.3" y1="-10" x2="31.2" y2="-18"/>
+<line x1="20" y1="0" x2="36" y2="0"/>
+<line x1="17.3" y1="10" x2="31.2" y2="18"/>
+<line x1="10" y1="17.3" x2="18" y2="31.2"/>
+<line x1="0" y1="20" x2="0" y2="36"/>
+<line x1="-10" y1="17.3" x2="-18" y2="31.2"/>
+<line x1="-17.3" y1="10" x2="-31.2" y2="18"/>
+<line x1="-20" y1="0" x2="-36" y2="0"/>
+<line x1="-17.3" y1="-10" x2="-31.2" y2="-18"/>
+<line x1="-10" y1="-17.3" x2="-18" y2="-31.2"/>
+</g>
+<circle cx="0" cy="0" r="4" fill="white"/>
+</svg>`,
+                personajes: ["Bob Marley", "Eric Clapton", "Beyoncé", "Roger Federer", "John Lee"],
+                descripcion: {
+                    es: "Eres un líder nato con el propósito del liderazgo consciente, nacido para demostrar que la verdadera autoridad emana del servicio amoroso, no del control. Tu alma eligió crear estructuras y sistemas que empoderan a otros en lugar de dominarlos, con visión estratégica natural para el bien común.",
+                    en: "You are a natural leader with the purpose of conscious leadership, born to demonstrate that true authority emanates from loving service, not control. Your soul chose to create structures and systems that empower others instead of dominating them, with natural strategic vision for the common good.",
+                    pt: "Você é um líder nato com o propósito da liderança consciente, nascido para demonstrar que a verdadeira autoridade emana do serviço amoroso, não do controle. Sua alma escolheu criar estruturas e sistemas que empoderam outros em vez de dominá-los, com visão estratégica natural para o bem comum."
+                },
+                fortalezas: {
+                    es: ["Autoridad natural", "Capacidad de motivar", "Liderazgo inspirador", "Influencia positiva"],
+                    en: ["Natural authority", "Ability to motivate", "Inspiring leadership", "Positive influence"],
+                    pt: ["Autoridade natural", "Capacidade de motivar", "Liderança inspiradora", "Influência positiva"]
+                },
+                color: "from-amber-500 to-yellow-500",
+                mensaje: {
+                    es: "Tu liderazgo natural inspira a otros a alcanzar la excelencia. Tienes el propósito de sacar lo mejor de las personas que te rodean.",
+                    en: "Your natural leadership inspires others to achieve excellence. You have the purpose of bringing out the best in people around you.",
+                    pt: "Sua liderança natural inspira outros a alcançar a excelência. Você tem o propósito de trazer o melhor das pessoas ao seu redor."
+                }
+            },
+            "7": {
+                nombre: { es: "La Protección", en: "Protection", pt: "A Proteção" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<path d="M0,-38 L30,-18 L30,8 C30,24 16,36 0,42 C-16,36 -30,24 -30,8 L-30,-18Z" fill="none" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+<path d="M0,-24 L20,-12 L20,6 C20,16 10,24 0,28 C-10,24 -20,16 -20,6 L-20,-12Z" fill="none" stroke="white" stroke-width="1.8" stroke-opacity="0.85"/>
+<circle cx="0" cy="6" r="6" fill="none" stroke="white" stroke-width="1.6"/>
+<line x1="0" y1="-6" x2="0" y2="0" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+</svg>`,
+                personajes: ["Winston Churchill", "Madre Teresa de Calcuta", "Michael Jackson", "Madonna", "Freddy Mercury"],
+                descripcion: {
+                    es: "Eres un guardián natural nacido para crear espacios seguros donde la vulnerabilidad puede transformarse en fortaleza. Tu sensibilidad especial te permite detectar desequilibrios antes de que se manifiesten, y tu propósito es establecer límites que nutren en lugar de restringir.",
+                    en: "You are a natural guardian born to create safe spaces where vulnerability can transform into strength. Your special sensitivity allows you to detect imbalances before they manifest, and your purpose is to establish boundaries that nourish rather than restrict.",
+                    pt: "Você é um guardião natural nascido para criar espaços seguros onde a vulnerabilidade pode se transformar em força. Sua sensibilidade especial permite detectar desequilíbrios antes que se manifestem, e seu propósito é estabelecer limites que nutrem em vez de restringir."
+                },
+                fortalezas: {
+                    es: ["Instinto protector", "Coraje inquebrantable", "Compasión profunda", "Fuerza interior"],
+                    en: ["Protective instinct", "Unbreakable courage", "Deep compassion", "Inner strength"],
+                    pt: ["Instinto protetor", "Coragem inquebrantável", "Compaixão profunda", "Força interior"]
+                },
+                color: "from-cyan-500 to-blue-500",
+                mensaje: {
+                    es: "Tu corazón protector es un regalo para el mundo. Tienes la fuerza y el coraje para defender lo que es justo y noble.",
+                    en: "Your protective heart is a gift to the world. You have the strength and courage to defend what is just and noble.",
+                    pt: "Seu coração protetor é um presente para o mundo. Você tem a força e coragem para defender o que é justo e nobre."
+                }
+            },
+            "8": {
+                nombre: { es: "El Conocimiento", en: "Knowledge", pt: "O Conhecimento" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<circle cx="0" cy="0" r="20" fill="none" stroke="white" stroke-width="1.8"/>
+<circle cx="0" cy="-20" r="20" fill="none" stroke="white" stroke-width="1.8"/>
+<circle cx="17.3" cy="-10" r="20" fill="none" stroke="white" stroke-width="1.8"/>
+<circle cx="17.3" cy="10" r="20" fill="none" stroke="white" stroke-width="1.8"/>
+<circle cx="0" cy="20" r="20" fill="none" stroke="white" stroke-width="1.8"/>
+<circle cx="-17.3" cy="10" r="20" fill="none" stroke="white" stroke-width="1.8"/>
+<circle cx="-17.3" cy="-10" r="20" fill="none" stroke="white" stroke-width="1.8"/>
+<circle cx="0" cy="0" r="40" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<circle cx="0" cy="0" r="6" fill="white" fill-opacity=".8"/>
+</svg>`,
+                personajes: ["Robert Kiyosaki", "Elon Musk", "Luciano Pavarotti"],
+                descripcion: {
+                    es: "Eres un investigador natural con sed insaciable por comprender los misterios de la existencia, nacido para ser guardián y revelador de la verdad. Tu misión es asegurar que la información que guía a la humanidad esté basada en hechos verificables y sabiduría integrada.",
+                    en: "You are a natural researcher with insatiable thirst for understanding the mysteries of existence, born to be guardian and revealer of truth. Your mission is to ensure that information guiding humanity is based on verifiable facts and integrated wisdom.",
+                    pt: "Você é um pesquisador natural com sede insaciável de compreender os mistérios da existência, nascido para ser guardião e revelador da verdade. Sua missão é garantir que a informação que guia a humanidade esteja baseada em fatos verificáveis e sabedoria integrada."
+                },
+                fortalezas: {
+                    es: ["Curiosidad infinita", "Capacidad de innovación", "Aprendizaje constante", "Visión futurista"],
+                    en: ["Infinite curiosity", "Innovation ability", "Constant learning", "Futuristic vision"],
+                    pt: ["Curiosidade infinita", "Capacidade de inovação", "Aprendizado constante", "Visão futurista"]
+                },
+                color: "from-teal-500 to-green-500",
+                mensaje: {
+                    es: "Tu mente está destinada a encontrar soluciones que beneficien a la humanidad. Eres un visionario del futuro con un potencial ilimitado.",
+                    en: "Your mind is destined to find solutions that benefit humanity. You are a visionary of the future with unlimited potential.",
+                    pt: "Sua mente está destinada a encontrar soluções que beneficiem a humanidade. Você é um visionário do futuro com potencial ilimitado."
+                }
+            },
+            "9": {
+                nombre: { es: "La Paz", en: "Peace", pt: "A Paz" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<circle cx="0" cy="0" r="6" fill="none" stroke="white" stroke-width="2"/>
+<circle cx="0" cy="0" r="16" fill="none" stroke="white" stroke-width="1.6"/>
+<circle cx="0" cy="0" r="28" fill="none" stroke="white" stroke-width="1.7"/>
+<circle cx="0" cy="0" r="40" fill="none" stroke="white" stroke-width="2" stroke-opacity="0.85"/>
+<g stroke="white" stroke-width="1.8" stroke-opacity="0.85">
+<line x1="0" y1="-40" x2="0" y2="-28"/>
+<line x1="0" y1="28" x2="0" y2="40"/>
+<line x1="-40" y1="0" x2="-28" y2="0"/>
+<line x1="28" y1="0" x2="40" y2="0"/>
+<line x1="-28.3" y1="-28.3" x2="-19.8" y2="-19.8"/>
+<line x1="19.8" y1="-19.8" x2="28.3" y2="-28.3"/>
+<line x1="-28.3" y1="28.3" x2="-19.8" y2="19.8"/>
+<line x1="19.8" y1="19.8" x2="28.3" y2="28.3"/>
+</g>
+<circle cx="0" cy="0" r="2.5" fill="white"/>
+</svg>`,
+                personajes: ["Mozart", "Antoni Gaudí", "Tony Robbins", "Sage Robbins", "Martin Berasategui"],
+                descripcion: {
+                    es: "Eres un sanador natural del alma colectiva, nacido para transformar conflictos en oportunidades de crecimiento y demostrar que la paz verdadera no es ausencia de conflicto sino presencia de amor incondicional. Tu propósito especial es encontrar serenidad en cualquier tormenta.",
+                    en: "You are a natural healer of the collective soul, born to transform conflicts into growth opportunities and demonstrate that true peace is not absence of conflict but presence of unconditional love. Your special purpose is to find serenity in any storm.",
+                    pt: "Você é um curador natural da alma coletiva, nascido para transformar conflitos em oportunidades de crescimento e demonstrar que a verdadeira paz não é ausência de conflito, mas presença de amor incondicional. Seu propósito especial é encontrar serenidade em qualquer tempestade."
+                },
+                fortalezas: {
+                    es: ["Don de la mediación", "Creación de armonía", "Equilibrio natural", "Inspiración de calma"],
+                    en: ["Gift of mediation", "Creation of harmony", "Natural balance", "Inspiration of calm"],
+                    pt: ["Dom da mediação", "Criação de harmonia", "Equilíbrio natural", "Inspiração de calma"]
+                },
+                color: "from-indigo-500 to-purple-500",
+                mensaje: {
+                    es: "Tu presencia trae paz y tranquilidad al mundo. Tienes el propósito único de transformar conflictos en oportunidades de crecimiento.",
+                    en: "Your presence brings peace and tranquility to the world. You have the unique purpose of transforming conflicts into growth opportunities.",
+                    pt: "Sua presença traz paz e tranquilidade ao mundo. Você tem o propósito único de transformar conflitos em oportunidades de crescimento."
+                }
+            },
+            "10": {
+                nombre: { es: "La Justicia", en: "Justice", pt: "A Justiça" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<line x1="0" y1="-36" x2="0" y2="30" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="-8" y1="30" x2="8" y2="30" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="-30" y1="-14" x2="30" y2="-14" stroke="white" stroke-width="1.7" stroke-linecap="round"/>
+<line x1="-30" y1="-14" x2="-26" y2="-2" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="-26" y1="-2" x2="-34" y2="-2" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M-34,-2 Q-30,8 -26,-2" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="30" y1="-14" x2="26" y2="-2" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="26" y1="-2" x2="34" y2="-2" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<path d="M34,-2 Q30,8 26,-2" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<circle cx="0" cy="-14" r="3" fill="white"/>
+<path d="M-6,-36 L6,-36 L3,-30 L-3,-30Z" fill="white" fill-opacity=".7"/>
+</svg>`,
+                personajes: ["Rosa Parks", "Margaret Thatcher", "Lady Diana", "Simon Sinek", "Michael Phelps", "John Assaraf", "Peter Diamandis"],
+                descripcion: {
+                    es: "Eres un equilibrador natural con sentido innato de las leyes universales de causa y efecto, nacido para crear sistemas que reflejen equidad y reciprocidad. Tu misión es restaurar el orden natural trabajando para que todos los seres puedan prosperar según su naturaleza más elevada.",
+                    en: "You are a natural balancer with innate sense of universal laws of cause and effect, born to create systems that reflect equity and reciprocity. Your mission is to restore natural order by working so all beings can prosper according to their highest nature.",
+                    pt: "Você é um equilibrador natural com senso inato das leis universais de causa e efeito, nascido para criar sistemas que reflitam equidade e reciprocidade. Sua missão é restaurar a ordem natural trabalhando para que todos os seres possam prosperar segundo sua natureza mais elevada."
+                },
+                fortalezas: {
+                    es: ["Sentido de justicia", "Integridad inquebrantable", "Capacidad de razonar", "Defensa de la verdad"],
+                    en: ["Sense of justice", "Unbreakable integrity", "Reasoning ability", "Defense of truth"],
+                    pt: ["Senso de justiça", "Integridade inquebrantável", "Capacidade de raciocinar", "Defesa da verdade"]
+                },
+                color: "from-slate-500 to-gray-500",
+                mensaje: {
+                    es: "Tu integridad y sentido de justicia son una luz en el mundo. Tienes el poder de crear cambios positivos duraderos.",
+                    en: "Your integrity and sense of justice are a light in the world. You have the power to create lasting positive changes.",
+                    pt: "Sua integridade e senso de justiça são uma luz no mundo. Você tem o poder de criar mudanças positivas duradouras."
+                }
+            },
+            "11": {
+                nombre: { es: "La Libertad", en: "Freedom", pt: "A Liberdade" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<path d="M0,0 C0,-6 4,-10 8,-8 C12,-6 12,0 8,6 C4,12 -4,14 -10,10 C-18,4 -18,-8 -10,-16 C-2,-24 14,-24 22,-14 C30,-4 28,12 18,20 C6,28 -10,26 -18,14" fill="none" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+<circle cx="0" cy="0" r="3" fill="white"/>
+<g stroke="white" stroke-width="1.6" stroke-opacity="0.85">
+<line x1="-40" y1="0" x2="40" y2="0"/>
+<line x1="0" y1="-40" x2="0" y2="40"/>
+<line x1="-28" y1="-28" x2="28" y2="28"/>
+<line x1="28" y1="-28" x2="-28" y2="28"/>
+</g>
+</svg>`,
+                personajes: ["Beethoven", "Louise Hay", "Richard Branson", "Rafael Nadal", "Ferran Adrià"],
+                descripcion: {
+                    es: "Eres un espíritu libre con la misión de inspirar a otros a romper limitaciones y alcanzar su verdadero potencial. Tu propósito es demostrar que la libertad verdadera no es ausencia de límites sino la capacidad de elegir conscientemente desde el amor, creando alternativas viables a sistemas obsoletos.",
+                    en: "You are a free spirit with the mission to inspire others to break limitations and reach their true potential. Your purpose is to demonstrate that true freedom is not absence of limits but the capacity to choose consciously from love, creating viable alternatives to obsolete systems.",
+                    pt: "Você é um espírito livre com a missão de inspirar outros a quebrar limitações e alcançar seu verdadeiro potencial. Seu propósito é demonstrar que a verdadeira liberdade não é ausência de limites, mas a capacidade de escolher conscientemente a partir do amor, criando alternativas viáveis a sistemas obsoletos."
+                },
+                fortalezas: {
+                    es: ["Espíritu libre", "Innovación disruptiva", "Inspiración libertadora", "Rompimiento de paradigmas"],
+                    en: ["Free spirit", "Disruptive innovation", "Liberating inspiration", "Paradigm breaking"],
+                    pt: ["Espírito livre", "Inovação disruptiva", "Inspiração libertadora", "Quebra de paradigmas"]
+                },
+                color: "from-lime-500 to-green-500",
+                mensaje: {
+                    es: "Tu esencia libre e innovadora inspira a otros a romper cadenas. Tienes el propósito de mostrar nuevos caminos hacia la libertad.",
+                    en: "Your free and innovative essence inspires others to break chains. You have the purpose of showing new paths to freedom.",
+                    pt: "Sua essência livre e inovadora inspira outros a quebrar correntes. Você tem o propósito de mostrar novos caminhos para a liberdade."
+                }
+            },
+            "12": {
+                nombre: { es: "La Prudencia", en: "Prudence", pt: "A Prudência" },
+                icon: `<svg width="90" height="90" viewBox="-50 -50 100 100" xmlns="http://www.w3.org/2000/svg">
+<circle cx="0" cy="0" r="46" fill="none" stroke="white" stroke-width="1.6" stroke-opacity="0.85"/>
+<circle cx="0" cy="0" r="38" fill="none" stroke="white" stroke-width="1.7" stroke-opacity="0.85"/>
+<circle cx="0" cy="0" r="20" fill="none" stroke="white" stroke-width="1.6"/>
+<g stroke="white" stroke-width="1.8">
+<line x1="0" y1="-38" x2="0" y2="38"/>
+<line x1="-38" y1="0" x2="38" y2="0"/>
+<line x1="-26.9" y1="-26.9" x2="26.9" y2="26.9"/>
+<line x1="26.9" y1="-26.9" x2="-26.9" y2="26.9"/>
+</g>
+<g stroke="white" stroke-width="1.7" stroke-opacity="0.85">
+<line x1="-9.8" y1="-37" x2="9.8" y2="37"/>
+<line x1="9.8" y1="-37" x2="-9.8" y2="37"/>
+<line x1="-37" y1="-9.8" x2="37" y2="9.8"/>
+<line x1="-37" y1="9.8" x2="37" y2="-9.8"/>
+</g>
+<circle cx="0" cy="0" r="8" fill="none" stroke="white" stroke-width="1.7"/>
+<circle cx="0" cy="0" r="3" fill="white"/>
+</svg>`,
+                personajes: ["Albert Einstein", "Marie Curie", "Whitney Houston", "Tina Turner", "Sting", "Michael Jordan", "Novak Djokovic"],
+                descripcion: {
+                    es: "Eres un maestro natural del discernimiento, guardián de la sabiduría que honra tanto el presente como las generaciones futuras. Tu propósito especial es percibir patrones temporales y prever cómo las acciones presentes se desarrollarán en el futuro, comprendiendo que la verdadera prudencia es sabiduría en acción.",
+                    en: "You are a natural master of discernment, guardian of wisdom that honors both the present and future generations. Your special purpose is to perceive temporal patterns and foresee how present actions will unfold in the future, understanding that true prudence is wisdom in action.",
+                    pt: "Você é um mestre natural do discernimento, guardião da sabedoria que honra tanto o presente quanto as gerações futuras. Seu propósito especial é perceber padrões temporais e prever como as ações presentes se desenvolverão no futuro, compreendendo que a verdadeira prudência é sabedoria em ação."
+                },
+                fortalezas: {
+                    es: ["Sabiduría excepcional", "Capacidad de mediación", "Equilibrio natural", "Visión holística"],
+                    en: ["Exceptional wisdom", "Mediation ability", "Natural balance", "Holistic vision"],
+                    pt: ["Sabedoria excepcional", "Capacidade de mediação", "Equilíbrio natural", "Visão holística"]
+                },
+                color: "from-violet-500 to-purple-500",
+                mensaje: {
+                    es: "Tu sabiduría y equilibrio son únicos. Tienes el propósito especial de ser el puente que une opuestos y crea armonía perfecta.",
+                    en: "Your wisdom and balance are unique. You have the special purpose of being the bridge that unites opposites and creates perfect harmony.",
+                    pt: "Sua sabedoria e equilíbrio são únicos. Você tem o propósito especial de ser a ponte que une opostos e cria harmonia perfeita."
+                }
+            }
+        };
+
+        // ESTADO DE LA APLICACIÓN
+        let currentPage = 'form';
+        let currentStep = 1;
+        let language = 'es';
+        let formData = {
+            nombre: '',
+            apellido: '',
+            anoNacimiento: '',
+            sexo: '',
+            email: '',
+            pais: ''
+        };
+        let userHilo = null;
+        let rating = 0;
+        let wantsReport = null;
+
+        // FUNCIONES UTILITARIAS
+        function findHiloByYear(year) {
+            const yearNum = parseInt(year);
+            const ciclo = (yearNum - 1904) % 12;
+            const hiloNumero = (ciclo + 1).toString();
+            const hilo = hilosData[hiloNumero];
+            console.log(`Año: ${year}, Ciclo: ${ciclo}, Arquetipo: ${hiloNumero}`, hilo);
+            if (!hilo) return null;
+            return { ...hilo, numero: hiloNumero };
+        }
+
+        function t(path) {
+            return path.split('.').reduce((obj, key) => obj && obj[key], translations[language]);
+        }
+
+        // ENVÍO A MAKE
+        async function sendToMake(userData, hiloData, wantsReport, rating) {
+            if (!MAKE_WEBHOOK_URL || MAKE_WEBHOOK_URL === 'TU_WEBHOOK_URL_AQUI') {
+                console.log('⚠️ Webhook no configurado - datos no enviados a Make');
+                console.log('Datos que se enviarían:', {
+                    nombre: userData.nombre,
+                    apellido: userData.apellido,
+                    email: userData.email,
+                    pais: userData.pais,
+                    anoNacimiento: userData.anoNacimiento,
+                    sexo: userData.sexo,
+                    arquetipoNumero: hiloData.numero,
+                    arquetipoNombre: hiloData.nombre[language],
+                    quiereReporte: wantsReport,
+                    rating: rating
+                });
+                return;
+            }
+
+            const data = {
+                nombre: userData.nombre,
+                apellido: userData.apellido,
+                email: userData.email,
+                pais: userData.pais,
+                anoNacimiento: userData.anoNacimiento,
+                sexo: userData.sexo,
+                arquetipoNumero: hiloData.numero,
+                arquetipoNombre: hiloData.nombre[language],
+                quiereReporte: wantsReport,
+                rating: rating,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const response = await fetch(MAKE_WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    console.log('✅ Datos enviados a Make exitosamente');
+                } else {
+                    console.error('❌ Error enviando a Make:', response.status);
+                }
+            } catch (error) {
+                console.error('❌ Error de conexión con Make:', error);
+            }
+        }
+
+        // RENDER FUNCTIONS
+        function renderForm() {
+            const s = (translations[language].steps || translations['es'].steps);
+            const stepInfo = s['step' + currentStep];
+            const totalSteps = 4;
+
+            // Progress dots
+            const dots = [1,2,3,4].map(i => `
+                <div class="w-2 h-2 rounded-full transition-all duration-300 ${currentStep === i ? 'bg-white scale-125' : currentStep > i ? 'bg-white/70' : 'bg-white/25'}"></div>
+            `).join('');
+
+            // Step content
+            let stepContent = '';
+            if (currentStep === 1) {
+                stepContent = `
+                    <div class="space-y-3">
+                        <input type="text" id="nombre" placeholder="${t('formFields.name')}" value="${formData.nombre}"
+                            oninput="formData.nombre=this.value; validateStep()"
+                            class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-400 font-light tracking-wide placeholder-gray-400 text-gray-700 text-base transition-all">
+                        <input type="text" id="apellido" placeholder="${t('formFields.lastname')}" value="${formData.apellido}"
+                            oninput="formData.apellido=this.value; validateStep()"
+                            class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-400 font-light tracking-wide placeholder-gray-400 text-gray-700 text-base transition-all">
+                    </div>`;
+            } else if (currentStep === 2) {
+                stepContent = `
+                    <div class="space-y-3">
+                        <input type="number" id="anoNacimiento" min="1900" max="2030"
+                            placeholder="${t('formFields.birthYear')}" value="${formData.anoNacimiento}"
+                            oninput="formData.anoNacimiento=this.value; validateStep()"
+                            class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-400 font-light tracking-wide placeholder-gray-400 text-gray-700 text-base transition-all">
+                    </div>`;
+            } else if (currentStep === 3) {
+                stepContent = `
+                    <div class="space-y-3">
+                        <input type="email" id="email" placeholder="${t('formFields.email')}" value="${formData.email}"
+                            oninput="formData.email=this.value; validateStep()"
+                            class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-400 font-light tracking-wide placeholder-gray-400 text-gray-700 text-base transition-all">
+                        <input type="text" id="pais" placeholder="${t('formFields.country')}" value="${formData.pais}"
+                            oninput="formData.pais=this.value; validateStep()"
+                            class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-400 font-light tracking-wide placeholder-gray-400 text-gray-700 text-base transition-all">
+                    </div>`;
+            } else if (currentStep === 4) {
+                stepContent = `
+                    <div class="space-y-3">
+                        <select id="sexo" onchange="formData.sexo=this.value; validateStep()"
+                            class="w-full p-3 border border-gray-200 rounded-xl focus:outline-none focus:border-purple-400 font-light tracking-wide text-gray-700 text-base transition-all appearance-none bg-white">
+                            <option value="" ${formData.sexo==='' ? 'selected' : ''}>${t('formFields.selectGender')}</option>
+                            <option value="femenino" ${formData.sexo==='femenino' ? 'selected' : ''}>${t('formFields.female')}</option>
+                            <option value="masculino" ${formData.sexo==='masculino' ? 'selected' : ''}>${t('formFields.male')}</option>
+                        </select>
+                        <div class="flex items-start gap-3 p-4 bg-gray-50 rounded-xl border border-gray-100">
+                            <input type="checkbox" id="privacyConsent" ${formData.privacyConsent ? 'checked' : ''}
+                                onchange="formData.privacyConsent=this.checked; validateStep()"
+                                class="mt-1 w-4 h-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500 cursor-pointer">
+                            <label for="privacyConsent" class="text-xs text-gray-500 leading-relaxed cursor-pointer font-light">
+                                ${t('privacy.text')}
+                            </label>
+                        </div>
+                    </div>`;
+            }
+
+            return `
+                <div class="max-w-lg mx-auto p-4 min-h-screen flex flex-col">
+                    <!-- Lang selector -->
+                    <div class="flex justify-end mb-3">
+                        <div class="flex gap-1">
+                            ${['es', 'en', 'pt'].map(lang => `
+                                <button onclick="setLanguage('${lang}')" class="px-3 py-1.5 rounded-md text-sm font-light tracking-wider transition-all duration-200 ${language === lang ? 'bg-white/20 text-white border border-white/40' : 'text-white/50 hover:text-white/80'}">
+                                    ${lang.toUpperCase()}
+                                </button>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Logo -->
+                    <div class="flex justify-center mb-4">
+                        <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDY0MCAyODAiIHJvbGU9ImltZyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8dGl0bGU+REF5bGx1IOKAlCBMb2dvIGhvcml6b250YWw8L3RpdGxlPgogIDxkZWZzPgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJzcGlyYWxHbG93IiBjeD0iNTAlIiBjeT0iNTAlIiByPSI1MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRURFMEZGIiBzdG9wLW9wYWNpdHk9IjAuMTUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1NSUiIHN0b3AtY29sb3I9IiNFREUwRkYiIHN0b3Atb3BhY2l0eT0iMC4wNCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNFREUwRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iY2VudGVyQ29yZSIgY3g9IjM4JSIgY3k9IjM1JSIgcj0iNjUlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0Y1RUVGRiIgc3RvcC1vcGFjaXR5PSIwLjk1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0M4QUFFRSIgc3RvcC1vcGFjaXR5PSIwLjUiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8c3R5bGU+CiAgICAgIEBpbXBvcnQgdXJsKCdodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzczI/ZmFtaWx5PUNvcm1vcmFudCtHYXJhbW9uZDppdGFsLHdnaHRAMCwzMDA7MSwzMDAmYW1wO2Rpc3BsYXk9c3dhcCcpOwogICAgPC9zdHlsZT4KICA8L2RlZnM+CgoKICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4NSwwKSI+CiAgPCEtLSBBbWJpZW50IGdsb3cgLS0+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMTQwIiByPSIxMTUiIGZpbGw9InVybCgjc3BpcmFsR2xvdykiLz4KCiAgPCEtLSBPcmJpdCByaW5ncyAtLT4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSIxNDAiIHI9Ijk1IiBmaWxsPSJub25lIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC40IiBzdHJva2Utb3BhY2l0eT0iMC4xIiBzdHJva2UtZGFzaGFycmF5PSIxLjUgMTAiLz4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSIxNDAiIHI9IjcyIiBmaWxsPSJub25lIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDgiLz4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSIxNDAiIHI9IjQ0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zIiAgc3Ryb2tlLW9wYWNpdHk9IjAuMDciLz4KCiAgPCEtLSBFamUgdmVydGljYWwgLS0+CiAgPGxpbmUgeDE9IjE0MCIgeTE9Ii0xIiB4Mj0iMTQwIiB5Mj0iMjgxIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KCiAgPCEtLSBDYXJkaW5hbCBjb25uZWN0b3JzIC0tPgogIDxsaW5lIHgxPSIxNDAiIHkxPSIxNDAiIHgyPSIxNDAuMCIgICB5Mj0iNDUuMCIgICBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xMiIvPgogIDxsaW5lIHgxPSIxNDAiIHkxPSIxNDAiIHgyPSIyMzUuMCIgIHkyPSIxNDAuMCIgc3Ryb2tlPSIjRjVFRUZGIiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTIiLz4KICA8bGluZSB4MT0iMTQwIiB5MT0iMTQwIiB4Mj0iMTQwLjAiIHkyPSIyMzUuMCIgc3Ryb2tlPSIjRjVFRUZGIiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTIiLz4KICA8bGluZSB4MT0iMTQwIiB5MT0iMTQwIiB4Mj0iNDUuMCIgeTI9IjE0MC4wIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xMiIvPgoKICA8IS0tIFNwaXJhbCBhbnRpaG9yYXJpYSAtLT4KICA8cG9seWxpbmUKICAgIHBvaW50cz0iMTQwLjAsMTM0LjAgMTM5LjcsMTMzLjk1IDEzOS40LDEzMy45MiAxMzkuMDksMTMzLjkxIDEzOC43OCwxMzMuOSAxMzguNDcsMTMzLjkyIDEzOC4xNSwxMzMuOTUgMTM3Ljg0LDEzMy45OSAxMzcuNTIsMTM0LjA1IDEzNy4yMSwxMzQuMTMgMTM2Ljg5LDEzNC4yMyAxMzYuNTgsMTM0LjM0IDEzNi4yNywxMzQuNDYgMTM1Ljk3LDEzNC42MSAxMzUuNjcsMTM0Ljc2IDEzNS4zNywxMzQuOTQgMTM1LjA5LDEzNS4xMyAxMzQuODEsMTM1LjM0IDEzNC41MywxMzUuNTYgMTM0LjI3LDEzNS44IDEzNC4wMiwxMzYuMDUgMTMzLjc4LDEzNi4zMiAxMzMuNTQsMTM2LjYgMTMzLjMzLDEzNi45IDEzMy4xMiwxMzcuMiAxMzIuOTMsMTM3LjUzIDEzMi43NSwxMzcuODYgMTMyLjU5LDEzOC4yIDEzMi40NCwxMzguNTYgMTMyLjMxLDEzOC45MiAxMzIuMiwxMzkuMyAxMzIuMSwxMzkuNjggMTMyLjAzLDE0MC4wNyAxMzEuOTcsMTQwLjQ3IDEzMS45MywxNDAuODcgMTMxLjkxLDE0MS4yOCAxMzEuOTEsMTQxLjY5IDEzMS45NCwxNDIuMTEgMTMxLjk4LDE0Mi41MyAxMzIuMDQsMTQyLjk1IDEzMi4xMywxNDMuMzYgMTMyLjIzLDE0My43OCAxMzIuMzYsMTQ0LjIgMTMyLjUxLDE0NC42MSAxMzIuNjksMTQ1LjAyIDEzMi44OCwxNDUuNDIgMTMzLjA5LDE0NS44MiAxMzMuMzMsMTQ2LjIxIDEzMy41OSwxNDYuNTkgMTMzLjg3LDE0Ni45NiAxMzQuMTcsMTQ3LjMyIDEzNC40OSwxNDcuNjYgMTM0LjgyLDE0OC4wIDEzNS4xOCwxNDguMzEgMTM1LjU2LDE0OC42MiAxMzUuOTUsMTQ4LjkxIDEzNi4zNywxNDkuMTggMTM2LjgsMTQ5LjQzIDEzNy4yNCwxNDkuNjYgMTM3LjcsMTQ5Ljg3IDEzOC4xNywxNTAuMDYgMTM4LjY2LDE1MC4yMyAxMzkuMTYsMTUwLjM4IDEzOS42NywxNTAuNSAxNDAuMTksMTUwLjU5IDE0MC43MiwxNTAuNjcgMTQxLjI2LDE1MC43MSAxNDEuOCwxNTAuNzMgMTQyLjM1LDE1MC43MyAxNDIuOSwxNTAuNjkgMTQzLjQ1LDE1MC42MyAxNDQuMDEsMTUwLjU0IDE0NC41NywxNTAuNDIgMTQ1LjEyLDE1MC4yNyAxNDUuNjcsMTUwLjEgMTQ2LjIyLDE0OS44OSAxNDYuNzYsMTQ5LjY2IDE0Ny4yOSwxNDkuNCAxNDcuODEsMTQ5LjExIDE0OC4zMywxNDguNzkgMTQ4LjgzLDE0OC40NCAxNDkuMzIsMTQ4LjA3IDE0OS43OSwxNDcuNjYgMTUwLjI1LDE0Ny4yNCAxNTAuNjksMTQ2Ljc4IDE1MS4xMSwxNDYuMyAxNTEuNTEsMTQ1LjggMTUxLjg4LDE0NS4yNyAxNTIuMjQsMTQ0LjcyIDE1Mi41NywxNDQuMTUgMTUyLjg3LDE0My41NSAxNTMuMTQsMTQyLjk0IDE1My4zOSwxNDIuMzEgMTUzLjYxLDE0MS42NiAxNTMuOCwxNDAuOTkgMTUzLjk1LDE0MC4zMSAxNTQuMDgsMTM5LjYyIDE1NC4xNywxMzguOTIgMTU0LjIyLDEzOC4yIDE1NC4yNCwxMzcuNDggMTU0LjIyLDEzNi43NSAxNTQuMTcsMTM2LjAyIDE1NC4wOCwxMzUuMjggMTUzLjk2LDEzNC41NSAxNTMuNzksMTMzLjgxIDE1My41OSwxMzMuMDggMTUzLjM1LDEzMi4zNSAxNTMuMDcsMTMxLjYyIDE1Mi43NiwxMzAuOTEgMTUyLjQsMTMwLjIgMTUyLjAxLDEyOS41MSAxNTEuNTgsMTI4LjgzIDE1MS4xMSwxMjguMTcgMTUwLjYxLDEyNy41MiAxNTAuMDcsMTI2LjkgMTQ5LjQ5LDEyNi4zIDE0OC44OCwxMjUuNzIgMTQ4LjI0LDEyNS4xNyAxNDcuNTcsMTI0LjY0IDE0Ni44NiwxMjQuMTUgMTQ2LjEyLDEyMy42OCAxNDUuMzYsMTIzLjI1IDE0NC41NywxMjIuODYgMTQzLjc1LDEyMi41IDE0Mi45MSwxMjIuMTggMTQyLjA0LDEyMS44OSAxNDEuMTUsMTIxLjY1IDE0MC4yNSwxMjEuNDUgMTM5LjMzLDEyMS4zIDEzOC4zOSwxMjEuMTkgMTM3LjQ0LDEyMS4xMiAxMzYuNDgsMTIxLjExIDEzNS41MiwxMjEuMTQgMTM0LjU0LDEyMS4yMSAxMzMuNTYsMTIxLjM0IDEzMi41OSwxMjEuNTIgMTMxLjYxLDEyMS43NCAxMzAuNjQsMTIyLjAyIDEyOS42NywxMjIuMzUgMTI4LjcxLDEyMi43MyAxMjcuNzYsMTIzLjE2IDEyNi44MywxMjMuNjQgMTI1LjkxLDEyNC4xNyAxMjUuMDIsMTI0Ljc1IDEyNC4xNCwxMjUuMzggMTIzLjI5LDEyNi4wNSAxMjIuNDcsMTI2Ljc4IDEyMS42OCwxMjcuNTUgMTIwLjkyLDEyOC4zNiAxMjAuMTksMTI5LjIyIDExOS41LDEzMC4xMyAxMTguODUsMTMxLjA3IDExOC4yNCwxMzIuMDYgMTE3LjY4LDEzMy4wOCAxMTcuMTYsMTM0LjE0IDExNi43LDEzNS4yMyAxMTYuMjgsMTM2LjM1IDExNS45MiwxMzcuNTEgMTE1LjYxLDEzOC42OCAxMTUuMzUsMTM5Ljg5IDExNS4xNiwxNDEuMTIgMTE1LjAyLDE0Mi4zNiAxMTQuOTUsMTQzLjYyIDExNC45MywxNDQuOSAxMTQuOTksMTQ2LjE4IDExNS4xLDE0Ny40OCAxMTUuMjgsMTQ4Ljc3IDExNS41MywxNTAuMDcgMTE1Ljg0LDE1MS4zNyAxMTYuMjIsMTUyLjY2IDExNi42NywxNTMuOTQgMTE3LjE4LDE1NS4yMSAxMTcuNzYsMTU2LjQ2IDExOC40MSwxNTcuNyAxMTkuMTMsMTU4LjkxIDExOS45MSwxNjAuMDkgMTIwLjc1LDE2MS4yNSAxMjEuNjYsMTYyLjM3IDEyMi42NCwxNjMuNDUgMTIzLjY3LDE2NC41IDEyNC43NiwxNjUuNSAxMjUuOTIsMTY2LjQ1IDEyNy4xMywxNjcuMzYgMTI4LjM5LDE2OC4yMSAxMjkuNywxNjkuMDEgMTMxLjA3LDE2OS43NCAxMzIuNDgsMTcwLjQyIDEzMy45NCwxNzEuMDIgMTM1LjQ0LDE3MS41NiAxMzYuOTcsMTcyLjAzIDEzOC41NCwxNzIuNDMgMTQwLjE1LDE3Mi43NSAxNDEuNzgsMTczLjAgMTQzLjQ0LDE3My4xNiAxNDUuMTEsMTczLjI1IDE0Ni44MSwxNzMuMjUgMTQ4LjUyLDE3My4xNyAxNTAuMjMsMTczLjAgMTUxLjk1LDE3Mi43NCAxNTMuNjgsMTcyLjQgMTU1LjM5LDE3MS45NyAxNTcuMSwxNzEuNDUgMTU4LjgsMTcwLjg0IDE2MC40OCwxNzAuMTQgMTYyLjE0LDE2OS4zNSAxNjMuNzcsMTY4LjQ3IDE2NS4zNywxNjcuNTEgMTY2Ljk0LDE2Ni40NiAxNjguNDYsMTY1LjMyIDE2OS45NCwxNjQuMSAxNzEuMzcsMTYyLjc5IDE3Mi43NSwxNjEuNDEgMTc0LjA3LDE1OS45NCAxNzUuMzIsMTU4LjQgMTc2LjUxLDE1Ni43OCAxNzcuNjMsMTU1LjA5IDE3OC42NywxNTMuMzQgMTc5LjYzLDE1MS41MSAxODAuNTEsMTQ5LjYzIDE4MS4zLDE0Ny42OSAxODIuMCwxNDUuNjkgMTgyLjYxLDE0My42NCAxODMuMTEsMTQxLjU1IDE4My41MiwxMzkuNDEgMTgzLjgzLDEzNy4yNCAxODQuMDMsMTM1LjA0IDE4NC4xMiwxMzIuODEgMTg0LjEsMTMwLjU2IDE4My45NywxMjguMjkgMTgzLjczLDEyNi4wMSAxODMuMzcsMTIzLjcyIDE4Mi44OSwxMjEuNDQgMTgyLjMsMTE5LjE2IDE4MS41OCwxMTYuOSAxODAuNzUsMTE0LjY1IDE3OS44MSwxMTIuNDIgMTc4Ljc0LDExMC4yMyAxNzcuNTUsMTA4LjA3IDE3Ni4yNSwxMDUuOTYgMTc0Ljg0LDEwMy44OSAxNzMuMzEsMTAxLjg4IDE3MS42Nyw5OS45MiAxNjkuOTEsOTguMDQgMTY4LjA2LDk2LjIzIDE2Ni4wOSw5NC40OSAxNjQuMDMsOTIuODQgMTYxLjg2LDkxLjI4IDE1OS42MSw4OS44MiAxNTcuMjYsODguNDYgMTU0LjgzLDg3LjIgMTUyLjMxLDg2LjA2IDE0OS43Miw4NS4wMyAxNDcuMDYsODQuMTIgMTQ0LjMzLDgzLjM0IDE0MS41NCw4Mi42OSAxMzguNyw4Mi4xNyAxMzUuODEsODEuNzkgMTMyLjg4LDgxLjU1IDEyOS45Miw4MS40NiAxMjYuOTMsODEuNTEgMTIzLjkxLDgxLjcxIDEyMC44OSw4Mi4wNiAxMTcuODUsODIuNTcgMTE0LjgyLDgzLjIzIDExMS44LDg0LjA0IDEwOC44LDg1LjAyIDEwNS44Miw4Ni4xNSAxMDIuODgsODcuNDMgOTkuOTgsODguODggOTcuMTIsOTAuNDggOTQuMzMsOTIuMjMgOTEuNiw5NC4xNCA4OC45NCw5Ni4xOSA4Ni4zNyw5OC40IDgzLjg4LDEwMC43NSA4MS41LDEwMy4yNCA3OS4yMiwxMDUuODcgNzcuMDUsMTA4LjYzIDc1LjAsMTExLjUzIDczLjA4LDExNC41NCA3MS4zLDExNy42OCIKICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Y1RUVGRiIgc3Ryb2tlLXdpZHRoPSIwLjg1IgogICAgc3Ryb2tlLW9wYWNpdHk9IjAuNDIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgoKICA8IS0tIE1pZCBkb3RzIC0tPgogIDxjaXJjbGUgY3g9IjE1OC42MyIgY3k9IjcwLjQ1IiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz48Y2lyY2xlIGN4PSIxOTAuOTEiIGN5PSI4OS4wOSIgcj0iMS42IiBmaWxsPSIjRURFMEZGIiBvcGFjaXR5PSIwLjI1Ii8+PGNpcmNsZSBjeD0iMjA5LjU1IiBjeT0iMTIxLjM3IiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz48Y2lyY2xlIGN4PSIyMDkuNTUiIGN5PSIxNTguNjMiIHI9IjEuNiIgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC4yNSIvPjxjaXJjbGUgY3g9IjE5MC45MSIgY3k9IjE5MC45MSIgcj0iMS42IiBmaWxsPSIjRURFMEZGIiBvcGFjaXR5PSIwLjI1Ii8+PGNpcmNsZSBjeD0iMTU4LjYzIiBjeT0iMjA5LjU1IiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz48Y2lyY2xlIGN4PSIxMjEuMzciIGN5PSIyMDkuNTUiIHI9IjEuNiIgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC4yNSIvPjxjaXJjbGUgY3g9Ijg5LjA5IiBjeT0iMTkwLjkxIiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz48Y2lyY2xlIGN4PSI3MC40NSIgY3k9IjE1OC42MyIgcj0iMS42IiBmaWxsPSIjRURFMEZGIiBvcGFjaXR5PSIwLjI1Ii8+PGNpcmNsZSBjeD0iNzAuNDUiIGN5PSIxMjEuMzciIHI9IjEuNiIgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC4yNSIvPjxjaXJjbGUgY3g9Ijg5LjA5IiBjeT0iODkuMDkiIHI9IjEuNiIgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC4yNSIvPjxjaXJjbGUgY3g9IjEyMS4zNyIgY3k9IjcwLjQ1IiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz4KCiAgPCEtLSBTZWNvbmRhcnkgZG90cyAtLT4KICA8Y2lyY2xlIGN4PSIxODcuNSIgY3k9IjU3LjczIiByPSIyIiBmaWxsPSIjRThEOEZGIiBvcGFjaXR5PSIwLjMyIi8+PGNpcmNsZSBjeD0iMjIyLjI3IiBjeT0iOTIuNSIgcj0iMiIgZmlsbD0iI0U4RDhGRiIgb3BhY2l0eT0iMC4zMiIvPjxjaXJjbGUgY3g9IjIyMi4yNyIgY3k9IjE4Ny41IiByPSIyIiBmaWxsPSIjRThEOEZGIiBvcGFjaXR5PSIwLjMyIi8+PGNpcmNsZSBjeD0iMTg3LjUiIGN5PSIyMjIuMjciIHI9IjIiIGZpbGw9IiNFOEQ4RkYiIG9wYWNpdHk9IjAuMzIiLz48Y2lyY2xlIGN4PSI5Mi41IiBjeT0iMjIyLjI3IiByPSIyIiBmaWxsPSIjRThEOEZGIiBvcGFjaXR5PSIwLjMyIi8+PGNpcmNsZSBjeD0iNTcuNzMiIGN5PSIxODcuNSIgcj0iMiIgZmlsbD0iI0U4RDhGRiIgb3BhY2l0eT0iMC4zMiIvPjxjaXJjbGUgY3g9IjU3LjczIiBjeT0iOTIuNSIgcj0iMiIgZmlsbD0iI0U4RDhGRiIgb3BhY2l0eT0iMC4zMiIvPjxjaXJjbGUgY3g9IjkyLjUiIGN5PSI1Ny43MyIgcj0iMiIgZmlsbD0iI0U4RDhGRiIgb3BhY2l0eT0iMC4zMiIvPgoKICA8IS0tIEVTVEUgLyBPRVNURSAtLT4KICA8Y2lyY2xlIGN4PSIyMzUuMCIgY3k9IjE0MC4wIiByPSI1LjUiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuMDciLz4KICA8Y2lyY2xlIGN4PSIyMzUuMCIgY3k9IjE0MC4wIiByPSIzLjUiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuNDIiLz4KICA8Y2lyY2xlIGN4PSIyMzUuMCIgY3k9IjE0MC4wIiByPSIxLjgiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuODgiLz4KICA8Y2lyY2xlIGN4PSI0NS4wIiBjeT0iMTQwLjAiIHI9IjUuNSIgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4wNyIvPgogIDxjaXJjbGUgY3g9IjQ1LjAiIGN5PSIxNDAuMCIgcj0iMy41IiBmaWxsPSIjRjVFRUZGIiBvcGFjaXR5PSIwLjQyIi8+CiAgPGNpcmNsZSBjeD0iNDUuMCIgY3k9IjE0MC4wIiByPSIxLjgiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuODgiLz4KCiAgPCEtLSBQVU5UTyBFWFRSQSBDSUVMTyAtLT4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSI3IiAgcj0iNS41IiBmaWxsPSIjRjVFRUZGIiBvcGFjaXR5PSIwLjA1Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iNyIgIHI9IjMiICAgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjE0MCIgY3k9IjciICByPSIxLjUiIGZpbGw9IiNGRkZGRkYiICBvcGFjaXR5PSIwLjYiLz4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSI3IiAgcj0iMC42IiBmaWxsPSIjRkZGRkZGIiAgb3BhY2l0eT0iMC45NSIvPgoKICA8IS0tIEFSUklCQSDigJQgSGFuYW4gUGFjaGEgLS0+CiAgPGNpcmNsZSBjeD0iMTQwLjAiIGN5PSI0NS4wIiByPSIxMiIgIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuMDUiLz4KICA8Y2lyY2xlIGN4PSIxNDAuMCIgY3k9IjQ1LjAiIHI9IjciICAgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4xIi8+CiAgPGNpcmNsZSBjeD0iMTQwLjAiIGN5PSI0NS4wIiByPSI0LjUiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuNjgiLz4KICA8Y2lyY2xlIGN4PSIxNDAuMCIgY3k9IjQ1LjAiIHI9IjIiICAgZmlsbD0iI0ZGRkZGRiIgIG9wYWNpdHk9IjAuOTUiLz4KICA8bGluZSB4MT0iMTQwIiB5MT0iMzQuMCIgeDI9IjE0MCIgeTI9IjU2LjAiIHN0cm9rZT0iI0Y1RUVGRiIgc3Ryb2tlLXdpZHRoPSIwLjYiIHN0cm9rZS1vcGFjaXR5PSIwLjMyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8bGluZSB4MT0iMTI5LjAiIHkxPSI0NS4wIiB4Mj0iMTUxLjAiIHkyPSI0NS4wIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC42IiBzdHJva2Utb3BhY2l0eT0iMC4zMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CgogIDwhLS0gQUJBSk8g4oCUIFVraHUgUGFjaGEgLS0+CiAgPGNpcmNsZSBjeD0iMTQwLjAiIGN5PSIyMzUuMCIgcj0iMTIiICBmaWxsPSIjQzhBQUVFIiBvcGFjaXR5PSIwLjA1Ii8+CiAgPGNpcmNsZSBjeD0iMTQwLjAiIGN5PSIyMzUuMCIgcj0iNyIgICBmaWxsPSIjQzhBQUVFIiBvcGFjaXR5PSIwLjEiLz4KICA8Y2lyY2xlIGN4PSIxNDAuMCIgY3k9IjIzNS4wIiByPSI0LjUiIGZpbGw9IiNEREQwRjUiIG9wYWNpdHk9IjAuNjAiLz4KICA8Y2lyY2xlIGN4PSIxNDAuMCIgY3k9IjIzNS4wIiByPSIyIiAgIGZpbGw9IiNDOEFBRUUiIG9wYWNpdHk9IjAuODgiLz4KCiAgPCEtLSBQVU5UTyBFWFRSQSBUSUVSUkEgLS0+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMjczIiByPSI1LjUiIGZpbGw9IiNDOEFBRUUiIG9wYWNpdHk9IjAuMDUiLz4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSIyNzMiIHI9IjMiICAgZmlsbD0iI0M4QUFFRSIgb3BhY2l0eT0iMC4xNiIvPgogIDxjaXJjbGUgY3g9IjE0MCIgY3k9IjI3MyIgcj0iMS41IiBmaWxsPSIjQzhBQUVFIiBvcGFjaXR5PSIwLjY4Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMjczIiByPSIwLjYiIGZpbGw9IiNCODlBRDgiIG9wYWNpdHk9IjAuODgiLz4KCiAgPCEtLSBJbm5lciBjYXJkaW5hbCBhY2NlbnRzIC0tPgogIDxjaXJjbGUgY3g9IjE4NCIgY3k9IjE0MCIgICAgcj0iMS42IiBmaWxsPSIjRjVFRUZGIiBvcGFjaXR5PSIwLjI1Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiAgICBjeT0iMTg0IiByPSIxLjYiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuMjUiLz4KICA8Y2lyY2xlIGN4PSI5NiIgY3k9IjE0MCIgICAgcj0iMS42IiBmaWxsPSIjRjVFRUZGIiBvcGFjaXR5PSIwLjI1Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiAgICBjeT0iOTYiIHI9IjEuNiIgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4yNSIvPgoKICA8IS0tIENvcmUgLS0+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMTQwIiByPSIxNSIgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4wNiIvPgogIDxjaXJjbGUgY3g9IjE0MCIgY3k9IjE0MCIgcj0iMTAiIGZpbGw9InVybCgjY2VudGVyQ29yZSkiIG9wYWNpdHk9IjAuODgiLz4KICA8Y2lyY2xlIGN4PSIxMzgiIGN5PSIxMzgiIHI9IjMuNSIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMC40Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMTQwIiByPSIxLjgiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuOSIvPgoKICA8IS0tIFdPUkRNQVJLIOKAlCB2ZXJ0aWNhbGx5IGNlbnRlcmVkIGF0IGN5PTE0MCAtLT4KICA8IS0tICJEIiB1cHJpZ2h0ICsgIkF5bGx1IiBpdGFsaWMsIGxlZnQgZWRnZSBhdCB4PTI4MCAtLT4KICA8dGV4dCB4PSIyNzgiIHk9IjE2MiIKICAgICAgICBmb250LWZhbWlseT0iJ0Nvcm1vcmFudCBHYXJhbW9uZCcsIEdlb3JnaWEsIHNlcmlmIgogICAgICAgIGZvbnQtc2l6ZT0iNzIiIGZvbnQtd2VpZ2h0PSIzMDAiCiAgICAgICAgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC45MiIKICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTEiPkQ8L3RleHQ+CiAgPHRleHQgeD0iMzIxIiB5PSIxNjIiCiAgICAgICAgZm9udC1mYW1pbHk9IidDb3Jtb3JhbnQgR2FyYW1vbmQnLCBHZW9yZ2lhLCBzZXJpZiIKICAgICAgICBmb250LXNpemU9IjcyIiBmb250LXdlaWdodD0iMzAwIiBmb250LXN0eWxlPSJpdGFsaWMiCiAgICAgICAgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC43OCIKICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTEiPkF5bGx1PC90ZXh0PgoKICA8L2c+Cjwvc3ZnPg==" alt="DAyllu Logo" class="w-full max-w-xs" style="max-height:190px;object-fit:contain;mix-blend-mode:screen;">
+                    </div>
+
+                    <!-- Step indicator -->
+                    <div class="flex items-center justify-center gap-2 mb-4">
+                        ${dots}
+                        <span class="text-white/40 text-xs font-light ml-2">${currentStep} ${s.of} ${totalSteps}</span>
+                    </div>
+
+                    <!-- Step card -->
+                    <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-5 shadow-2xl">
+                        <!-- Step header -->
+                        <div class="mb-4">
+                            <p class="text-purple-400 text-xs font-light tracking-widest uppercase mb-2">${stepInfo.hint}</p>
+                            <h2 class="text-xl font-light text-gray-800 tracking-wide">${stepInfo.label}</h2>
+                        </div>
+
+                        <!-- Step inputs -->
+                        ${stepContent}
+
+                        <!-- Navigation -->
+                        <div class="mt-5 flex gap-3">
+                            ${currentStep > 1 ? `
+                            <button onclick="prevStep()"
+                                class="px-6 py-3 rounded-xl border border-gray-200 text-gray-400 font-light hover:border-gray-300 hover:text-gray-500 transition-all duration-200">
+                                ←
+                            </button>` : ''}
+                            <button id="nextBtn" onclick="${currentStep < 4 ? 'nextStep()' : 'handleSubmit()'}"
+                                disabled
+                                class="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl font-light tracking-wide text-base hover:from-purple-700 hover:to-pink-700 transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-40 disabled:cursor-not-allowed">
+                                ${stepInfo.next}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="text-center mt-6">
+                        <p class="text-white/25 text-xs">© 2025 ACEAI Online Marketing Ltd.</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderResult() {
+            if (!userHilo) return '';
+            
+            const hiloNombre = userHilo.nombre[language] || userHilo.nombre.es || 'Arquetipo Universal';
+            const hiloDescripcion = userHilo.descripcion[language] || userHilo.descripcion.es || '';
+            const hiloMensaje = userHilo.mensaje[language] || userHilo.mensaje.es || '';
+            const hiloFortalezas = userHilo.fortalezas[language] || userHilo.fortalezas.es || [];
+
+            return `
+                <div class="max-w-4xl mx-auto p-4">
+                    <div class="text-center mb-8">
+                        <div class="flex justify-center mb-10">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQwIiBoZWlnaHQ9IjI4MCIgdmlld0JveD0iMCAwIDY0MCAyODAiIHJvbGU9ImltZyIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8dGl0bGU+REF5bGx1IOKAlCBMb2dvIGhvcml6b250YWw8L3RpdGxlPgogIDxkZWZzPgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJzcGlyYWxHbG93IiBjeD0iNTAlIiBjeT0iNTAlIiByPSI1MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjRURFMEZGIiBzdG9wLW9wYWNpdHk9IjAuMTUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI1NSUiIHN0b3AtY29sb3I9IiNFREUwRkYiIHN0b3Atb3BhY2l0eT0iMC4wNCIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNFREUwRkYiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICAgIDxyYWRpYWxHcmFkaWVudCBpZD0iY2VudGVyQ29yZSIgY3g9IjM4JSIgY3k9IjM1JSIgcj0iNjUlIj4KICAgICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI0Y1RUVGRiIgc3RvcC1vcGFjaXR5PSIwLjk1Ii8+CiAgICAgIDxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iI0M4QUFFRSIgc3RvcC1vcGFjaXR5PSIwLjUiLz4KICAgIDwvcmFkaWFsR3JhZGllbnQ+CiAgICA8c3R5bGU+CiAgICAgIEBpbXBvcnQgdXJsKCdodHRwczovL2ZvbnRzLmdvb2dsZWFwaXMuY29tL2NzczI/ZmFtaWx5PUNvcm1vcmFudCtHYXJhbW9uZDppdGFsLHdnaHRAMCwzMDA7MSwzMDAmYW1wO2Rpc3BsYXk9c3dhcCcpOwogICAgPC9zdHlsZT4KICA8L2RlZnM+CgoKICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg4NSwwKSI+CiAgPCEtLSBBbWJpZW50IGdsb3cgLS0+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMTQwIiByPSIxMTUiIGZpbGw9InVybCgjc3BpcmFsR2xvdykiLz4KCiAgPCEtLSBPcmJpdCByaW5ncyAtLT4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSIxNDAiIHI9Ijk1IiBmaWxsPSJub25lIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC40IiBzdHJva2Utb3BhY2l0eT0iMC4xIiBzdHJva2UtZGFzaGFycmF5PSIxLjUgMTAiLz4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSIxNDAiIHI9IjcyIiBmaWxsPSJub25lIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zNSIgc3Ryb2tlLW9wYWNpdHk9IjAuMDgiLz4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSIxNDAiIHI9IjQ0IiBmaWxsPSJub25lIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zIiAgc3Ryb2tlLW9wYWNpdHk9IjAuMDciLz4KCiAgPCEtLSBFamUgdmVydGljYWwgLS0+CiAgPGxpbmUgeDE9IjE0MCIgeTE9Ii0xIiB4Mj0iMTQwIiB5Mj0iMjgxIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KCiAgPCEtLSBDYXJkaW5hbCBjb25uZWN0b3JzIC0tPgogIDxsaW5lIHgxPSIxNDAiIHkxPSIxNDAiIHgyPSIxNDAuMCIgICB5Mj0iNDUuMCIgICBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xMiIvPgogIDxsaW5lIHgxPSIxNDAiIHkxPSIxNDAiIHgyPSIyMzUuMCIgIHkyPSIxNDAuMCIgc3Ryb2tlPSIjRjVFRUZGIiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTIiLz4KICA8bGluZSB4MT0iMTQwIiB5MT0iMTQwIiB4Mj0iMTQwLjAiIHkyPSIyMzUuMCIgc3Ryb2tlPSIjRjVFRUZGIiBzdHJva2Utd2lkdGg9IjAuMyIgc3Ryb2tlLW9wYWNpdHk9IjAuMTIiLz4KICA8bGluZSB4MT0iMTQwIiB5MT0iMTQwIiB4Mj0iNDUuMCIgeTI9IjE0MC4wIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC4zIiBzdHJva2Utb3BhY2l0eT0iMC4xMiIvPgoKICA8IS0tIFNwaXJhbCBhbnRpaG9yYXJpYSAtLT4KICA8cG9seWxpbmUKICAgIHBvaW50cz0iMTQwLjAsMTM0LjAgMTM5LjcsMTMzLjk1IDEzOS40LDEzMy45MiAxMzkuMDksMTMzLjkxIDEzOC43OCwxMzMuOSAxMzguNDcsMTMzLjkyIDEzOC4xNSwxMzMuOTUgMTM3Ljg0LDEzMy45OSAxMzcuNTIsMTM0LjA1IDEzNy4yMSwxMzQuMTMgMTM2Ljg5LDEzNC4yMyAxMzYuNTgsMTM0LjM0IDEzNi4yNywxMzQuNDYgMTM1Ljk3LDEzNC42MSAxMzUuNjcsMTM0Ljc2IDEzNS4zNywxMzQuOTQgMTM1LjA5LDEzNS4xMyAxMzQuODEsMTM1LjM0IDEzNC41MywxMzUuNTYgMTM0LjI3LDEzNS44IDEzNC4wMiwxMzYuMDUgMTMzLjc4LDEzNi4zMiAxMzMuNTQsMTM2LjYgMTMzLjMzLDEzNi45IDEzMy4xMiwxMzcuMiAxMzIuOTMsMTM3LjUzIDEzMi43NSwxMzcuODYgMTMyLjU5LDEzOC4yIDEzMi40NCwxMzguNTYgMTMyLjMxLDEzOC45MiAxMzIuMiwxMzkuMyAxMzIuMSwxMzkuNjggMTMyLjAzLDE0MC4wNyAxMzEuOTcsMTQwLjQ3IDEzMS45MywxNDAuODcgMTMxLjkxLDE0MS4yOCAxMzEuOTEsMTQxLjY5IDEzMS45NCwxNDIuMTEgMTMxLjk4LDE0Mi41MyAxMzIuMDQsMTQyLjk1IDEzMi4xMywxNDMuMzYgMTMyLjIzLDE0My43OCAxMzIuMzYsMTQ0LjIgMTMyLjUxLDE0NC42MSAxMzIuNjksMTQ1LjAyIDEzMi44OCwxNDUuNDIgMTMzLjA5LDE0NS44MiAxMzMuMzMsMTQ2LjIxIDEzMy41OSwxNDYuNTkgMTMzLjg3LDE0Ni45NiAxMzQuMTcsMTQ3LjMyIDEzNC40OSwxNDcuNjYgMTM0LjgyLDE0OC4wIDEzNS4xOCwxNDguMzEgMTM1LjU2LDE0OC42MiAxMzUuOTUsMTQ4LjkxIDEzNi4zNywxNDkuMTggMTM2LjgsMTQ5LjQzIDEzNy4yNCwxNDkuNjYgMTM3LjcsMTQ5Ljg3IDEzOC4xNywxNTAuMDYgMTM4LjY2LDE1MC4yMyAxMzkuMTYsMTUwLjM4IDEzOS42NywxNTAuNSAxNDAuMTksMTUwLjU5IDE0MC43MiwxNTAuNjcgMTQxLjI2LDE1MC43MSAxNDEuOCwxNTAuNzMgMTQyLjM1LDE1MC43MyAxNDIuOSwxNTAuNjkgMTQzLjQ1LDE1MC42MyAxNDQuMDEsMTUwLjU0IDE0NC41NywxNTAuNDIgMTQ1LjEyLDE1MC4yNyAxNDUuNjcsMTUwLjEgMTQ2LjIyLDE0OS44OSAxNDYuNzYsMTQ5LjY2IDE0Ny4yOSwxNDkuNCAxNDcuODEsMTQ5LjExIDE0OC4zMywxNDguNzkgMTQ4LjgzLDE0OC40NCAxNDkuMzIsMTQ4LjA3IDE0OS43OSwxNDcuNjYgMTUwLjI1LDE0Ny4yNCAxNTAuNjksMTQ2Ljc4IDE1MS4xMSwxNDYuMyAxNTEuNTEsMTQ1LjggMTUxLjg4LDE0NS4yNyAxNTIuMjQsMTQ0LjcyIDE1Mi41NywxNDQuMTUgMTUyLjg3LDE0My41NSAxNTMuMTQsMTQyLjk0IDE1My4zOSwxNDIuMzEgMTUzLjYxLDE0MS42NiAxNTMuOCwxNDAuOTkgMTUzLjk1LDE0MC4zMSAxNTQuMDgsMTM5LjYyIDE1NC4xNywxMzguOTIgMTU0LjIyLDEzOC4yIDE1NC4yNCwxMzcuNDggMTU0LjIyLDEzNi43NSAxNTQuMTcsMTM2LjAyIDE1NC4wOCwxMzUuMjggMTUzLjk2LDEzNC41NSAxNTMuNzksMTMzLjgxIDE1My41OSwxMzMuMDggMTUzLjM1LDEzMi4zNSAxNTMuMDcsMTMxLjYyIDE1Mi43NiwxMzAuOTEgMTUyLjQsMTMwLjIgMTUyLjAxLDEyOS41MSAxNTEuNTgsMTI4LjgzIDE1MS4xMSwxMjguMTcgMTUwLjYxLDEyNy41MiAxNTAuMDcsMTI2LjkgMTQ5LjQ5LDEyNi4zIDE0OC44OCwxMjUuNzIgMTQ4LjI0LDEyNS4xNyAxNDcuNTcsMTI0LjY0IDE0Ni44NiwxMjQuMTUgMTQ2LjEyLDEyMy42OCAxNDUuMzYsMTIzLjI1IDE0NC41NywxMjIuODYgMTQzLjc1LDEyMi41IDE0Mi45MSwxMjIuMTggMTQyLjA0LDEyMS44OSAxNDEuMTUsMTIxLjY1IDE0MC4yNSwxMjEuNDUgMTM5LjMzLDEyMS4zIDEzOC4zOSwxMjEuMTkgMTM3LjQ0LDEyMS4xMiAxMzYuNDgsMTIxLjExIDEzNS41MiwxMjEuMTQgMTM0LjU0LDEyMS4yMSAxMzMuNTYsMTIxLjM0IDEzMi41OSwxMjEuNTIgMTMxLjYxLDEyMS43NCAxMzAuNjQsMTIyLjAyIDEyOS42NywxMjIuMzUgMTI4LjcxLDEyMi43MyAxMjcuNzYsMTIzLjE2IDEyNi44MywxMjMuNjQgMTI1LjkxLDEyNC4xNyAxMjUuMDIsMTI0Ljc1IDEyNC4xNCwxMjUuMzggMTIzLjI5LDEyNi4wNSAxMjIuNDcsMTI2Ljc4IDEyMS42OCwxMjcuNTUgMTIwLjkyLDEyOC4zNiAxMjAuMTksMTI5LjIyIDExOS41LDEzMC4xMyAxMTguODUsMTMxLjA3IDExOC4yNCwxMzIuMDYgMTE3LjY4LDEzMy4wOCAxMTcuMTYsMTM0LjE0IDExNi43LDEzNS4yMyAxMTYuMjgsMTM2LjM1IDExNS45MiwxMzcuNTEgMTE1LjYxLDEzOC42OCAxMTUuMzUsMTM5Ljg5IDExNS4xNiwxNDEuMTIgMTE1LjAyLDE0Mi4zNiAxMTQuOTUsMTQzLjYyIDExNC45MywxNDQuOSAxMTQuOTksMTQ2LjE4IDExNS4xLDE0Ny40OCAxMTUuMjgsMTQ4Ljc3IDExNS41MywxNTAuMDcgMTE1Ljg0LDE1MS4zNyAxMTYuMjIsMTUyLjY2IDExNi42NywxNTMuOTQgMTE3LjE4LDE1NS4yMSAxMTcuNzYsMTU2LjQ2IDExOC40MSwxNTcuNyAxMTkuMTMsMTU4LjkxIDExOS45MSwxNjAuMDkgMTIwLjc1LDE2MS4yNSAxMjEuNjYsMTYyLjM3IDEyMi42NCwxNjMuNDUgMTIzLjY3LDE2NC41IDEyNC43NiwxNjUuNSAxMjUuOTIsMTY2LjQ1IDEyNy4xMywxNjcuMzYgMTI4LjM5LDE2OC4yMSAxMjkuNywxNjkuMDEgMTMxLjA3LDE2OS43NCAxMzIuNDgsMTcwLjQyIDEzMy45NCwxNzEuMDIgMTM1LjQ0LDE3MS41NiAxMzYuOTcsMTcyLjAzIDEzOC41NCwxNzIuNDMgMTQwLjE1LDE3Mi43NSAxNDEuNzgsMTczLjAgMTQzLjQ0LDE3My4xNiAxNDUuMTEsMTczLjI1IDE0Ni44MSwxNzMuMjUgMTQ4LjUyLDE3My4xNyAxNTAuMjMsMTczLjAgMTUxLjk1LDE3Mi43NCAxNTMuNjgsMTcyLjQgMTU1LjM5LDE3MS45NyAxNTcuMSwxNzEuNDUgMTU4LjgsMTcwLjg0IDE2MC40OCwxNzAuMTQgMTYyLjE0LDE2OS4zNSAxNjMuNzcsMTY4LjQ3IDE2NS4zNywxNjcuNTEgMTY2Ljk0LDE2Ni40NiAxNjguNDYsMTY1LjMyIDE2OS45NCwxNjQuMSAxNzEuMzcsMTYyLjc5IDE3Mi43NSwxNjEuNDEgMTc0LjA3LDE1OS45NCAxNzUuMzIsMTU4LjQgMTc2LjUxLDE1Ni43OCAxNzcuNjMsMTU1LjA5IDE3OC42NywxNTMuMzQgMTc5LjYzLDE1MS41MSAxODAuNTEsMTQ5LjYzIDE4MS4zLDE0Ny42OSAxODIuMCwxNDUuNjkgMTgyLjYxLDE0My42NCAxODMuMTEsMTQxLjU1IDE4My41MiwxMzkuNDEgMTgzLjgzLDEzNy4yNCAxODQuMDMsMTM1LjA0IDE4NC4xMiwxMzIuODEgMTg0LjEsMTMwLjU2IDE4My45NywxMjguMjkgMTgzLjczLDEyNi4wMSAxODMuMzcsMTIzLjcyIDE4Mi44OSwxMjEuNDQgMTgyLjMsMTE5LjE2IDE4MS41OCwxMTYuOSAxODAuNzUsMTE0LjY1IDE3OS44MSwxMTIuNDIgMTc4Ljc0LDExMC4yMyAxNzcuNTUsMTA4LjA3IDE3Ni4yNSwxMDUuOTYgMTc0Ljg0LDEwMy44OSAxNzMuMzEsMTAxLjg4IDE3MS42Nyw5OS45MiAxNjkuOTEsOTguMDQgMTY4LjA2LDk2LjIzIDE2Ni4wOSw5NC40OSAxNjQuMDMsOTIuODQgMTYxLjg2LDkxLjI4IDE1OS42MSw4OS44MiAxNTcuMjYsODguNDYgMTU0LjgzLDg3LjIgMTUyLjMxLDg2LjA2IDE0OS43Miw4NS4wMyAxNDcuMDYsODQuMTIgMTQ0LjMzLDgzLjM0IDE0MS41NCw4Mi42OSAxMzguNyw4Mi4xNyAxMzUuODEsODEuNzkgMTMyLjg4LDgxLjU1IDEyOS45Miw4MS40NiAxMjYuOTMsODEuNTEgMTIzLjkxLDgxLjcxIDEyMC44OSw4Mi4wNiAxMTcuODUsODIuNTcgMTE0LjgyLDgzLjIzIDExMS44LDg0LjA0IDEwOC44LDg1LjAyIDEwNS44Miw4Ni4xNSAxMDIuODgsODcuNDMgOTkuOTgsODguODggOTcuMTIsOTAuNDggOTQuMzMsOTIuMjMgOTEuNiw5NC4xNCA4OC45NCw5Ni4xOSA4Ni4zNyw5OC40IDgzLjg4LDEwMC43NSA4MS41LDEwMy4yNCA3OS4yMiwxMDUuODcgNzcuMDUsMTA4LjYzIDc1LjAsMTExLjUzIDczLjA4LDExNC41NCA3MS4zLDExNy42OCIKICAgIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Y1RUVGRiIgc3Ryb2tlLXdpZHRoPSIwLjg1IgogICAgc3Ryb2tlLW9wYWNpdHk9IjAuNDIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgoKICA8IS0tIE1pZCBkb3RzIC0tPgogIDxjaXJjbGUgY3g9IjE1OC42MyIgY3k9IjcwLjQ1IiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz48Y2lyY2xlIGN4PSIxOTAuOTEiIGN5PSI4OS4wOSIgcj0iMS42IiBmaWxsPSIjRURFMEZGIiBvcGFjaXR5PSIwLjI1Ii8+PGNpcmNsZSBjeD0iMjA5LjU1IiBjeT0iMTIxLjM3IiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz48Y2lyY2xlIGN4PSIyMDkuNTUiIGN5PSIxNTguNjMiIHI9IjEuNiIgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC4yNSIvPjxjaXJjbGUgY3g9IjE5MC45MSIgY3k9IjE5MC45MSIgcj0iMS42IiBmaWxsPSIjRURFMEZGIiBvcGFjaXR5PSIwLjI1Ii8+PGNpcmNsZSBjeD0iMTU4LjYzIiBjeT0iMjA5LjU1IiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz48Y2lyY2xlIGN4PSIxMjEuMzciIGN5PSIyMDkuNTUiIHI9IjEuNiIgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC4yNSIvPjxjaXJjbGUgY3g9Ijg5LjA5IiBjeT0iMTkwLjkxIiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz48Y2lyY2xlIGN4PSI3MC40NSIgY3k9IjE1OC42MyIgcj0iMS42IiBmaWxsPSIjRURFMEZGIiBvcGFjaXR5PSIwLjI1Ii8+PGNpcmNsZSBjeD0iNzAuNDUiIGN5PSIxMjEuMzciIHI9IjEuNiIgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC4yNSIvPjxjaXJjbGUgY3g9Ijg5LjA5IiBjeT0iODkuMDkiIHI9IjEuNiIgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC4yNSIvPjxjaXJjbGUgY3g9IjEyMS4zNyIgY3k9IjcwLjQ1IiByPSIxLjYiIGZpbGw9IiNFREUwRkYiIG9wYWNpdHk9IjAuMjUiLz4KCiAgPCEtLSBTZWNvbmRhcnkgZG90cyAtLT4KICA8Y2lyY2xlIGN4PSIxODcuNSIgY3k9IjU3LjczIiByPSIyIiBmaWxsPSIjRThEOEZGIiBvcGFjaXR5PSIwLjMyIi8+PGNpcmNsZSBjeD0iMjIyLjI3IiBjeT0iOTIuNSIgcj0iMiIgZmlsbD0iI0U4RDhGRiIgb3BhY2l0eT0iMC4zMiIvPjxjaXJjbGUgY3g9IjIyMi4yNyIgY3k9IjE4Ny41IiByPSIyIiBmaWxsPSIjRThEOEZGIiBvcGFjaXR5PSIwLjMyIi8+PGNpcmNsZSBjeD0iMTg3LjUiIGN5PSIyMjIuMjciIHI9IjIiIGZpbGw9IiNFOEQ4RkYiIG9wYWNpdHk9IjAuMzIiLz48Y2lyY2xlIGN4PSI5Mi41IiBjeT0iMjIyLjI3IiByPSIyIiBmaWxsPSIjRThEOEZGIiBvcGFjaXR5PSIwLjMyIi8+PGNpcmNsZSBjeD0iNTcuNzMiIGN5PSIxODcuNSIgcj0iMiIgZmlsbD0iI0U4RDhGRiIgb3BhY2l0eT0iMC4zMiIvPjxjaXJjbGUgY3g9IjU3LjczIiBjeT0iOTIuNSIgcj0iMiIgZmlsbD0iI0U4RDhGRiIgb3BhY2l0eT0iMC4zMiIvPjxjaXJjbGUgY3g9IjkyLjUiIGN5PSI1Ny43MyIgcj0iMiIgZmlsbD0iI0U4RDhGRiIgb3BhY2l0eT0iMC4zMiIvPgoKICA8IS0tIEVTVEUgLyBPRVNURSAtLT4KICA8Y2lyY2xlIGN4PSIyMzUuMCIgY3k9IjE0MC4wIiByPSI1LjUiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuMDciLz4KICA8Y2lyY2xlIGN4PSIyMzUuMCIgY3k9IjE0MC4wIiByPSIzLjUiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuNDIiLz4KICA8Y2lyY2xlIGN4PSIyMzUuMCIgY3k9IjE0MC4wIiByPSIxLjgiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuODgiLz4KICA8Y2lyY2xlIGN4PSI0NS4wIiBjeT0iMTQwLjAiIHI9IjUuNSIgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4wNyIvPgogIDxjaXJjbGUgY3g9IjQ1LjAiIGN5PSIxNDAuMCIgcj0iMy41IiBmaWxsPSIjRjVFRUZGIiBvcGFjaXR5PSIwLjQyIi8+CiAgPGNpcmNsZSBjeD0iNDUuMCIgY3k9IjE0MC4wIiByPSIxLjgiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuODgiLz4KCiAgPCEtLSBQVU5UTyBFWFRSQSBDSUVMTyAtLT4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSI3IiAgcj0iNS41IiBmaWxsPSIjRjVFRUZGIiBvcGFjaXR5PSIwLjA1Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iNyIgIHI9IjMiICAgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4xNSIvPgogIDxjaXJjbGUgY3g9IjE0MCIgY3k9IjciICByPSIxLjUiIGZpbGw9IiNGRkZGRkYiICBvcGFjaXR5PSIwLjYiLz4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSI3IiAgcj0iMC42IiBmaWxsPSIjRkZGRkZGIiAgb3BhY2l0eT0iMC45NSIvPgoKICA8IS0tIEFSUklCQSDigJQgSGFuYW4gUGFjaGEgLS0+CiAgPGNpcmNsZSBjeD0iMTQwLjAiIGN5PSI0NS4wIiByPSIxMiIgIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuMDUiLz4KICA8Y2lyY2xlIGN4PSIxNDAuMCIgY3k9IjQ1LjAiIHI9IjciICAgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4xIi8+CiAgPGNpcmNsZSBjeD0iMTQwLjAiIGN5PSI0NS4wIiByPSI0LjUiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuNjgiLz4KICA8Y2lyY2xlIGN4PSIxNDAuMCIgY3k9IjQ1LjAiIHI9IjIiICAgZmlsbD0iI0ZGRkZGRiIgIG9wYWNpdHk9IjAuOTUiLz4KICA8bGluZSB4MT0iMTQwIiB5MT0iMzQuMCIgeDI9IjE0MCIgeTI9IjU2LjAiIHN0cm9rZT0iI0Y1RUVGRiIgc3Ryb2tlLXdpZHRoPSIwLjYiIHN0cm9rZS1vcGFjaXR5PSIwLjMyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KICA8bGluZSB4MT0iMTI5LjAiIHkxPSI0NS4wIiB4Mj0iMTUxLjAiIHkyPSI0NS4wIiBzdHJva2U9IiNGNUVFRkYiIHN0cm9rZS13aWR0aD0iMC42IiBzdHJva2Utb3BhY2l0eT0iMC4zMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+CgogIDwhLS0gQUJBSk8g4oCUIFVraHUgUGFjaGEgLS0+CiAgPGNpcmNsZSBjeD0iMTQwLjAiIGN5PSIyMzUuMCIgcj0iMTIiICBmaWxsPSIjQzhBQUVFIiBvcGFjaXR5PSIwLjA1Ii8+CiAgPGNpcmNsZSBjeD0iMTQwLjAiIGN5PSIyMzUuMCIgcj0iNyIgICBmaWxsPSIjQzhBQUVFIiBvcGFjaXR5PSIwLjEiLz4KICA8Y2lyY2xlIGN4PSIxNDAuMCIgY3k9IjIzNS4wIiByPSI0LjUiIGZpbGw9IiNEREQwRjUiIG9wYWNpdHk9IjAuNjAiLz4KICA8Y2lyY2xlIGN4PSIxNDAuMCIgY3k9IjIzNS4wIiByPSIyIiAgIGZpbGw9IiNDOEFBRUUiIG9wYWNpdHk9IjAuODgiLz4KCiAgPCEtLSBQVU5UTyBFWFRSQSBUSUVSUkEgLS0+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMjczIiByPSI1LjUiIGZpbGw9IiNDOEFBRUUiIG9wYWNpdHk9IjAuMDUiLz4KICA8Y2lyY2xlIGN4PSIxNDAiIGN5PSIyNzMiIHI9IjMiICAgZmlsbD0iI0M4QUFFRSIgb3BhY2l0eT0iMC4xNiIvPgogIDxjaXJjbGUgY3g9IjE0MCIgY3k9IjI3MyIgcj0iMS41IiBmaWxsPSIjQzhBQUVFIiBvcGFjaXR5PSIwLjY4Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMjczIiByPSIwLjYiIGZpbGw9IiNCODlBRDgiIG9wYWNpdHk9IjAuODgiLz4KCiAgPCEtLSBJbm5lciBjYXJkaW5hbCBhY2NlbnRzIC0tPgogIDxjaXJjbGUgY3g9IjE4NCIgY3k9IjE0MCIgICAgcj0iMS42IiBmaWxsPSIjRjVFRUZGIiBvcGFjaXR5PSIwLjI1Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiAgICBjeT0iMTg0IiByPSIxLjYiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuMjUiLz4KICA8Y2lyY2xlIGN4PSI5NiIgY3k9IjE0MCIgICAgcj0iMS42IiBmaWxsPSIjRjVFRUZGIiBvcGFjaXR5PSIwLjI1Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiAgICBjeT0iOTYiIHI9IjEuNiIgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4yNSIvPgoKICA8IS0tIENvcmUgLS0+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMTQwIiByPSIxNSIgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC4wNiIvPgogIDxjaXJjbGUgY3g9IjE0MCIgY3k9IjE0MCIgcj0iMTAiIGZpbGw9InVybCgjY2VudGVyQ29yZSkiIG9wYWNpdHk9IjAuODgiLz4KICA8Y2lyY2xlIGN4PSIxMzgiIGN5PSIxMzgiIHI9IjMuNSIgZmlsbD0iI0ZGRkZGRiIgb3BhY2l0eT0iMC40Ii8+CiAgPGNpcmNsZSBjeD0iMTQwIiBjeT0iMTQwIiByPSIxLjgiIGZpbGw9IiNGNUVFRkYiIG9wYWNpdHk9IjAuOSIvPgoKICA8IS0tIFdPUkRNQVJLIOKAlCB2ZXJ0aWNhbGx5IGNlbnRlcmVkIGF0IGN5PTE0MCAtLT4KICA8IS0tICJEIiB1cHJpZ2h0ICsgIkF5bGx1IiBpdGFsaWMsIGxlZnQgZWRnZSBhdCB4PTI4MCAtLT4KICA8dGV4dCB4PSIyNzgiIHk9IjE2MiIKICAgICAgICBmb250LWZhbWlseT0iJ0Nvcm1vcmFudCBHYXJhbW9uZCcsIEdlb3JnaWEsIHNlcmlmIgogICAgICAgIGZvbnQtc2l6ZT0iNzIiIGZvbnQtd2VpZ2h0PSIzMDAiCiAgICAgICAgZmlsbD0iI0Y1RUVGRiIgb3BhY2l0eT0iMC45MiIKICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTEiPkQ8L3RleHQ+CiAgPHRleHQgeD0iMzIxIiB5PSIxNjIiCiAgICAgICAgZm9udC1mYW1pbHk9IidDb3Jtb3JhbnQgR2FyYW1vbmQnLCBHZW9yZ2lhLCBzZXJpZiIKICAgICAgICBmb250LXNpemU9IjcyIiBmb250LXdlaWdodD0iMzAwIiBmb250LXN0eWxlPSJpdGFsaWMiCiAgICAgICAgZmlsbD0iI0VERTBGRiIgb3BhY2l0eT0iMC43OCIKICAgICAgICBsZXR0ZXItc3BhY2luZz0iLTEiPkF5bGx1PC90ZXh0PgoKICA8L2c+Cjwvc3ZnPg==" alt="DAyllu Logo" class="w-72 max-w-full" style="max-height:110px;object-fit:contain;mix-blend-mode:screen;">
+                        </div>
+                        
+                        <div class="text-white text-center mb-6">
+                            <div class="text-2xl font-light tracking-wide mb-3">
+                                ${t('result.hello')} ${formData.nombre}
+                            </div>
+                            <div class="flex justify-center">
+                                ${formData.sexo === 'femenino' ? 
+                                    '<div class="relative"><div class="absolute inset-0 bg-yellow-300 rounded-full blur-md opacity-50 animate-pulse"></div><span class="relative text-4xl filter drop-shadow-lg animate-bounce">🌙</span></div>' :
+                                    '<div class="relative"><div class="absolute inset-0 bg-yellow-400 rounded-full blur-md opacity-50 animate-pulse"></div><span class="relative text-4xl filter drop-shadow-lg animate-bounce">☀️</span></div>'
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl mb-8">
+                        <div class="text-center mb-8">
+                            <div class="inline-flex items-center gap-4 bg-gradient-to-r ${userHilo.color} p-6 rounded-2xl text-white mb-6">
+                                <div class="flex justify-center items-center mb-4" style="height:90px;">${userHilo.icon}</div>
+                                <div>
+                                    <h2 class="text-3xl font-light tracking-wide">${t('result.yourThread')}</h2>
+                                    <p class="text-xl opacity-90 font-light">${userHilo.numero} · ${hiloNombre}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-2xl font-light tracking-wide text-gray-800 mb-4">${t('result.yourGift')}</h3>
+                                <p class="text-gray-700 leading-relaxed text-lg mb-6 font-light">${hiloDescripcion}</p>
+                                
+                                <div class="p-4 bg-gradient-to-r ${userHilo.color} rounded-xl text-white mb-6">
+                                    <p class="font-light italic tracking-wide">"${hiloMensaje}"</p>
+                                </div>
+
+                                <h4 class="text-xl font-light tracking-wide text-gray-800 mb-3">${t('result.strengths')}</h4>
+                                <ul class="space-y-2">
+                                    ${hiloFortalezas.map(fortaleza => `
+                                        <li class="flex items-center gap-2">
+                                            <span class="w-5 h-5 text-yellow-500">⭐</span>
+                                            <span class="text-gray-700 font-light">${fortaleza}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+
+                            <div>
+                                <h3 class="text-2xl font-light tracking-wide text-gray-800 mb-4">${t('result.characters')}</h3>
+                                <div class="space-y-3">
+                                    ${userHilo.personajes.map((personaje, index) => `
+                                        <div class="bg-gradient-to-r ${userHilo.color} p-4 rounded-2xl text-white shadow-lg transform transition-all duration-300 hover:scale-105">
+                                            <div class="flex items-center gap-3">
+                                                <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                                                    <span class="text-white">⭐</span>
+                                                </div>
+                                                <p class="font-light text-lg tracking-wide">${personaje}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <div class="mt-6 p-4 bg-gradient-to-r from-gray-50 to-gray-100 rounded-xl border-l-4 border-purple-500">
+                                    <p class="text-gray-700 text-sm italic font-light">
+                                        "${t('result.cycleText')}"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-8 shadow-2xl text-white mb-8">
+                        <div class="text-center">
+                            <h3 class="text-3xl font-light tracking-wide mb-4">${t('result.wantMore')}</h3>
+                            <p class="text-xl mb-6 opacity-90 font-light">${t('result.reportDesc')}</p>
+                            
+                            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                                <button onclick="setWantsReport(true)" class="bg-white text-purple-600 px-8 py-3 rounded-full font-light tracking-wide text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg">
+                                    ${t('buttons.yes')}
+                                </button>
+                                <button onclick="setWantsReport(false)" class="border-2 border-white text-white px-8 py-3 rounded-full font-light tracking-wide text-lg hover:bg-white hover:text-purple-600 transition-all duration-300">
+                                    ${t('buttons.no')}
+                                </button>
+                            </div>
+
+                            ${wantsReport === true ? `
+                                <div class="mt-6 p-4 bg-white/20 rounded-xl">
+                                    <p class="font-light tracking-wide">${t('result.excellent')}</p>
+                                    <p class="text-yellow-300 font-light">${formData.email}</p>
+                                </div>
+                            ` : ''}
+
+                            ${wantsReport === false ? `
+                                <div class="mt-6">
+                                    <p class="opacity-90 font-light">${t('result.noProblem')}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-2xl mb-8">
+                        <div class="text-center">
+                            <h3 class="text-2xl font-light tracking-wide text-gray-800 mb-4">${t('result.rating')}</h3>
+                            <p class="text-gray-600 mb-6 font-light">${t('result.ratingDesc')}</p>
+                            
+                            <div class="flex justify-center gap-2 mb-6">
+                                ${[1, 2, 3, 4, 5].map(star => `
+                                    <button onclick="setRating(${star})" class="p-2 transition-all duration-300 ${rating >= star ? 'text-yellow-500' : 'text-gray-300'}">
+                                        <span class="text-4xl">${rating >= star ? '★' : '☆'}</span>
+                                    </button>
+                                `).join('')}
+                            </div>
+
+                            ${rating > 0 ? `
+                                <p class="text-green-600 font-light tracking-wide">
+                                    ${t('result.thanks')} ${rating} ${t('result.stars')}
+                                </p>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <button onclick="resetForm()" class="bg-white text-purple-600 px-8 py-3 rounded-full font-light tracking-wide text-lg hover:bg-gray-100 transition-all duration-300 shadow-lg">
+                            ${t('buttons.another')}
+                        </button>
+                    </div>
+                    
+                    <!-- Footer -->
+                    <div class="text-center mt-8">
+                        <p class="text-gray-400 text-xs">
+                            © 2025 ACEAI Online Marketing Ltd.
+                        </p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // EVENT HANDLERS
+        function setLanguage(lang) {
+            language = lang;
+            render();
+        }
+
+        function nextStep() {
+            if (currentStep < 4) {
+                currentStep++;
+                render();
+                setTimeout(() => { validateStep(); }, 0);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                render();
+                setTimeout(() => { validateStep(); }, 0);
+            }
+        }
+
+        function handleSubmit() {
+            if (!formData.nombre || !formData.apellido || !formData.anoNacimiento ||
+                !formData.sexo || !formData.email || !formData.pais) {
+                alert('Por favor completa todos los campos');
+                return;
+            }
+            const hilo = findHiloByYear(formData.anoNacimiento);
+            console.log('Arquetipo encontrado:', hilo);
+            if (hilo) {
+                userHilo = hilo;
+                currentPage = 'result';
+                render();
+            } else {
+                alert('Error: No se pudo calcular el arquetipo. Intenta con otro año.');
+            }
+        }
+
+        function setWantsReport(wants) {
+            wantsReport = wants;
+            
+            // Enviar a Make inmediatamente cuando se elige
+            sendToMake(formData, userHilo, wantsReport, rating);
+            
+            render();
+        }
+
+        function setRating(star) {
+            rating = star;
+            
+            // Enviar a Make con el nuevo rating
+            if (wantsReport !== null) {
+                sendToMake(formData, userHilo, wantsReport, rating);
+            }
+            
+            render();
+        }
+
+        function resetForm() {
+            currentPage = 'form';
+            currentStep = 1;
+            formData = { nombre: '', apellido: '', anoNacimiento: '', sexo: '', email: '', pais: '', privacyConsent: false };
+            userHilo = null;
+            rating = 0;
+            wantsReport = null;
+            render();
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+            
+            if (currentPage === 'form') {
+                app.innerHTML = renderForm();
+                setTimeout(() => { validateStep(); }, 0);
+                
+            } else if (currentPage === 'result') {
+                app.innerHTML = renderResult();
+            }
+        }
+
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function validateStep() {
+            const btn = document.getElementById('nextBtn');
+            if (!btn) return;
+            let valid = false;
+            if (currentStep === 1) {
+                valid = formData.nombre.trim().length > 0 && formData.apellido.trim().length > 0;
+            } else if (currentStep === 2) {
+                const y = parseInt(formData.anoNacimiento);
+                valid = y >= 1900 && y <= 2024;
+            } else if (currentStep === 3) {
+                valid = isValidEmail(formData.email) && formData.pais.trim().length > 0;
+                const emailInput = document.getElementById('email');
+                if (emailInput && formData.email && !isValidEmail(formData.email)) {
+                    emailInput.style.borderColor = '#ef4444';
+                    emailInput.style.backgroundColor = '#fef2f2';
+                } else if (emailInput) {
+                    emailInput.style.borderColor = '';
+                    emailInput.style.backgroundColor = '';
+                }
+            } else if (currentStep === 4) {
+                valid = formData.sexo !== '' && formData.privacyConsent === true;
+            }
+            btn.disabled = !valid;
+        }
+
+        function validateForm() { validateStep(); }
+
+        // INICIALIZAR APLICACIÓN
+        document.addEventListener('DOMContentLoaded', () => {
+            render();
+        });
+
+        // Para debug - probar con diferentes años
+        function testYears() {
+            console.log('=== Test de años ===');
+            [1985, 1990, 1995, 2000, 2005].forEach(year => {
+                const hilo = findHiloByYear(year);
+                console.log(`Año ${year}: Arquetipo ${hilo ? hilo.numero : 'ERROR'} - ${hilo ? hilo.nombre.es : 'No encontrado'}`);
+            });
+        }
+
+        // Ejecutar test al cargar (puedes comentar esta línea en producción)
+        // testYears();
+    </script>
+</body>
+</html>
