@@ -1,0 +1,2062 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numina · O Acorde 13</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<style>
+/* latin-ext */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wdhyzbi.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/bebasneue/v16/JTUSjIg69CK48gW7PXoo9Wlhyw.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtFmSq17w.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtMmSq17w.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtHmSq17w.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtGmSq17w.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtImSo.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtFmSq17w.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtMmSq17w.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtHmSq17w.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtGmSq17w.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3ZmX5slCNuHLi8bLeY9MK7whWMhyjYrEtImSo.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpHtKgS4.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYrXtKgS4.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpntKgS4.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpHtKgS4.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYrXtKgS4.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpntKgS4.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpHtKgS4.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYrXtKgS4.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYpntKgS4.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYp3tKgS4.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Cormorant Garamond';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/cormorantgaramond/v21/co3bmX5slCNuHLi8bLeY9MK7whWMhyjYqXtK.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7SUc.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7SUc.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7SUc.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7SUc.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7SUc.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7SUc.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7SUc.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7SUc.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7SUc.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* cyrillic-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2JL7SUc.woff2) format('woff2');
+  unicode-range: U+0460-052F, U+1C80-1C8A, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+/* cyrillic */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa0ZL7SUc.woff2) format('woff2');
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+/* greek-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2ZL7SUc.woff2) format('woff2');
+  unicode-range: U+1F00-1FFF;
+}
+/* greek */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1pL7SUc.woff2) format('woff2');
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+/* vietnamese */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa2pL7SUc.woff2) format('woff2');
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
+}
+/* latin-ext */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+</style>
+<style>
+  :root{
+    --midnight:#2C1C52;
+    --indigo:#3A2769;
+    --indigo-soft:#4A3580;
+    --gold:#E0BC63;
+    --gold-soft:#F1D696;
+    --lav:#E4DCF7;
+    --lav-dim:#B9AEDD;
+    --ink:#FBF9FF;
+    --violet:#A877EC;
+    --blue:#6BA6EC;
+    --magenta:#CE78DC;
+    --rosa:#F2A0C6;
+    --naranja:#F89B3C;
+    --rule:rgba(224,188,99,.36);
+    --rule-soft:rgba(228,220,247,.18);
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;background:var(--midnight);color:var(--lav);
+    font-family:'Inter',system-ui,sans-serif;font-weight:400;line-height:1.74;font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .book{max-width:860px;margin:0 auto;}
+
+  .page{padding:78px 84px 92px;position:relative;}
+  @media(max-width:680px){.page{padding:52px 26px 60px;}}
+
+  .eyebrow{font-family:'Bebas Neue',sans-serif;letter-spacing:.34em;font-size:15px;color:var(--gold);text-transform:uppercase;margin:0 0 18px;}
+  h1,h2,h3{color:var(--ink);font-weight:400;}
+  .chapter-title{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:46px;line-height:1.07;letter-spacing:-.01em;margin:0 0 6px;}
+  @media(max-width:680px){.chapter-title{font-size:33px;}}
+  .chapter-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--gold-soft);margin:0 0 30px;font-weight:400;}
+  .title-rule{width:62px;height:2px;background:var(--gold);border:0;margin:22px 0 34px;}
+  p{margin:0 0 19px;}
+  .lead{font-size:19px;color:var(--ink);font-weight:400;}
+  strong{color:var(--ink);font-weight:600;}
+  em{color:var(--gold-soft);font-style:italic;}
+  h3.sub{font-family:'Bebas Neue',sans-serif;letter-spacing:.18em;color:var(--gold-soft);font-size:19px;text-transform:uppercase;margin:38px 0 14px;}
+
+  .quote{border-left:2px solid var(--gold);background:linear-gradient(90deg,rgba(201,162,75,.07),rgba(201,162,75,0));padding:20px 28px;margin:34px 0;font-family:'Cormorant Garamond',serif;font-size:24px;line-height:1.4;font-style:italic;color:var(--ink);}
+  .quote .who{display:block;margin-top:12px;font-family:'Bebas Neue',sans-serif;font-style:normal;letter-spacing:.2em;font-size:13px;color:var(--gold);}
+
+  .practice{border:1px solid var(--rule);border-radius:10px;background:var(--indigo);padding:26px 30px;margin:34px 0;}
+  .practice .tag{font-family:'Bebas Neue',sans-serif;letter-spacing:.24em;font-size:14px;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .practice p{margin-bottom:12px;}
+  .bio p{margin-bottom:26px;line-height:1.75;}
+  .bio-mark{display:flex;align-items:center;gap:14px;margin:54px 0 24px;}
+  .bio-mark svg{width:25px;height:25px;flex:none;color:var(--gold);}
+  .bio-mark .ml{font-family:'Bebas Neue',sans-serif;letter-spacing:.18em;font-size:19px;color:var(--gold-soft);text-transform:uppercase;white-space:nowrap;}
+  .bio-mark .mline{flex:1;height:1px;background:var(--rule);}
+  .bio-key{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;line-height:1.5;color:var(--gold-soft);border-left:3px solid var(--gold);padding:6px 0 6px 22px;margin:32px 0;}
+  .bio-key-big{font-size:24px;}
+  .practice ol,.practice ul{margin:6px 0 0;padding-left:22px;}
+  .practice li{margin-bottom:9px;}
+  .practice .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);display:inline-block;}
+
+  ul.clean{list-style:none;padding:0;margin:18px 0;}
+  ul.clean li{padding:9px 0 9px 26px;position:relative;border-bottom:1px solid var(--rule-soft);}
+  ul.clean li:before{content:"";position:absolute;left:0;top:18px;width:8px;height:8px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--blue));}
+
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:28px 0;}
+  @media(max-width:680px){.two{grid-template-columns:1fr;}}
+
+  /* convergencia de los 4 niveles */
+  .lenses{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:28px 0;}
+  @media(max-width:680px){.lenses{grid-template-columns:1fr;}}
+  .lens{border:1px solid var(--rule-soft);border-radius:10px;background:rgba(39,32,64,.5);padding:20px 22px;}
+  .lens h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:23px;color:var(--ink);margin:0 0 10px;}
+  .lens .row{display:flex;gap:12px;font-size:14.5px;line-height:1.5;padding:8px 0;border-top:1px solid var(--rule-soft);}
+  .lens .row:first-of-type{border-top:0;padding-top:2px;}
+  .lens .row b{font-family:'Bebas Neue',sans-serif;letter-spacing:.08em;font-weight:400;font-size:11.5px;color:var(--gold-soft);min-width:108px;flex:none;text-transform:uppercase;padding-top:2px;}
+  .lens .row span{color:var(--lav);}
+  .card{border:1px solid var(--rule-soft);border-radius:10px;padding:22px 24px;background:rgba(39,32,64,.5);}
+  .card h4{font-family:'Bebas Neue',sans-serif;letter-spacing:.16em;color:var(--gold-soft);font-size:17px;margin:0 0 10px;font-weight:400;}
+  .card p{font-size:15.5px;margin:0;color:var(--lav);}
+
+  /* archetype block */
+  .arq{border:1px solid var(--rule-soft);border-radius:12px;background:rgba(29,22,49,.6);padding:26px 30px;margin:24px 0;}
+  .arq .num{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.2em;color:var(--gold);}
+  .arq h4{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:28px;color:var(--ink);margin:2px 0 4px;}
+  .arq .freq{font-family:'Cormorant Garamond',serif;font-style:italic;color:var(--gold-soft);font-size:18px;margin:0 0 16px;}
+  .arq .ls{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:10px;}
+  @media(max-width:680px){.arq .ls{grid-template-columns:1fr;}}
+  .arq .ls .luz,.arq .ls .som{padding:14px 16px;border-radius:8px;font-size:15px;line-height:1.6;}
+  .arq .ls .luz{background:rgba(201,162,75,.09);}
+  .arq .ls .som{background:rgba(168,119,236,.17);}
+  .arq .ls b{font-family:'Bebas Neue',sans-serif;letter-spacing:.16em;font-weight:400;font-size:13px;display:block;margin-bottom:5px;}
+  .arq .ls .luz b{color:var(--gold-soft);}
+  .arq .ls .som b{color:#C9A6E8;}
+  .arq .afina{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:16px;line-height:1.45;color:var(--gold-soft);margin:16px 0 0;padding-top:14px;border-top:1px solid var(--rule-soft);}
+  .arq .ejer{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0 0;}
+  .arq .ejer .ej{padding:14px 16px;border-radius:8px;border:1px solid var(--rule-soft);font-size:14.5px;line-height:1.55;}
+  .arq .ejer .ej b{font-family:'Bebas Neue',sans-serif;letter-spacing:.14em;font-weight:400;font-size:12px;display:block;margin-bottom:6px;}
+  .arq .ejer .ej.luzj b{color:var(--gold-soft);}
+  .arq .ejer .ej.somj b{color:#C9A6E8;}
+  @media(max-width:680px){.arq .ejer{grid-template-columns:1fr;}}
+
+  .cover{min-height:100vh;background:radial-gradient(1200px 820px at 70% 12%,rgba(168,119,236,.72),transparent 60%),radial-gradient(1020px 720px at 16% 90%,rgba(138,79,201,.58),transparent 60%),radial-gradient(840px 600px at 50% 50%,rgba(123,79,201,.42),transparent 66%),radial-gradient(720px 520px at 86% 72%,rgba(206,120,220,.34),transparent 62%),linear-gradient(160deg,#3A2168 0%,#2E1B57 58%,#2A1850 100%);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:80px 40px;position:relative;}
+  .cover .kicker{font-family:'Bebas Neue',sans-serif;letter-spacing:.46em;font-size:15px;color:var(--gold);margin:34px 0 0;}
+  .cover h1{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:104px;line-height:.94;letter-spacing:.01em;color:var(--ink);margin:14px 0 0;}
+  @media(max-width:680px){.cover h1{font-size:68px;}}
+  .cover .tagline{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:25px;color:var(--gold-soft);margin:20px 0 0;font-weight:400;max-width:24ch;}
+  .cover .meta{margin-top:38px;font-size:14px;letter-spacing:.05em;color:var(--lav-dim);}
+  .cover .meta .sep{color:var(--gold);margin:0 9px;}
+  .cover .brand{position:absolute;bottom:44px;left:0;right:0;font-family:'Bebas Neue',sans-serif;letter-spacing:.32em;font-size:13px;color:var(--lav-dim);}
+  .cover .brand b{color:var(--gold-soft);font-weight:400;}
+  .arco{width:188px;height:188px;}
+
+  .divider{min-height:78vh;background:radial-gradient(860px 560px at 50% 28%,rgba(168,119,236,.5),transparent 62%),radial-gradient(620px 440px at 72% 82%,rgba(206,120,220,.26),transparent 60%),var(--indigo);display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:90px 50px;}
+  .divider .pnum{font-family:'Bebas Neue',sans-serif;letter-spacing:.5em;font-size:18px;color:var(--gold);}
+  .divider h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:60px;color:var(--ink);margin:6px 0 0;letter-spacing:-.01em;line-height:1.02;}
+  @media(max-width:680px){.divider h2{font-size:40px;}}
+  .divider .pdesc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:22px;color:var(--gold-soft);margin:24px 0 0;max-width:32ch;}
+  .divider .orn{margin-top:34px;}
+
+  .toc h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:42px;margin:0 0 8px;}
+  .toc-group{margin:32px 0 8px;}
+  .toc-group .glabel{font-family:'Bebas Neue',sans-serif;letter-spacing:.28em;color:var(--gold);font-size:14px;margin-bottom:6px;}
+  .toc-row{display:flex;align-items:baseline;gap:14px;padding:10px 0;border-bottom:1px solid var(--rule-soft);}
+  .toc-row .n{font-family:'Bebas Neue',sans-serif;color:var(--gold-soft);letter-spacing:.1em;font-size:16px;min-width:30px;}
+  .toc-row .t{color:var(--ink);font-size:16.5px;}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin:30px 0;text-align:center;}
+  @media(max-width:680px){.stats{grid-template-columns:repeat(2,1fr);}}
+  .stat .big{font-family:'Cormorant Garamond',serif;font-size:42px;color:var(--gold-soft);line-height:1;}
+  .stat .lbl{font-size:13px;color:var(--lav-dim);letter-spacing:.03em;margin-top:6px;}
+
+  .note{font-size:14px;color:var(--lav-dim);font-style:italic;}
+  .center{text-align:center;}
+  .drop::first-letter{font-family:'Cormorant Garamond',serif;font-size:62px;float:left;line-height:.8;padding:6px 12px 0 0;color:var(--gold-soft);}
+  .attrs{display:flex;flex-wrap:wrap;gap:9px;margin:-6px 0 26px;}
+  .attrs span{font-family:'Bebas Neue',sans-serif;letter-spacing:.12em;font-size:12.5px;color:var(--gold-soft);background:rgba(224,188,99,.10);border:1px solid var(--rule-soft);border-radius:20px;padding:5px 14px;}
+
+  /* ===== Medios paginados (paged.js): cabecera/pie en cajas de margen reales ===== */
+  @page{
+    size:A4;
+    margin:17mm 14mm 16mm 14mm;
+    @top-left{ content:"Numina · O Acorde 13"; font-family:'Bebas Neue',sans-serif; font-size:7.5pt; letter-spacing:.26em; text-transform:uppercase; color:var(--gold-soft); vertical-align:bottom; padding-bottom:5mm; }
+    @top-right{ content:"Sistema DAyllu"; font-family:'Bebas Neue',sans-serif; font-size:7.5pt; letter-spacing:.26em; text-transform:uppercase; color:var(--lav-dim); vertical-align:bottom; padding-bottom:5mm; }
+    @bottom-left{ content:"Método Numina"; font-family:'Bebas Neue',sans-serif; font-size:7.5pt; letter-spacing:.26em; text-transform:uppercase; color:var(--lav-dim); vertical-align:top; padding-top:5mm; }
+    @bottom-center{ content:counter(page); font-family:'Bebas Neue',sans-serif; letter-spacing:.18em; color:var(--gold-soft); font-size:9pt; vertical-align:top; padding-top:5mm; }
+    @bottom-right{ content:"ACEAI Online Marketing"; font-family:'Bebas Neue',sans-serif; font-size:7.5pt; letter-spacing:.26em; text-transform:uppercase; color:var(--gold-soft); vertical-align:top; padding-top:5mm; }
+  }
+  @page cover{
+    margin:0;
+    @top-left{content:none} @top-right{content:none}
+    @bottom-left{content:none} @bottom-center{content:none} @bottom-right{content:none}
+  }
+  .cover{ page:cover; break-after:page; }
+  .divider{ page:cover; break-before:page; break-after:page; }
+  .page{ break-before:page; padding:2mm 9mm 6mm; min-height:0; }
+
+  /* hoja oscura: márgenes oscuros, nunca blancos */
+  body{ background:var(--midnight); color:var(--lav); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .pagedjs_sheet,.pagedjs_pagebox,.pagedjs_area,.pagedjs_margin-content,.pagedjs_page,.pagedjs_margin{ background:var(--midnight); }
+
+  /* portada y separadores: ocupan la página entera (degradado a sangre, uniforme) */
+  .cover,.divider{ min-height:297mm; height:297mm; }
+
+  .quote,.practice,.two,.card,.arq,.lens,.lenses,.stats,.attrs,.bio-mark,.bio-key{ break-inside:avoid; }
+  ul.clean li,.toc-row{ break-inside:avoid; }
+  .chapter-title,.chapter-sub,.eyebrow,h2,h3,.sub{ break-after:avoid; }
+  p{ orphans:3; widows:3; }
+  a{ color:inherit; }
+</style>
+</head>
+<body>
+
+<div class="book">
+
+
+<!-- ============ COVER ============ -->
+<section class="cover">
+  <svg class="arco" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <radialGradient id="core" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#FBEFD2"/><stop offset="100%" stop-color="#FBEFD2" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <g fill="none" stroke="rgba(201,194,221,.18)" stroke-width="0.8">
+      <circle cx="100" cy="100" r="34"/><circle cx="100" cy="100" r="52"/><circle cx="100" cy="100" r="70"/>
+    </g>
+    <circle cx="100" cy="100" r="30" fill="url(#core)"/>
+    <g>
+      <circle cx="100" cy="30" r="4" fill="#E24B4A"/>
+      <circle cx="135" cy="39" r="4" fill="#E2724B"/>
+      <circle cx="161" cy="65" r="4" fill="#EF9F27"/>
+      <circle cx="170" cy="100" r="4" fill="#C9A24B"/>
+      <circle cx="161" cy="135" r="4" fill="#97C459"/>
+      <circle cx="135" cy="161" r="4" fill="#1D9E75"/>
+      <circle cx="100" cy="170" r="4" fill="#4F8FD9"/>
+      <circle cx="65" cy="161" r="4" fill="#5B6FD8"/>
+      <circle cx="39" cy="135" r="4" fill="#7B4FC9"/>
+      <circle cx="30" cy="100" r="4" fill="#9B4FC4"/>
+      <circle cx="39" cy="65" r="4" fill="#B85BC4"/>
+      <circle cx="65" cy="39" r="4" fill="#D4537E"/>
+    </g>
+    <circle cx="100" cy="100" r="6" fill="#FFFFFF"/>
+  </svg>
+  <h1>Numina</h1>
+  <div style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:52px;line-height:1;letter-spacing:.01em;color:var(--ink);margin-top:12px;white-space:nowrap;">O Acorde <span style="font-style:italic;font-weight:600;color:var(--gold);font-size:60px;">13</span></div>
+  <div style="margin-top:58px;display:inline-block;border:1px solid rgba(224,188,99,.5);border-radius:12px;padding:12px 30px;background:rgba(168,119,236,.08);">
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;font-size:22px;color:var(--gold);line-height:1.25;">12 notas sagradas que habitam em você.</div>
+    <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--ink);line-height:1.25;">Reconheça suas luzes e suas sombras, e integre-as com coragem.</div>
+  </div>
+  <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:var(--gold-soft);line-height:1.4;max-width:34ch;margin:34px auto 0;">Para quem intui que sua inquietação guarda uma mensagem, e está pronta para voltar a voar.</div>
+  <div style="font-family:'Cormorant Garamond',serif;font-style:normal;font-size:16px;color:var(--ink);opacity:.82;line-height:1.45;max-width:430px;margin:32px auto 0;">Dedicado a todos e todas que se atrevem a investigar e a experimentar. A teoria sem ação é apenas isso: teoria. E viemos para experimentar a vida!</div>
+  <div class="kicker" style="margin-top:52px;font-size:23px;">Sistema DAyllu</div>
+  <div class="kicker" style="margin-top:12px;font-size:19px;color:var(--naranja);">Método Numina</div>
+</section>
+
+<!-- ============ PÁGINA DE CRÉDITOS / COPYRIGHT ============ -->
+<section class="page" style="display:flex;flex-direction:column;justify-content:center;min-height:90vh;">
+  <div style="text-align:center;">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--ink);line-height:1.2;">Numina <span style="color:var(--gold);">·</span> O Acorde 13</div>
+    <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:.24em;font-size:14px;color:var(--gold-soft);text-transform:uppercase;margin-top:14px;">Sistema DAyllu&trade; · Método Numina</div>
+    <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:.24em;font-size:13px;color:var(--lav-dim);text-transform:uppercase;margin-top:8px;">Licença de copyright · Safe Creative</div>
+    <hr class="title-rule" style="margin:26px auto 26px;">
+  </div>
+
+  <p style="font-size:14px;color:var(--lav);"><strong>Copyright © 2026 ACEAI Online Marketing Ltd.</strong> Todos os direitos reservados.</p>
+
+  <p style="font-size:13.5px;color:var(--lav-dim);line-height:1.7;">Nenhuma parte desta publicação pode ser reproduzida, armazenada em um sistema de recuperação, transmitida, distribuída, traduzida, adaptada, revendida nem utilizada de forma alguma nem por nenhum meio, seja eletrônico, mecânico, por fotocópia, gravação ou outro, sem a permissão prévia por escrito do titular dos direitos autorais, salvo nos casos permitidos pela legislação de direitos autorais aplicável.</p>
+
+  <p style="font-size:13.5px;color:var(--lav-dim);line-height:1.7;">Esta publicação é licenciada unicamente para uso pessoal. A compra deste livro eletrônico não concede o direito de copiar, compartilhar, redistribuir, revender, sublicenciar nem utilizá-lo com fins comerciais.</p>
+
+  <p style="font-size:13.5px;color:var(--lav-dim);line-height:1.7;">Os direitos autorais desta obra estão registrados e protegidos no <strong style="color:var(--lav);">Safe Creative</strong>.</p>
+</section>
+
+<!-- ============ AGRADECIMIENTO ============ -->
+<section class="page" style="display:flex;flex-direction:column;justify-content:center;min-height:90vh;text-align:center;">
+  <p class="eyebrow" style="margin-bottom:22px;">Agradecimento</p>
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="var(--gold)" style="margin:0 auto 6px;" aria-hidden="true"><path d="M12 20.5C5.5 15 3 11.2 3 8.2A4.6 4.6 0 0112 6a4.6 4.6 0 019 2.2c0 3-2.5 6.8-9 12.3z"/></svg>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:25px;font-style:italic;color:var(--ink);line-height:1.55;max-width:32ch;margin:18px auto 0;">A <span style="font-style:normal;color:var(--gold-soft);">Luis Alfonso</span>, meu esposo, minha luz e meu companheiro nesta jornada.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--lav);line-height:1.7;max-width:42ch;margin:22px auto 0;">Obrigada por me sustentar a cada passo, por acreditar neste sonho quando ainda era uma semente, e por me lembrar, dia após dia, que o propósito também se tece a dois.</p>
+  <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--gold-soft);margin:30px auto 0;">Este Acorde 13 também é seu.</p>
+</section>
+
+<!-- ============ ÍNDICE ============ -->
+<section class="page toc">
+  <p class="eyebrow">Mapa do caminho</p>
+  <h2>Índice</h2>
+  <hr class="title-rule">
+
+  <div class="toc-group">
+    <div class="glabel">Abertura</div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Comece aqui · sua dor tem uma mensagem (e uma prática de 3 minutos)</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">O que é Numina (e como ler este livro)</span></div>
+  </div>
+  <div class="toc-group">
+    <div class="glabel">Parte I · Os alicerces</div>
+    <div class="toc-row"><span class="n">01</span><span class="t">A dor como bússola</span></div>
+    <div class="toc-row"><span class="n">02</span><span class="t">O propósito se tece (80% psicologia, 20% mecânica)</span></div>
+    <div class="toc-row"><span class="n">03</span><span class="t">Seu estado cria sua química</span></div>
+    <div class="toc-row"><span class="n">04</span><span class="t">A Águia e o Condor (e de onde isto desce: os Q'ero)</span></div>
+    <div class="toc-row"><span class="n">05</span><span class="t">Você nasceu afinada a uma única nota</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">A voz por trás do mapa · quem sou eu</span></div>
+  </div>
+  <div class="toc-group">
+    <div class="glabel">Parte II · Os 4 níveis de percepção</div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Os quatro mundos · corpo, mente, alma, espírito</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Serpente · corpo</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">O corpo e os vícios</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Jaguar · mente e emoções</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Beija-flor · alma</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Águia-Condor · espírito</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">A Terra viva · Pachamama</span></div>
+  </div>
+  <div class="toc-group">
+    <div class="glabel">Parte III · Os 12 arquétipos</div>
+    <div class="toc-row"><span class="n">1-6</span><span class="t">Os Radiadores (elétricos · ativam)</span></div>
+    <div class="toc-row"><span class="n">7-12</span><span class="t">Os Equilibradores (magnéticos · integram)</span></div>
+  </div>
+  <div class="toc-group">
+    <div class="glabel">Parte IV · A prática viva</div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Reconheça sua nota de partida</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">As 7 forças · 2 Respirações · 4 Mantras · Bônus</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Práticas: perguntas que abrem · reivindicar sua sombra</span></div>
+  </div>
+  <div class="toc-group">
+    <div class="glabel">Encerramento</div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">O Acorde 13 · seu Ser Luminoso</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">DAyllu · seu próximo passo, sua comunidade</span></div>
+    <div class="toc-row"><span class="n"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor" style="color:var(--gold);vertical-align:middle;" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg></span><span class="t">Fontes e influências · e mapas paralelos</span></div>
+  </div>
+</section>
+
+<!-- ============ EMPIEZA AQUÍ (HOOK) ============ -->
+<section class="page">
+  <p class="eyebrow">Comece aqui</p>
+  <h1 class="chapter-title">Sua dor tem uma mensagem</h1>
+  <p class="chapter-sub">Antes da primeira ideia, uma prática de três minutos que já começa a mudar a sua química.</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Talvez você tenha tentado do jeito que lhe disseram (fazer mais, render mais, sustentar tudo) e por dentro algo continuou vazio. Você tem conquistas e, ainda assim, aquela inquietação difícil de nomear: a sensação de que a sua vida foi feita para ser maior do que é hoje. Às vezes ela aparece como ansiedade, como solidão, como um cansaço que o descanso não cura. Se você já desconfia que aquilo que sente <em>significa</em> algo, este livro é para você. Você não está quebrada, e não está sozinha: o que você sente não é um defeito, é um sinal, e tem uma direção.</p>
+
+  <p>Este livro parte de uma ideia simples e radical: <strong>a sua dor (a sua insatisfação, a sua frustração) não é um castigo, é informação.</strong> Porque nem sempre se sente como dor; às vezes é apenas o incômodo surdo de que algo não se encaixa. É a bússola que lhe diz qual parte de você pede para ser vista. Você vai aprender a lê-la, a integrar suas luzes e suas sombras, e a fazer soar as doze notas que já vivem em você até transformá-las em uma só: o seu <strong>Acorde 13</strong>.</p>
+
+  <p>Imagine chegar ao final destas páginas sendo outra: a mulher que deixa de pedir permissão para os seus sonhos, que confia na própria voz mesmo que ninguém mais a entenda ainda, que olha para a sua dor e já não vê uma sentença, mas um mapa. Não lhe prometo iluminação: mostro-lhe o caminho de volta a você. Na próxima página está o percurso completo. Mas Numina não se entende lendo: entende-se praticando. Então comece pelo corpo, agora mesmo.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>Sua primeira prática · coerência do coração em 3 passos</div>
+    <ol>
+      <li><strong>Atenção ao coração.</strong> Leve a atenção ao centro do peito, à região do coração.</li>
+      <li><strong>Respire pelo coração.</strong> Respire um pouco mais devagar e fundo, como se o ar entrasse e saísse por ali: cerca de 5 segundos ao inspirar e 5 ao expirar.</li>
+      <li><strong>Ative o apreço.</strong> Traga ao peito um sentimento genuíno de gratidão ou carinho (uma pessoa, um lugar, uma lembrança) e sustente-o por alguns minutos.</li>
+    </ol>
+    <p style="margin-bottom:0;">Três minutos bastam para começar a mudar o seu estado. Você acabou de experimentar, no seu próprio corpo, o centro de todo este método. O que vem a seguir é entender por que ele funciona, e até onde pode levá-la.</p>
+  </div>
+
+  <div class="quote">
+    E isto não é contado por alguém que leu num livro: é contado por alguém que viveu. Este mapa me sustentou quando tudo desmoronava. Hoje eu o entrego a você para que seja seu.
+  </div>
+
+  <p class="note">Uma única advertência honesta: este caminho não substitui o acompanhamento profissional. Se você atravessa uma ferida muito profunda, procure também um terapeuta ou alguém de confiança. Faz-se melhor amparada.</p>
+</section>
+
+
+<!-- ============ QUÉ ES NUMINA ============ -->
+<section class="page">
+  <p class="eyebrow">A porta</p>
+  <h1 class="chapter-title">O que é Numina</h1>
+  <p class="chapter-sub">E como ler este livro</p>
+  <hr class="title-rule">
+
+  <p class="lead">Numina é o plural de <em>numen</em>: as presenças sagradas, as muitas forças divinas. É o nome deste método porque é exatamente isso que você vai descobrir em si mesma: <strong>você não é uma só coisa. Carrega doze forças dentro</strong>, doze arquétipos, doze energias, doze notas, e a capacidade de conectar-se com sete planos que aprenderá a invocar. Numina nomeia o que já habita em você.</p>
+
+  <p>O termo «numen» vem de Carl Jung, que tomou <em>o numinoso</em> de Rudolf Otto para nomear a experiência direta do sagrado: aquele assombro que a atravessa e a fascina ao mesmo tempo. Encontrar-se cara a cara com um arquétipo, ou com o seu Si-mesmo mais profundo, <em>é</em> uma experiência numinosa. E esse encontro tem um nome neste livro: o <strong>Acorde 13</strong>, o seu Ser Luminoso. Numina, além disso, traz dentro de si o eco de <em>luminosa</em>. O método nomeia o seu próprio destino.</p>
+
+  <h3 class="sub">A tese, em uma frase</h3>
+  <div class="quote">
+    Numina toma a sua insatisfação «as suas sombras» como bússola, conduz você pelos quatro níveis de percepção integrando os seus doze arquétipos, da sombra à luz, e, gerando Amor, desperta a 13ª nota: o seu Ser Luminoso, fora do tempo.
+  </div>
+
+  <p>Em três tempos fáceis de lembrar: <strong>a dor incomoda → o Amor ativa → o Acorde 13 emerge.</strong> Tudo o que vem a seguir, cada conceito, cada animal, cada arquétipo, cada respiração e cada mantra, serve a essa frase. Não é uma caixa de ferramentas avulsa: é um único caminho.</p>
+
+  <h3 class="sub">Como este livro foi feito</h3>
+  <ul class="clean">
+    <li><strong>Parte I, Os alicerces.</strong> Cinco ideias que mudam o terreno sob os seus pés antes de começar a caminhar.</li>
+    <li><strong>Parte II, Os 4 níveis.</strong> A roda medicina, os quatro mundos que você atravessa, guardados por quatro animais de poder: do corpo ao espírito.</li>
+    <li><strong>Parte III, Os 12 arquétipos.</strong> As suas doze energias «potencialidades prontas para serem ativadas», seis que ativam, seis que equilibram, cada uma com a sua luz e a sua sombra.</li>
+    <li><strong>Parte IV, A prática viva.</strong> As 7 forças, as 2 respirações, os 4 mantras, as práticas para você fazer perguntas melhores e integrar as suas sombras, e um bônus da minha prática budista.</li>
+  </ul>
+
+  <p class="note">Um esclarecimento honesto, no espírito da filosofia dos povos indígenas: isto não é ciência exata nem religião, e não promete iluminação, nem cura alguma, nem melhora instantânea. É um mapa, tecido a partir de conceitos de neurociência, sabedoria ancestral e prática pessoal, que me serviu profundamente e ajudou muitas pessoas. Funciona quando se pratica, não quando se contempla de longe. Tome-o, experimente-o, e fique apenas com aquilo que em você ressoar como verdade.</p>
+</section>
+
+
+<!-- ============ PARTE I DIVIDER ============ -->
+<section class="divider">
+  <div class="pnum">PARTE I</div>
+  <h2>Os Alicerces</h2>
+  <div class="pdesc">Cinco verdades que mudam o terreno antes de dar um único passo</div>
+  <svg class="orn" width="120" height="20" viewBox="0 0 120 20" aria-hidden="true">
+    <line x1="0" y1="10" x2="46" y2="10" stroke="#C9A24B" stroke-width="1"/>
+    <circle cx="60" cy="10" r="5" fill="none" stroke="#C9A24B" stroke-width="1"/><circle cx="60" cy="10" r="2" fill="#C9A24B"/>
+    <line x1="74" y1="10" x2="120" y2="10" stroke="#C9A24B" stroke-width="1"/>
+  </svg>
+</section>
+
+<!-- ===== CONCEPTO 01, DOLOR ===== -->
+<section class="page">
+  <p class="eyebrow">Alicerce 01</p>
+  <h1 class="chapter-title">A dor como bússola</h1>
+  <p class="chapter-sub">Ela não veio para te castigar. Veio para te apontar onde falta coerência: uma falta de sentido pontual, em algo concreto ou em vários.</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Há uma sensação que todos nós, como seres humanos, acabamos sentindo mais cedo ou mais tarde: saber, por baixo das palavras, que a sua vida foi feita para ser maior do que é. Não por ambição, mas pela mesma razão pela qual uma semente sabe que foi feita para ser árvore. Eu a senti, e se você está lendo isto, certamente você também. E quase sempre ela chega vestida de inquietação, de vazio, de frustração ou dor; não saber sequer como explicar algo, não encontrar palavras para o que você sente, mas você sente.</p>
+
+  <p>Quero te dizer algo já na primeira página, porque é a chave de tudo: <strong>a sua dor não é um defeito nem um castigo. É informação.</strong> É o sinal mais honesto de que algo em você está fora de lugar, pedindo para ser visto e reordenado. O psicólogo existencial Rollo May disse isso há décadas: sob a ansiedade do nosso tempo pulsa, na verdade, um vazio de sentido. A dor é esse vazio falando com você.</p>
+
+  <p>Por isso, em Numina, a dor não é o inimigo: é o <strong>ouvido</strong>, ela te permite identificar a dissonância, te avisa qual nota do seu ser está desafinada ou calada. E te diz, com precisão, em que nível olhar:</p>
+
+  <ul class="clean">
+    <li>Se dói <strong>soltar</strong>, o passado, uma pessoa, uma versão de você, é a Serpente que te chama (o corpo).</li>
+    <li>Se dói o <strong>medo</strong>, disfarçado de prudência, é o Jaguar que te chama (a mente e as emoções).</li>
+    <li>Se dói a <strong>falta de amor ou de sentido</strong>, é o Beija-flor que te chama (a alma).</li>
+    <li>Se dói <strong>não se ver, não saber quem você é</strong>, é a Águia-Condor que te chama (o espírito).</li>
+  </ul>
+
+  <div class="quote">
+    A dor é a bússola: onde dói, falta coerência. Não encobri-la é o primeiro ato de sabedoria. Escutá-la é o segundo.
+  </div>
+
+  <h3 class="sub">A crise de significado · Rollo May</h3>
+
+  <p>Rollo May foi um dos pais da psicologia humanista e existencial, essa «terceira força» que, diante da psicanálise e do behaviorismo, colocou no centro a liberdade, a escolha e a busca de sentido do ser humano. Mas May acrescentou algo que outros suavizavam: que não há crescimento sem atravessar a angústia, a sombra e a consciência da morte. Ele não veio para nos consolar: veio para nos dar coragem.</p>
+
+  <p>Seu diagnóstico da nossa época é assustadoramente atual. Em <em>O Homem à Procura de Si Mesmo</em> ele descreveu o mal central do ser humano moderno: o <strong>vazio</strong>, sentir-se oco, não saber bem o que se sente nem o que se quer, e a <strong>solidão</strong>. Não é que tenhamos problemas demais; é que perdemos o sentido que os tornava suportáveis. Essa é a <strong>crise de significado</strong>: uma época com tudo à mão e, ao mesmo tempo, desconectada, vazia por momentos. É o mesmo vazio que hoje as estatísticas de ansiedade e desconexão medem, e o mesmo que os avós Q'ero desceram para curar.</p>
+
+  <p>E aqui está a sua grande contribuição para Numina. Para May, a angústia não é apenas um sintoma a eliminar. Ele distinguiu a angústia <em>neurótica</em> da angústia <strong>normal</strong> ou existencial, que aparece justamente quando um valor que sentimos essencial para a nossa existência é ameaçado. Dito de outro modo: a angústia assinala o que mais nos importa. É o preço da liberdade e a porta do crescimento. A sua dor, lida assim, não é uma avaria, é o seu ser te avisando de que um sentido seu está em jogo.</p>
+
+  <p>Em um de seus últimos livros, <em>A Descoberta do Ser</em>, May deu a chave que sustenta todo este trabalho: uma sociedade sem mitos compartilhados, sem narrativas que ordenem a existência, deixa as pessoas sem bússola, e daí brota boa parte da sua angústia. Numina busca, em parte, te mostrar o que para nós é sim um caminho possível e universal: um mito vivo, que tantas culturas tentaram explicar à sua maneira. Exatamente o que os Q'ero vieram nos lembrar. Os doze arquétipos, os cinco planos e o nosso Acorde 13 são formas de explicar esse mito universal a partir da nossa visão pessoal, baseada na prática pessoal.</p>
+
+  <h3 class="sub">O mito universal · Campbell e Jung</h3>
+
+  <p>Rollo May apontou a ferida, vivemos sem mito; <strong>Joseph Campbell</strong> encontrou o remédio. Depois de comparar os relatos sagrados de meio mundo, Campbell descobriu que sob todos eles pulsa uma mesma história: a <strong>jornada do herói</strong>. Alguém recebe um chamado, cruza o limiar rumo ao desconhecido, atravessa provações e uma noite escura, e regressa transformado, trazendo um dom para os seus. É o caminho de Buda Sakyamuni quando decide deixar seu palácio, após se deparar com realidades que nunca havia visto, para aprender com os próprios pés. Ele o chamou de <em>o monomito</em>: um só mito com mil faces. Cada cultura o veste de modo diferente; o padrão é o mesmo. A sua vida também é.</p>
+
+  <p>Campbell bebeu de <strong>Carl Jung</strong>, que já havia nomeado o manancial: o <strong>inconsciente coletivo</strong>. Sob a sua biografia pessoal há um solo comum a toda a humanidade, povoado de <em>arquétipos</em>, figuras e padrões que você não aprendeu, que herdou pelo simples fato de ser humano. Por isso o mesmo mito aparece, quase idêntico, em povos que jamais se conheceram. Não se copiaram: eles o recordam. Brota do mesmo fundo.</p>
+
+  <p>Aqui se fecha o círculo deste livro. A profecia da Águia e do Condor que os Q'ero desceram da montanha não é uma crença exótica que eu te peço para adotar: é <strong>mais uma face desse mito universal</strong>, contada pelo povo que melhor a conservou. Numina te convida a torná-lo consciente, a abraçar esse mito, pela mão inca, e a reconhecer na sua própria dor o chamado do herói. Campbell o resumiu em três palavras que poderiam ser o lema de todo o caminho: <em>siga a sua felicidade.</em></p>
+
+  <p>Eu vivi isso na própria pele. Cada uma das minhas perdas, e foram muitas, me empurrou, sem que eu soubesse, rumo a um nível novo de mim mesma. Não te peço que ame a sua dor. Te peço que pare de fugir dela o tempo suficiente para lhe perguntar: <em>o que você veio me mostrar?</em></p>
+
+  <p>Essa pergunta é a primeira porta do caminho.</p>
+
+  <p class="note">Nota de cuidado: trabalhar com a dor não substitui o acompanhamento profissional. Se você atravessa uma ferida muito profunda, busque também um terapeuta ou alguém de confiança. Este caminho se faz melhor amparado.</p>
+</section>
+
+
+<!-- ===== CONCEPTO 02, 80/20 ===== -->
+<section class="page">
+  <p class="eyebrow">Alicerce 02</p>
+  <h1 class="chapter-title">O propósito se tece</h1>
+  <p class="chapter-sub">Ele não se encontra. E se constrói 80% por dentro, 20% por fora.</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">O seu propósito não é uma coisa escondida que um dia você encontrará se procurar bem. Ele não está enterrado esperando o momento de se revelar. É algo que se <strong>tece</strong>: com passos genuínos, sustentados no tempo, até que a direção deixe de ser aspiração e se torne identidade. O propósito não se acha sentado quieto: ele te encontra enquanto você se move.</p>
+
+  <p>E aqui vai a verdade mais libertadora, e mais incômoda, do desenvolvimento pessoal: qualquer meta significativa é <strong>80% psicologia e 20% mecânica</strong>. A mecânica é o plano, a técnica, os passos: importa, é os 20%. Mas a maioria não fracassa por falta de estratégia, e sim pelos outros 80%: suas crenças, seu estado interno, sua identidade, a história que conta a si mesma sobre o que é possível para ela.</p>
+
+  <div class="two">
+    <div class="card"><h4>Os 20% · Mecânica</h4><p>Plano, técnica, passos, recursos. Necessário, mas insuficiente sozinho. É o que você <em>faz</em>.</p></div>
+    <div class="card"><h4>Os 80% · Psicologia</h4><p>Crenças, estado, emoção, coerência, identidade. Decide se a mecânica é executada ou abandonada. É quem você <em>é</em> ao fazê-lo.</p></div>
+  </div>
+
+  <p>Por isso Numina trabalha nessa ordem. Primeiro os 80%, o seu estado, a sua coerência, a sua sombra integrada; só então a ação. Não porque a ação não importe (importa muitíssimo), mas porque a ação que nasce da coerência é de outra natureza: sustentável, fluida, alinhada. A que nasce do medo se esgota.</p>
+
+  <div class="quote">
+    Você não tem um problema de estratégia. Você tem um problema de estado. Conserte o estado, e a estratégia que você já conhece começa a funcionar.
+  </div>
+
+  <p>E um mito que convém soltar de uma vez: o de que <em>trabalhar mais duro</em> equivale a ter mais. O esforço não é a moeda. Há quem rema a vida inteira contra a própria correnteza. Quando você tece a partir da sua verdade, a abundância chega como <strong>consequência</strong>, não como prêmio por sofrer. Propósito e prosperidade não se compram com cansaço: cultivam-se com coerência.</p>
+
+  <p class="note">O 80/20 não é um dado de laboratório: é uma bússola de onde colocar a sua energia. A maior parte da sua alavanca está no lugar onde você menos se esforça.</p>
+</section>
+
+<!-- ===== CONCEPTO 03, ESTADO ===== -->
+<section class="page">
+  <p class="eyebrow">Alicerce 03</p>
+  <h1 class="chapter-title">Seu estado cria sua química</h1>
+  <p class="chapter-sub">Suas crenças geram sua bioquímica, e sua bioquímica dirige sua vida</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Se a psicologia é 80%, convém saber como ela funciona por dentro. Funciona assim: sua energia, o conjunto das suas crenças, cria sua química. Sua química cria seu estado. E seu estado dirige seu comportamento. Mudar sua vida a partir da conduta é remar contra a corrente. Mudá-la a partir da crença é <strong>mudar a corrente</strong>.</p>
+
+  <ul class="clean">
+    <li><strong>Crença (energia).</strong> Aquilo que você sustenta como verdadeiro sobre si mesm@ e sobre o mundo. Não suas frases de superfície: suas convicções profundas, muitas gravadas antes dos sete anos.</li>
+    <li><strong>Emoção e química.</strong> Cada crença acende uma emoção, e cada emoção é uma receita química real. Seu corpo se banha na química daquilo em que você acredita.</li>
+    <li><strong>Estado.</strong> Essa química sustentada se torna seu estado padrão: contração ou expansão, proteção ou crescimento.</li>
+    <li><strong>Comportamento.</strong> A partir desse estado você age, ou não. E a ação produz seu resultado.</li>
+  </ul>
+
+  <p>A ciência respalda isso. A epigenética de Bruce Lipton mostrou que os genes não determinam seu destino: o ambiente, incluindo seu ambiente interno de pensamentos e emoções, decide quais genes se expressam. E seu cérebro, além disso, é <strong>plástico</strong>: já no século XIX, Santiago Ramón y Cajal, pai da neurociência e Prêmio Nobel, intuiu isso com uma frase que hoje é ciência, «todo homem pode ser, se assim o quiser, escultor do seu próprio cérebro». Cada pensamento que você repete com emoção é uma cinzelada: os neurônios que se ativam juntos se conectam, e assim seus hábitos mentais reescrevem, pouco a pouco, sua própria fiação. E Joe Dispenza transformou isso em equação prática: <em>pensamento claro + emoção elevada + estado coerente = mudança biológica</em>. O cérebro não distingue bem entre uma experiência vividamente imaginada e uma real; quando você lhe acrescenta emoção, ele a marca como real. Uma crença repetida com emoção não é uma frase bonita: é uma instrução biológica.</p>
+
+  <p>E há quem leve essa ideia até a sua raiz. O físico <strong>Thomas Campbell</strong>, em <em>My Big TOE</em>, sua «grande teoria de tudo», propõe que a consciência é o primeiro princípio e que a realidade funciona como um sistema de informação, parecido com uma simulação, no qual o futuro não está fixo, mas em estado de probabilidades. E o que faz pender a balança do possível? Sua <strong>intenção e seu estado interior</strong>. Para Campbell, crescer significa <em>baixar sua entropia</em> (na física, a entropia é a medida da desordem ou do caos de um sistema), ou seja, ordenar seu mundo interno, soltar o medo e mover sua consciência em direção ao amor; e, ao fazer isso, mudam, literalmente, as probabilidades que se materializam na sua vida. É a mesma verdade dos Q'ero dita na linguagem de um físico: afine sua energia interior e você reescreve aquilo que o mundo lhe devolve. É a mesma que vivi na minha própria pele, e por isso compartilho com você momentos da minha vida: para que você veja que não é mito, é real.</p>
+
+  <div class="quote">
+    Você não age conforme o que quer. Você age conforme o que acredita ser possível para si. Mude a crença, e você muda, literalmente, a química a partir da qual vive.
+  </div>
+
+  <h3 class="sub">O coração coerente · HeartMath</h3>
+
+  <p>Aqui entra o órgão mais subestimado da sua transformação: o <strong>coração</strong>. Não é apenas uma bomba. Tem seu próprio sistema nervoso, cerca de quarenta mil neurônios, um pequeno «cérebro» próprio, e envia ao cérebro mais sinais do que recebe dele. Ou seja: em grande medida, <strong>é o coração que diz ao cérebro em que estado estar</strong>, e não o contrário. Por isso, quando você quer mudar sua química, o caminho mais rápido não passa pela cabeça: passa pelo coração.</p>
+
+  <p>A pesquisa da HeartMath mediu isso no ritmo cardíaco. Quando você vive estresse, medo ou frustração, os batimentos formam um padrão irregular e caótico, incoerente, e isso também desordena o cérebro: você pensa pior e reage mais. Mas quando você sente <strong>gratidão, apreço ou cuidado</strong>, o ritmo do coração se torna suave e ordenado, como uma onda harmoniosa. A esse estado se dá o nome de <strong>coerência cardíaca</strong>: coração, respiração e cérebro pulsando em sincronia. É, na linguagem de Numina, o estado Alfa, os 80%, a energia a partir da qual todo o resto se torna possível.</p>
+
+  <p>E a chave mais simples para entrar em coerência é a <strong>gratidão</strong>. Não a de cortesia, mas a que se sente de verdade no peito. Ativar um apreço genuíno acalma o sistema nervoso central, baixa o cortisol, o hormônio do estresse, eleva o DHEA, o da vitalidade, e devolve o equilíbrio ao corpo em questão de minutos. A gratidão não é apenas uma virtude: é uma <strong>tecnologia fisiológica</strong>, a maneira mais amável de mudar sua química.</p>
+
+  <h3 class="sub">O nervo vago · o botão da calma</h3>
+
+  <p>Por trás de tudo isso está o <strong>nervo vago</strong>: o grande nervo do descanso e da conexão, o «freio» do sistema nervoso, o mesmo que o Condor magnético encarna. Quanto melhor é o seu <em>tônus vagal</em>, mais rápido você passa do medo à calma. A teoria polivagal de Stephen Porges descreve três estados: o de <strong>segurança e conexão</strong> (vago ventral), o de <strong>luta ou fuga</strong> (simpático) e o de <strong>bloqueio ou congelamento</strong> (vago dorsal). Respirar devagar, sobretudo prolongando a expiração, sentir gratidão e focar no coração estimulam o vago e devolvem você à segurança. Por isso a respiração quadrada e a coerência do coração não são rituais bonitos: são <strong>botões fisiológicos</strong> para voltar para casa. E isso a ciência mais atual respalda.</p>
+
+  <p>O fisioterapeuta <strong>Antonio Valenzuela</strong>, mestre em psiconeuroimunologia, dedica um livro inteiro ao tema, <em>Estimula tu nervio vago</em>, e sua mensagem é clara: um bom tônus vagal regula o estresse, melhora a digestão e baixa a <strong>inflamação</strong>, aquela que pulsa por baixo de tantas doenças crônicas. E o mais belo para nós é que as chaves que ele propõe são a respiração lenta com a expiração bem longa, o canto, a gratidão, o riso, e até cuidar da microbiota daquele intestino que é o nosso «segundo cérebro». Lembre-se: o nervo vago é justamente o que une os três centros, ventre, coração e mente, em uma só conversa. Voltar a ele não é fugir do mundo: é dar ao corpo a segurança a partir da qual, só então, ele pode curar-se. A ciência de vanguarda e os avós voltam a apontar, mais uma vez, para a mesma porta.</p>
+
+  <h3 class="sub">Como cheguei à HeartMath</h3>
+
+  <p>Na verdade, a primeira vez que ouvi falar de HeartMath foi em 2014, anos antes de me formar nesse maravilhoso centro, em <em>El maestro del corazón</em>, um livro lindo de Annie Marquier. Aquelas páginas semearam em mim a semente: a ideia de que o coração tem uma inteligência própria e que voltar a ele era o caminho. Isto não é teoria emprestada: sou HeartMath® Certified Mentor em Desenvolvimento de Resiliência Pessoal, e acompanhei muitas pessoas, e a mim mesma, a encontrar no coração o interruptor que a mente sozinha não encontrava.</p>
+
+  <h3 class="sub">A magia de acreditar · uma palavra para as mulheres</h3>
+
+  <p>Há um livro pequeno e antigo, <em>A magia de acreditar</em>, de <strong>Claude M. Bristol</strong>, escrito em 1948, que diz com palavras simples o que a ciência confirmaria décadas depois: que a crença sustentada com sentimento é uma força que organiza sua vida. Bristol a chamou de <strong>a ciência da crença</strong>, e dedicou um capítulo inteiro, quase um século antes de virar moda, às mulheres. A tese dele me parece justiça poética: que precisamente por sua intuição, sua constância e sua profunda capacidade de sentir, <strong>a mulher tem um dom natural para essa força</strong>, quando deixa de usá-la contra si mesma.</p>
+
+  <p>Porque é aí que está a armadilha. Com a mesma intensidade com que uma mulher pode acreditar em seu sonho e dar vida a um novo ser humano, com essa mesma intensidade ela costuma despejá-la em acreditar na sua falta de valor, no «não consigo», no «não é para mim». A energia é a mesma; só muda aquilo em que você acredita. Bristol não pedia para pensar positivo à força: pedia para <strong>gravar na mente, com emoção e repetição, a imagem daquilo que você quer ser</strong>, até que o subconsciente a tome por verdade e comece a tecê-la no concreto.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A técnica do espelho · Bristol</div>
+    <p style="margin-bottom:12px;">Uma de suas práticas mais poderosas, e das mais antigas que se conhecem:</p>
+    <ol>
+      <li><strong>Diante do espelho.</strong> Olhe-se nos olhos, de pé, como quem olha para alguém que realmente respeita.</li>
+      <li><strong>Fale no presente e com sentimento.</strong> Diga a si mesm@, em voz alta e como se já fosse verdade, aquilo em que precisa acreditar: «sou capaz», «mereço isto», «estou conseguindo».</li>
+      <li><strong>Repita até senti-lo.</strong> Não conte as vezes: repita até que o peito acredite, não apenas a boca. É a emoção que grava.</li>
+    </ol>
+    <p style="margin-bottom:0;">Faça isso a cada manhã. Não é vaidade nem autoengano: é treinar seu subconsciente a sustentar o estado a partir do qual sua vida se reorganiza.</p>
+  </div>
+
+  <p>Você já a experimentou na primeira página; aqui você entende por que ela funciona. É a chave-mestra do método, a que acende o centro do coração em minutos.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>Coerência do coração · em 3 passos</div>
+    <ol>
+      <li><strong>Atenção ao coração.</strong> Leve a atenção ao centro do peito, à zona do coração.</li>
+      <li><strong>Respire pelo coração.</strong> Respire um pouco mais devagar e profundo, como se o ar entrasse e saísse por ali, cerca de 5 segundos ao inspirar e 5 ao expirar.</li>
+      <li><strong>Ative o apreço.</strong> Traga ao peito um sentimento genuíno de gratidão ou carinho, uma pessoa, um lugar, uma lembrança, e sustente-o por alguns minutos.</li>
+    </ol>
+    <p style="margin-bottom:0;">Três minutos bastam para começar a mudar sua química. É a antessala perfeita de qualquer prática de Numina, e a ponte direta para o Munay.</p>
+  </div>
+
+  <p>Daqui saem três das suas leis de vida. <strong>Aquilo em que você foca, se expande</strong> (sua atenção é o regador: o que você rega, cresce, então olhe para o que <em>sim</em> está aqui, não para o que falta). <strong>Você merece ter tudo</strong>, não pelo que faz, mas pelo que é; o merecimento é um estado, e pode ser curado. E <strong>seja grande crente e otimista do seu sonho</strong>: a fé não muda as leis da física, mas muda aquilo que você se atreve a começar.</p>
+</section>
+
+<!-- ===== CONCEPTO 04, ÁGUILA Y CÓNDOR ===== -->
+<section class="page">
+  <p class="eyebrow">Alicerce 04</p>
+  <h1 class="chapter-title">A Águia e o Condor</h1>
+  <p class="chapter-sub">Suas duas asas: nenhuma voa sozinha. E de onde desce esta profecia.</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">É a profecia que os Q'ero guardaram, e é a coluna de todo este livro. A Águia, o norte, a mente, a ciência, o fazer, e o Condor, o sul, o coração, a intuição, o ser. Durante quinhentos anos a Águia dominou e o Condor quase desapareceu. Mas chega o tempo em que ambos voltam a voar juntos. Não é poesia: é um diagnóstico preciso em linguagem simbólica.</p>
+
+  <h3 class="sub">De onde desce isto · os Q'ero</h3>
+
+  <p>No ponto mais alto dos Andes peruanos, perto dos 4.500 metros, vive um povo quéchua considerado um dos últimos guardiões diretos da sabedoria inca: os <strong>Q'ero</strong>. Quando os conquistadores chegaram, eles não lutaram: subiram. E ali, em silêncio, durante quinhentos anos, preservaram uma profecia, a de um <em>pachakuti</em>, uma reviravolta do mundo na qual a harmonia se restauraria e o caos e a desconexão chegariam ao fim.</p>
+
+  <p>Em meados do século XX desceram da montanha; <em>«esperávamos por vocês há quinhentos anos»</em>, disse-lhes a multidão. Sua sabedoria começou a se abrir ao mundo pelas mãos de mestres como Alberto Villoldo, que se formou entre eles (e com quem tive a maravilhosa sorte de me formar em sua escola; recomendo-o a tod@ buscador@ da verdade).</p>
+
+  <p>E da palavra quéchua <em>ayllu</em>, comunidade, nasce o nome deste sistema: <strong>DAyllu</strong>, o ayllu digital que hoje tecemos com você.</p>
+
+  <p>O coração de sua profecia é esta imagem da Águia e do Condor. Olhe os dados da nossa época (a ansiedade, a solidão, a falta de sentido) e verá que os avós tinham razão: vivemos o voo de uma única asa. <strong>Numina é, no fundo, uma maneira de aprender a voar com as duas.</strong> Tomo esta sabedoria com reverência e a entrelaço com a psicologia dos arquétipos e as neurociências disponíveis hoje, para colocá-la em suas mãos, aqui, hoje.</p>
+
+  <div class="two">
+    <div class="card"><h4><svg viewBox="0 6 100 46" style="width:30px;height:auto;vertical-align:middle;margin-right:9px;color:var(--gold)" fill="currentColor" aria-hidden="true"><path d="M50 8 C52 8 53 13 52 19 C64 12 80 6 98 8 C82 14 64 20 53 25 C53 33 52 42 50 50 C48 42 47 33 47 25 C36 20 18 14 2 8 C20 6 36 12 48 19 C47 13 48 8 50 8 Z"/></svg>A Águia · elétrico</h4><p>Sistema nervoso simpático (ação). Hemisfério analítico. Fazer, produzir, projetar. Lógica e estratégia: a mecânica.</p></div>
+    <div class="card"><h4><svg viewBox="-4 10 108 42" style="width:32px;height:auto;vertical-align:middle;margin-right:9px;color:var(--violet)" fill="currentColor" aria-hidden="true"><path d="M50 12 C52 12 53 16 52 22 C68 19 86 19 102 24 C86 26 68 27 53 28 C53 35 52 43 50 50 C48 43 47 35 47 28 C32 27 14 26 -2 24 C14 19 32 19 48 22 C47 16 48 12 50 12 Z"/></svg>O Condor · magnético</h4><p>Sistema nervoso parassimpático (restauração). Hemisfério intuitivo. Ser, sentir, receber. Coerência do coração: o estado.</p></div>
+  </div>
+
+  <p>A «Águia sem Condor» é o ar que respiramos: eficiência sem compaixão (o esgotamento epidêmico), ação sem descanso (a ansiedade), pensamento sem sentir (a desconexão). É a mecânica correndo sem o estado que a sustenta, exatamente o estancamento de que falávamos. Mas a armadilha oposta também existe: o «Condor sem Águia» é intuição sem forma, empatia sem limites, fluxo sem manifestar. Muita espiritualidade bem-intencionada para por aí: muito estado, nenhuma obra.</p>
+
+  <div class="quote">
+    Com uma única asa você voa em círculos até cair. A maestria não é escolher uma asa: é flexibilidade contextual, saber quanta Águia e quanto Condor cada momento pede.
+  </div>
+
+  <p>Isto resolve a falsa briga entre «trabalhar o seu interior» e «tomar uma atitude». Não é uma coisa ou outra. Uma negociação pede talvez mais Águia que Condor; um amigo em crise, muito mais Condor que Águia; a criação, sobretudo Condor com um toque de Águia. Não há proporção fixa. A sabedoria é a flexibilidade. Guarde esta pergunta para a vida toda: <em>isto hoje pede mais Águia ou mais Condor?</em></p>
+
+  <p>E repare na elegância: a Águia-Condor aparece em duas escalas dentro de Numina. Como <strong>nível de percepção</strong> (o espírito/eu superior, criador, universo… «como você quiser chamá-lo», veremos na Parte II) e como <strong>polaridade</strong> que organiza seus doze arquétipos em seis radiadores elétricos e seis equilibradores magnéticos (Parte III). O reencontro das duas asas é o princípio que se repete em cada escala do seu ser.</p>
+
+  <p class="note">E convém dizê-lo desde o princípio: esta profecia não é só dos Andes. É uma das muitas faces de um mesmo mito universal (o do ser que cai, se fragmenta e volta para casa transformado) que Joseph Campbell encontrou sob todos os relatos e que Jung explicou como herança comum da alma. Tomo a voz andina, a mais viva e próxima da terra e de mim como sul-americana, como porta para um mito que pertence a todos nós.</p>
+</section>
+
+
+<!-- ===== CONCEPTO 05, UNA SOLA NOTA ===== -->
+<section class="page">
+  <p class="eyebrow">Alicerce 05</p>
+  <h1 class="chapter-title">Você nasceu afinada em uma única nota</h1>
+  <p class="chapter-sub">Mas as doze vivem em você. Essa é a grande compreensão.</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Você nasce afinada em uma nota: sua marca, o arquétipo que soa em você sem esforço, conforme o seu ano de nascimento. É a sua nota de partida. Mas, e aqui está o ensinamento que muda tudo, as doze notas já vivem em você. Não são exclusivamente suas: são <strong>humanas</strong>. Jung chamou isso de inconsciente coletivo: os arquétipos são padrões que toda a humanidade compartilha.</p>
+
+  <p>Acreditar <em>«eu sou de tal arquétipo»</em> é como um piano que insiste em tocar uma única tecla. Sua marca é a porta, não a jaula. A obra da sua vida é aprender a tocar as doze, e integrá-las. Essa é a grande compreensão de Numina: <strong>viemos com uma marca, mas todos compartilhamos as doze, e o objetivo é integrar todas elas.</strong></p>
+
+  <p>E quando soam <em>juntas</em>, não uma após a outra, mas todas ao mesmo tempo, acontece algo extraordinário: você sai do tempo. Isso é o <strong>Acorde 13</strong>: o momento em que as doze se tornam uma só. O 13 não é uma nota nova nem mais um arquétipo que se acrescenta à lista: é o que aparece quando as doze se reúnem e se integram em um único som. Sua unidade, sua totalidade.</p>
+
+  <div class="quote">
+    Uma melodia são notas em sequência: isso é o tempo. Um acorde são as mesmas notas ao mesmo tempo: isso é a eternidade. Seu Ser Luminoso é o instante em que toda a sua música soa de uma vez, como um só som.
+  </div>
+
+  <p>E há uma segunda linguagem, a da cor, que diz o mesmo. Seus doze arquétipos são também o seu <strong>arco-íris emocional</strong>: doze matizes, cada um com seu tom de luz e de sombra. Assim como as doze notas juntas formam o acorde, as doze cores juntas formam <strong>luz branca</strong>. O Acorde 13 é luz branca: todas as cores ao mesmo tempo. E o arco-íris já é sagrado nos Andes, a <em>wiphala</em>, o <em>k'uychi</em>: o seu arco-íris emocional não é metáfora emprestada, vive na linhagem.</p>
+
+  <p>Esse ponto central, onde as doze se tornam uma, tem cinco nomes em cinco linhagens, e todos apontam para o mesmo: o <strong>Si-mesmo</strong> de Jung (o centro da mandala), a <strong>chakana</strong> completa dos Andes, o <strong>acorde</strong> no qual todas as notas soam como uma só, a <strong>luz branca</strong> do arco-íris, e <strong>Wiracocha</strong>, o ser luminoso. A mandala de Jung e a chakana andina são a mesma figura: quatro direções e um centro. Não é coincidência. É o arquétipo do Si-mesmo aparecendo idêntico em culturas sem contato, exatamente o que Jung previu.</p>
+</section>
+
+<!-- ============ QUIÉN SOY (LA VOZ DETRÁS DEL MAPA) ============ -->
+<section class="page bio">
+  <p class="eyebrow">A voz por trás do mapa</p>
+  <h1 class="chapter-title">Quem sou</h1>
+  <p class="chapter-sub">Conto de forma breve. Não para falar de mim, mas para que você reconheça a sua própria história na minha.</p>
+  <hr class="title-rule">
+
+  <p class="lead">Sou Natalia. Cresci entre perdas e despedidas, e ainda assim nunca deixei de acreditar que a vida me guardava algo maior. Aprendi cedo a soltar; levaria anos para aprender a me sustentar. E entendi, com o tempo, que a dor nunca veio para me quebrar: veio para me mostrar o caminho. Se até aqui algo ressoou em você, é porque isto que explico não é teoria: eu vivi. Conto em uma página, e depois a protagonista volta a ser você.</p>
+
+  <p>Minha história começou com ausências. Aos três anos, minha mãe teve que me deixar aos cuidados da minha avó; até os sete cresci sem mãe nem pai por perto. Os papéis se embaralharam cedo: meu tio fez de pai, minha avó de sustento. E quase todos eu fui perdendo cedo demais: primeiro meu tio, depois minha avó, mais tarde minha mãe. Tantas despedidas, tão cedo, forjaram em mim, sem que eu soubesse, a minha primeira força: a <strong>flexibilidade</strong>. Dobrar-me sem me quebrar, refazer o chão sob os meus pés uma e outra vez.</p>
+
+  <div class="bio-mark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1l1.7 8.3L22 11l-8.3 1.7L12 21l-1.7-8.3L2 11l8.3-1.7z"/></svg><span class="ml">A pergunta que não me largou</span><span class="mline"></span></div>
+
+  <p>Antes de tudo fui a que pergunta: faço perguntas desde os três anos. Aquela menina curiosa tornou-se, com os anos, uma obsessão muito concreta. Quando Ana Laura, a tia com quem me criei como irmã, sofreu aos 23 um abscesso cerebral que a deixou sem memória presente, uma pergunta se cravou em mim e já não me largou: <em>o que pode ser reprogramado na mente humana, e o que não pode?</em></p>
+
+  <p>Essa pergunta me levou a me especializar em programação neurolinguística e a viver com uma urgência sagrada: aproveitar a vida, agora. <strong>Você também tem uma pergunta que não te larga. Vale a pena escutá-la.</strong></p>
+
+  <div class="bio-mark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="5.5" r="3"/><circle cx="12" cy="18.5" r="3"/><circle cx="5.5" cy="12" r="3"/><circle cx="18.5" cy="12" r="3"/><circle cx="12" cy="12" r="2.6" fill="#2C1C52"/></svg><span class="ml">O «não mereço» que se herda</span><span class="mline"></span></div>
+
+  <p>Minha mãe era de uma doçura desarmante e uma lutadora incansável; sozinha e divorciada, me criou quase sem ajuda e chegou a ser empresária. Tinha o talento e a entrega. O que lhe faltou não estava em suas mãos, mas em uma programação herdada de escassez: esse «não mereço» que não a deixou sustentar o que com tanto amor construía. Ela foi abusada quando criança; à minha avó, órfã ao nascer, coube uma pobreza tão profunda que não teve sapatos até os sete anos. Feridas e força viajam em silêncio de uma geração à seguinte. E quase sempre, por trás do «não consigo», há uma ferida, não uma verdade. <strong>Que «não mereço» você herdou, sem ter escolhido?</strong></p>
+
+  <div class="bio-mark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M2 21L9.5 6l3.5 6.5L16 8l6 13z"/></svg><span class="ml">Tocar o fundo para voltar a escolher</span><span class="mline"></span></div>
+
+  <p>Também eu sobrevivi a abusos, e duas vezes a morte passou perto de mim, aos treze e aos vinte. Cada roçar me devolveu com os olhos mais abertos. Aquela experiência de quase morte aos vinte mudou tudo: me devolveu à vida decidida a vivê-la nos meus próprios termos. Ali entendi, pela primeira vez, o que hoje é o coração do meu sistema.</p>
+
+  <div class="bio-key">Às vezes é preciso tocar o limite para lembrar que você veio para viver.</div>
+
+  <p>Se a sua realidade não te agrada, olhe de frente para o seu próprio padrão de crenças: a realidade que você vive é coerente com o padrão que hoje sustenta. Observá-lo, derrubar o que limita e reestruturá-lo é, acredite, o mais importante em que você pode investir o seu tempo.</p>
+
+  <div class="bio-mark"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20.5C5.5 15 3 11.2 3 8.2A4.6 4.6 0 0112 6a4.6 4.6 0 019 2.2c0 3-2.5 6.8-9 12.3z"/></svg><span class="ml">Por que dedico minha vida ao coração</span><span class="mline"></span></div>
+
+  <p>Depois vieram perdas que partem ao meio: em 2014 me despedi de um filho que não pôde ficar; e em 2017, já emigrante no Reino Unido depois de construir do zero pela segunda vez, minha mãe partiu de repente. Mas desta vez eu já conhecia o segredo que meu «titi» (meu pai de coração) me sussurrou antes de morrer: que a energia não se destrói, apenas muda de forma, e que ali vive a nossa conexão com toda a criação. Sustentar essa coerência no momento mais duro me confirmou que o caminho era real. Não é por acaso que anos depois decidi me formar como HeartMath® Mentor e dedicar minha vida a cuidar desse mesmo centro, o coração, que me ensinou a viver.</p>
+
+  <p>Quase ninguém escapa de uma ferida: cerca de 70% das pessoas atravessa ao menos uma experiência traumática na vida. Mas não se cura a partir da pena, que nos deixa pequenas, e sim a partir da <strong>autocompaixão</strong>: olhar a própria ferida com a mesma ternura com que abraçaríamos quem amamos.</p>
+
+  <div class="bio-key bio-key-big">Se eu pude reescrever o meu padrão e voltar a voar, você também pode. Não perca um minuto olhando para trás: decida hoje o mundo que você veio viver, e dê um primeiro passo pequeno nessa direção. <strong>As pequenas ações movem montanhas.</strong> Este mapa já é seu.</div>
+  <p style="font-family:'Bebas Neue',sans-serif;letter-spacing:.3em;color:var(--gold);font-size:20px;margin-top:18px;">Aho.</p>
+</section>
+
+
+<!-- ============ PARTE II DIVIDER ============ -->
+<section class="divider">
+  <div class="pnum">PARTE II</div>
+  <h2>Os 4 Níveis</h2>
+  <div class="pdesc">Quatro animais de poder, quatro mundos que você atravessa: do corpo ao espírito</div>
+  <svg class="orn" width="120" height="20" viewBox="0 0 120 20" aria-hidden="true">
+    <line x1="0" y1="10" x2="46" y2="10" stroke="#C9A24B" stroke-width="1"/>
+    <circle cx="60" cy="10" r="5" fill="none" stroke="#C9A24B" stroke-width="1"/><circle cx="60" cy="10" r="2" fill="#C9A24B"/>
+    <line x1="74" y1="10" x2="120" y2="10" stroke="#C9A24B" stroke-width="1"/>
+  </svg>
+</section>
+
+<!-- ===== INTRO NIVELES ===== -->
+<section class="page">
+  <p class="eyebrow">O eixo vertical</p>
+  <h1 class="chapter-title">Os quatro mundos</h1>
+  <p class="chapter-sub">Eles não contêm os seus arquétipos: são a percepção a partir da qual você os vive</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Os quatro animais de poder da tradição andina não são adornos: são quatro <strong>níveis de percepção</strong>, quatro mundos que você atravessa do denso ao sutil. São a <em>maneira como você percebe a sua essência</em>: essas doze energias potenciais que você carrega dentro de si. E as mesmas doze são percebidas e vividas de modo diferente conforme o nível a partir do qual você olha: no corpo, na emoção, na alma que cria ou no espírito que observa.</p>
+
+  <p>Você sobe por eles como por uma escada de luz: solta no corpo (Serpente), atravessa mente e emoções (Jaguar), abre a alma (Beija-flor) e toca o espírito (Águia-Condor). E cada nível tem o seu som, um mantra, e a sua pergunta. Quando a dor aparece, ela diz em que mundo você está presa; estes quatro capítulos dizem como atravessá-lo.</p>
+
+  <p>E há algo que une a sabedoria ancestral à neurociência: cada animal corresponde a um <strong>cérebro</strong> e a um <strong>elemento</strong>. Aquilo que os avós nomearam na linguagem dos animais, a ciência descreveria séculos depois na linguagem dos cérebros:</p>
+
+  <ul class="clean">
+    <li><strong>Serpente · Terra · cérebro reptiliano.</strong> Sobrevivência pura: luta ou fuga. Ainda sem emoções, apenas o corpo que quer viver.</li>
+    <li><strong>Jaguar · Água · cérebro límbico.</strong> Emoção e linguagem simbólica. Territorial e defensivo; se se sente ameaçado, luta.</li>
+    <li><strong>Beija-flor · Fogo · neocórtex.</strong> Recria aquilo que observa: música, arte, matemática, ciência. A alma que imagina e cria.</li>
+    <li><strong>Águia-Condor · Ar · lobos pré-frontais.</strong> Autoobservação, transcendência do eu, escolha consciente. A testemunha.</li>
+  </ul>
+
+  <p>Isto não é apenas poesia ancestral: é, em linhas gerais, um mapa de como o seu cérebro se formou, camada sobre camada, na mesma ordem em que você percorre estes quatro níveis, desde o reptiliano da pura sobrevivência até os lobos pré-frontais, a parte mais nova e mais humana, a que permite que você se observe e escolha. É um modelo simplificado, mas revelador: subir pelos quatro níveis de Numina é percorrer a evolução do seu próprio cérebro até o seu cume, o da testemunha que escolhe.</p>
+
+  <h3 class="sub">A roda de medicina e a chakana</h3>
+
+  <p>Para entender tudo isso como um só corpo, convém olhar o mapa que o contém. Muitos povos originários da América guardam uma mesma figura sagrada: a <strong>roda de medicina</strong>, um círculo dividido em <strong>quatro direções</strong>, cada uma com a sua cor, o seu elemento, o seu animal e a sua dimensão do ser: o físico, o emocional, o mental e o espiritual. Eu a acolho com respeito, como inspiração, sem pretender falar pelos povos que a guardam.</p>
+
+  <p>Nos Andes, essa mesma sabedoria toma a forma da <strong>chakana</strong>, a cruz quadrada e escalonada que desenha o Cruzeiro do Sul no céu. Os seus quatro braços são, na linguagem deste livro, os <strong>quatro animais</strong>: Serpente, Jaguar, Beija-flor e Águia-Condor. E aqui está a chave que une tudo: a roda e a chakana têm um <strong>centro</strong>. O ponto onde se cruzam as quatro direções não está vazio.</p>
+
+  <p>Esse centro é o <strong>Munay</strong>: o amor, o coração, a força que sustenta e reconcilia tudo o mais. As quatro direções são os raios; o Munay é o eixo imóvel do qual todos partem e ao qual todos voltam. Por isso, em Numina, a coerência do coração (aquela que você já experimentou na primeira página) não é <em>uma</em> prática a mais: é <strong>o centro da roda</strong>, o interruptor de todo o sistema. Se o coração não está no centro, a roda não gira. E quando as quatro direções giram em torno de um coração coerente, a chakana late inteira, e o Acorde 13 se acende.</p>
+
+  <h3 class="sub">Os três cérebros · ventre, coração e mente</h3>
+
+  <p>Para o povo Q'ero existem três centros de poder que eles honram conscientemente: o ventre, o coração e a mente. E hoje a neurociência o confirma com assombro: não pensamos só com a cabeça. O <strong>intestino</strong> abriga a sua própria rede de milhões de neurônios, o «segundo cérebro», sede do instinto. O <strong>coração</strong> também tem o seu pequeno cérebro e envia à cabeça mais sinais do que recebe. E a <strong>mente</strong>, o cérebro que todos conhecemos. Três inteligências, uma só pessoa.</p>
+
+  <p>E aqui os dois mapas se abraçam. O <strong>ventre</strong> é a <strong>Serpente</strong>, o corpo e o seu instinto; o <strong>coração</strong> é o <strong>Beija-flor</strong> e o Munay, o centro que tudo sustenta; e a <strong>mente</strong> ascende do <strong>Jaguar</strong>, a emoção que pensa, à <strong>Águia-Condor</strong>, a testemunha que escolhe. Curar, no fundo, é colocá-los para soar juntos: quando o ventre, o coração e a mente deixam de se contradizer e latem em coerência, surge a saúde, e se acende a primeira faísca do Acorde 13.</p>
+
+  <p class="note">Uma observação: o som é a Palavra posta a vibrar. Cantar um mantra com emoção elevada treina o seu estado tal como a coerência do coração. Por isso cada nível traz o seu: não é decoração, é tecnologia da alma.</p>
+
+  <p>E isto não é apenas poesia andina: a mesma ascensão aparece, com outros nomes, em tradições que jamais se conheceram (as quatro qualidades de Krishnamurti, os quatro níveis de percepção da consciência moderna). Se você quiser ver esses mapas paralelos lado a lado, eu os reuni ao final, em <em>Mapas paralelos</em> (apêndice). Aqui nos basta o essencial: <strong>quatro animais, quatro cérebros, quatro mundos, uma só escada, e um coração no centro.</strong></p>
+</section>
+
+
+<!-- ===== SERPIENTE ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 1 · Sul · Ukhu Pacha</p>
+  <h1 class="chapter-title">Serpente · o corpo</h1>
+  <p class="chapter-sub">Solte a pele velha. Volte à terra.</p>
+  <hr class="title-rule">
+
+  <div class="attrs"><span>Elemento · Terra</span><span>Cérebro reptiliano</span><span>Sobrevivência · luta ou fuga</span></div>
+
+  <p class="lead drop">A serpente troca de pele sem drama: desliza para fora daquilo que já não lhe serve e segue viva. Esse é o primeiro nível, o do corpo: aprender a <strong>soltar</strong>. O passado, os rancores, as versões de você que já cumpriram o seu tempo. Aqui não se pensa: sente-se, respira-se, liberta-se. É a terra sob os seus pés, o instinto, a Pachamama na sua própria carne.</p>
+
+  <p>A maioria tenta resolver tudo de cima, a partir da cabeça, enquanto o corpo carrega tensão, insônia, contração. Mas há feridas que só se soltam por baixo: movendo-se, respirando, chorando o que precisava ser chorado, soltando o que você apertava. A Serpente lembra que o seu corpo é sábio e que curar começa por habitá-lo.</p>
+
+  <p>Neste nível manda o cérebro reptiliano, o mais antigo: o da sobrevivência pura, da luta ou da fuga. Aqui ainda não há emoções nem relato, apenas o instinto do corpo que quer viver. Por isso não se resolve pensando: resolve-se habitando. O seu elemento é a <strong>terra</strong>, e a sua tarefa é voltar a se sentir a salvo na sua própria carne.</p>
+
+  <div class="quote">
+    Você não pode construir o novo com as mãos cheias do velho. Soltar não é perder: é abrir espaço.
+  </div>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A pergunta da Serpente</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--ink);margin-bottom:10px;">O que preciso soltar?</p>
+    <p style="margin-bottom:14px;"><strong>Seu mantra · Om Tare Tuttare Ture Soha</strong>, o mantra de Tara Verde, a mãe de todos os budas: aquela que cuida de você, protege você e liberta você do sofrimento. É o mantra da compaixão e da proteção, o que dissolve o medo primário que o corpo guarda como luta ou fuga. Cante-o para soltar o temor que vive na sua carne e voltar a se sentir amparada, a salvo.</p>
+    <p style="margin-bottom:14px;font-size:14.5px;">▶ <a href="https://www.youtube.com/watch?v=y_8I4sAVi04" style="color:var(--gold-soft);text-decoration:underline;">Om Tare Tuttare</a>, de Deva Premal &amp; Miten.</p>
+    <p style="margin-bottom:0;"><strong>Sua respiração · quadrada</strong> (4-4-4-4) para aquietar o corpo antes de soltar.</p>
+  </div>
+</section>
+
+<!-- ===== CUERPO Y ADICCIONES ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 1 · em profundidade</p>
+  <h1 class="chapter-title">O corpo e os vícios</h1>
+  <p class="chapter-sub">O que o corpo agarra quando a alma tem fome</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Antes de seguir subindo, fiquemos um momento na Serpente, porque aqui se trava uma batalha que quase todas nós conhecemos. O corpo é o primeiro lugar onde aterrissa aquilo que não queremos sentir. E quando algo dói e não o olhamos, o corpo busca, à sua maneira, calá-lo: com tabaco, com álcool, com açúcar, com trabalho sem freio, com vínculos que não nos fazem bem. Isso é um vício, não um defeito que torna você uma má pessoa, mas sim uma <strong>estratégia do corpo para não sentir</strong>.</p>
+
+  <p>Temos muitos, e quase nenhum leva o nome de vício. O cigarro que acompanha a ansiedade. A taça que afrouxa o dia. O doce que premia ou consola. O trabalho que preenche as horas para não escutar o silêncio. E o mais invisível de todos: as <strong>amizades e os vínculos que nos subtraem</strong>, os que nos querem pequenas, os que alimentam a queixa, os que precisam de nós quebradas para se sentirem no seu lugar. Disso também se depende, e disso também se solta. Todo vício promete o mesmo e mente o mesmo: alívio agora, em troca da vida depois.</p>
+
+  <div class="quote">
+    Não há vício em uma substância: há vício em não sentir. Em não querer ver, em não reconhecer que ainda não se tem as ferramentas, e por isso se escolhe se dispersar, se entreter e não pensar. Mude o que você pensa, e mudará o que você sente, e o aperto se afrouxa sozinho.
+  </div>
+
+  <p>Aqui entra uma ferramenta que mudou a minha vida: <strong>O Trabalho</strong> de <strong>Byron Katie</strong>, que ela desenvolve em <em>Amando o que É</em>. A sua descoberta é desarmante: não sofremos pela realidade, mas pelo <em>que pensamos</em> sobre ela. Por trás de cada desejo compulsivo não há uma substância: há um pensamento não questionado, «preciso disto para me acalmar», «não dou conta disto sem ajuda», «eu mereço». Katie não pede que você resista ao impulso com força de vontade. Ela pede algo mais sábio: <strong>questionar o pensamento</strong> que o acende.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>O Trabalho, aplicado ao desejo compulsivo</div>
+    <p style="margin-bottom:12px;">Quando chegar o impulso, o cigarro, a taça, o doce, a mensagem para quem lhe faz mal, não lute: indague. Tome o pensamento que o sustenta («preciso disto») e passe-o por quatro perguntas:</p>
+    <ol>
+      <li><strong>Isso é verdade?</strong></li>
+      <li><strong>Posso saber com certeza absoluta que é verdade?</strong></li>
+      <li><strong>Como eu reajo, o que acontece em mim, quando acredito nesse pensamento?</strong></li>
+      <li><strong>Quem eu seria, neste instante, sem esse pensamento?</strong></li>
+    </ol>
+    <p style="margin-bottom:0;">E faça <strong>a inversão</strong>: «preciso disto» → «não preciso disto», «este pensamento precisa de mim». Veja se a inversão é tão verdadeira, ou mais, que a original. O desejo compulsivo não se obedece nem se combate: ele se <em>desarma</em> ao ser olhado de frente.</p>
+  </div>
+
+  <p>A Serpente nos ensinou a soltar a pele velha. Um vício é uma pele velha que aperta e promete calor. Soltá-lo não é castigo nem privação: é abrir espaço. E cada vez que você questiona o pensamento em vez de obedecer ao impulso, devolve ao corpo aquilo que ele de verdade pedia, não fumaça nem açúcar, mas ser sentido, ser habitado, ser amado.</p>
+
+  <p class="note">Como no Alicerce 01: se a ferida for muito funda ou a dependência muito física, busque também acompanhamento profissional. Este caminho se faz melhor amparado.</p>
+</section>
+
+<!-- ===== JAGUAR ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 2 · Oeste</p>
+  <h1 class="chapter-title">Jaguar · a mente e as emoções</h1>
+  <p class="chapter-sub">Além do medo e da morte. A via da sombra.</p>
+  <hr class="title-rule">
+
+  <div class="attrs"><span>Elemento · Água</span><span>Cérebro límbico</span><span>Emoção · território</span></div>
+
+  <p class="lead drop">O jaguar enxerga na escuridão e caminha sem medo por onde outros não se atrevem. É o guardião do segundo nível: a mente e as emoções, o território da <strong>sombra</strong>. Aqui não se trata de pensar de forma mais bonita, mas de olhar de frente aquilo que você evita: o medo disfarçado de prudência, os relatos que limitam você, as partes de você que você negou.</p>
+
+  <p>O medo quase nunca se anuncia como medo: chega como cautela, como «não é o momento», como «preciso me preparar um pouco mais». Soa razoável porque usa a sua voz. O Jaguar ensina você a distinguir a prudência genuína (que produz informação concreta) do medo disfarçado (que só produz mais adiamento). E ensina o mais importante: a sombra não se mata, isso é Águia sem Condor, ela se <strong>reivindica com amor</strong>. O que você nega governa você; o que você integra devolve a você o seu poder.</p>
+
+  <p>Aqui governa o cérebro límbico: o da emoção e da linguagem simbólica, o das palavras. É defensivo e territorial, diante do que é seu, o desejo, o alimento, e, se se sente ameaçado, luta. O seu elemento é a <strong>água</strong>: as emoções que arrastam ou que limpam. Trabalhar este nível é aprender a sentir sem que a emoção governe você, e a olhar de frente a sombra que o medo esconde.</p>
+
+  <div class="quote">
+    O medo não é um sinal de pare. É o sinal de que você chegou à borda do seu território. E a borda é exatamente onde vive o crescimento.
+  </div>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A pergunta do Jaguar</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--ink);margin-bottom:10px;">Que medo está conduzindo isto, disfarçado de razão?</p>
+    <p style="margin-bottom:14px;"><strong>Seu mantra · Ide were were</strong>, canto iorubá a Oxum, orixá das águas doces e das emoções. Água que limpa e faz fluir o que o límbico carrega, para que a emoção se mova em vez de lutar. <span class="note">(A prática completa para integrar sombras está na Parte IV.)</span></p>
+    <p style="margin-bottom:14px;font-size:14.5px;">▶ <a href="https://www.youtube.com/watch?v=YUeIFRkthb8&amp;list=RDEMvJrhfUog-hGMKRb_YbRNNg&amp;index=2" style="color:var(--gold-soft);text-decoration:underline;">Idé Weré Weré</a>, de Deva Premal &amp; Miten.</p>
+    <p style="margin-bottom:10px;"><strong>Sua respiração · de fogo</strong>, para acender a coragem quando é hora de atravessar. É um fole rápido pelo nariz que acende o corpo e desperta a valentia:</p>
+    <ol style="margin:0 0 12px;padding-left:22px;">
+      <li>Sente-se ereta, com os ombros soltos e uma mão sobre o ventre.</li>
+      <li>Inspire e expire pelo nariz num ritmo rápido e regular, bombeando o abdômen para dentro a cada expiração; a inspiração entra sozinha, sem esforço. Comece suave, em torno de um ciclo por segundo.</li>
+      <li>Faça umas 20 a 30 respirações, descanse meio minuto respirando naturalmente, e repita. <strong>Três ciclos</strong> no total.</li>
+    </ol>
+    <p style="margin-bottom:10px;">Se você quiser vê-la bem feita, escreva para mim em <strong>natalia@aceaionlinemarketing.com</strong> e eu lhe envio um vídeo explicativo e as minhas dicas para tirar o máximo dela.</p>
+    <p class="note" style="margin-bottom:0;">Faça-a com suavidade: se você se sentir tonta, pare e volte à sua respiração normal. Melhor evitá-la durante a gravidez ou a menstruação, e se você tiver hipertensão, problemas cardíacos, epilepsia ou uma cirurgia recente.</p>
+  </div>
+</section>
+
+<!-- ===== JAGUAR EN PROFUNDIDAD: MENTE Y SANACIÓN ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 2 · em profundidade</p>
+  <h1 class="chapter-title">A mente que cura o corpo</h1>
+  <p class="chapter-sub">O placebo, a emoção e aquilo que a ciência ainda não explica por completo</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Se o Jaguar governa a mente e as emoções, aqui é hora de olhar de frente algo que mudou a minha vida: o que sentimos e cremos não fica na cabeça, desce ao corpo e, às vezes, o transforma. Não é magia nem o típico «pense positivo». É a conversa constante, real e mensurável, entre a mente, a emoção e a biologia.</p>
+
+  <h3 class="sub">O caso da minha mãe</h3>
+  <p>A minha mãe viveu algo que ainda me deixa sem palavras. Diagnosticaram-lhe um linfoma não Hodgkin, um câncer do sistema linfático, muito avançado, em estágio IV, com comprometimento do líquido cefalorraquidiano, entre outras complicações que, segundo os médicos, lhe davam uns três meses de vida. Ela seguiu vivendo como quem não carrega uma sentença. E, contra todo prognóstico, o seu corpo alcançou uma <strong>remissão espontânea</strong>: o câncer, simplesmente, foi embora. Anos mais tarde ela partiria, mas de uma doença muito diferente. A medicina chama isso assim, «remissão espontânea», que é o nome honesto que a ciência dá a algo que ainda não sabe explicar por completo. Não afirmo saber o que ocorreu. Só sei o que vi: que não carregar o peso da sentença a deixou seguir vivendo, e que nessa vida algo se atreveu a olhar e, de algum modo, sarou.</p>
+
+  <h3 class="sub">O que a ciência de fato sabe: o placebo</h3>
+  <p>E aqui não falamos de fé, mas de estudos. O <strong>efeito placebo</strong> é uma das provas mais sólidas de que a mente move o corpo: quando alguém crê de verdade que recebe um tratamento, o seu corpo fabrica, sozinho, parte dos efeitos desse tratamento. Foram documentadas cirurgias simuladas de joelho que aliviaram a artrose tal como as reais; operações de coração fingidas que melhoraram 83% dos pacientes (publicado no <em>New England Journal of Medicine</em>); injeções de placebo que devolveram mobilidade a pessoas com Parkinson. Não é imaginação: é química real, disparada por uma crença. (E não digo isso de ouvir falar: trabalhei para centros de excelência e para o departamento de medicina da Universidade de Oxford, em plena pandemia, apoiando laboratórios líderes.) E se uma crença pode fazer isso sem substância alguma, você se dá conta do poder que as suas crenças têm, e de até que ponto você pode trabalhá-las a seu favor?</p>
+
+  <h3 class="sub">Os que se atreveram a crer</h3>
+  <p><strong>Joe Dispenza</strong> viveu isso na própria pele. Em 1986, aos 23 anos, um veículo todo-terreno o atropelou durante um triatlo e lhe quebrou seis vértebras; quatro cirurgiões concordaram: operação com hastes de aço na coluna ou paralisia. Ele recusou a cirurgia e saiu do hospital com uma só ideia: «o poder que fez o corpo cura o corpo». Durante semanas, duas horas pela manhã e duas à noite, reconstruiu a sua coluna na imaginação, vértebra a vértebra. Em nove semanas e meia voltou a caminhar. Hoje ele pesquisa e ensina essa conexão mente-corpo, e intitulou um dos seus livros, sem rodeios, <em>Você É o Placebo</em>.</p>
+
+  <p>O cientista e autor <strong>Gregg Braden</strong> acrescenta uma peça que toca em cheio o Jaguar: a <strong>emoção</strong>. Para ele, a linguagem que de verdade fala ao corpo não é o pensamento, mas o sentimento: sentir como se aquilo que você anseia já fosse real. Braden costuma mostrar um vídeo, gravado num hospital «sem medicamentos» em Pequim, onde três praticantes sustentam a sensação de que uma mulher já está curada enquanto uma ecografia registra, nesses minutos, como o seu tumor se dissolve. É um caso único, sem verificação científica rigorosa, e convém tomá-lo pelo que é: um testemunho, não uma prova. Mas ele aponta para algo que a neurociência de fato confirma: a emoção muda a sua química, e a sua química, sustentada ao longo do tempo, muda você.</p>
+
+  <div class="quote">
+    Não peça ao corpo que se cure enquanto a sua mente repete a história que o adoece. Integre primeiro a emoção, solte a sentença, e deixe que o corpo escute algo diferente.
+  </div>
+
+  <p>Por isso este é o nível do Jaguar: porque quase tudo começa na emoção não olhada. A culpa, o «não mereço», o medo virado costume, tudo isso é água estagnada que o corpo acaba carregando. Integrar a sombra, sentir o que calamos e deixá-lo fluir, não é apenas um trabalho da alma: é também, muitas vezes, o princípio da saúde.</p>
+
+  <p class="note">Importante, e digo isto com o coração na mão: nada disto substitui a medicina. Se você ou alguém que você ama atravessa uma doença, busque e siga o melhor tratamento médico disponível; o que compartilho aqui acompanha, não substitui. A mente é uma aliada poderosa da cura, jamais uma desculpa para abandonar o cuidado de que você precisa.</p>
+</section>
+
+<!-- ===== COLIBRÍ ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 3 · Norte</p>
+  <h1 class="chapter-title">Beija-flor · a alma</h1>
+  <p class="chapter-sub">A viagem sagrada. A criação. O néctar da vida.</p>
+  <hr class="title-rule">
+
+  <div class="attrs"><span>Elemento · Fogo</span><span>Neocórtex</span><span>Criar · imaginar</span></div>
+
+  <p class="lead drop">O beija-flor empreende viagens impossíveis para o seu tamanho, guiado por algo que não se vê: a doçura, o néctar, aquilo que dá vida. É o terceiro nível: a <strong>alma</strong>. Aqui você já não pergunta o que soltar nem o que temer, mas o que lhe dá vida, o que lhe chama, o que você ama de verdade. É o território do coração, dos ancestrais, do sentido, a viagem sagrada da sua existência.</p>
+
+  <p>Neste nível se curam as feridas de amor e de pertencimento, e se aprende o que minha própria mãe me ensinou sem saber: que quem amamos não se salva, se sustenta; que cada um desperta quando decide. O Beija-flor não força: nutre. Não empurra o rio: bebe dele. Aqui vive também a compaixão, primeiro com você, e a certeza de que você pertence a algo maior.</p>
+
+  <p>Na alma desperta o neocórtex: o cérebro que recria o que observa, que imagina e cria, o da música, da arte, da matemática, das ciências. Você já não apenas sobrevive nem apenas sente: <em>cria</em>. Seu elemento é o <strong>fogo</strong>, a faísca que transforma em obra aquilo que toca. Por isso a alma encontra seu néctar não só no que ama, mas no que é capaz de criar.</p>
+
+  <div class="quote">
+    A alma não se move por obrigação, se move por néctar. Siga o que lhe dá vida, e estará seguindo seu propósito sem ainda saber.
+  </div>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A pergunta do Beija-flor</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--ink);margin-bottom:10px;">O que me dá vida? O que me chama?</p>
+    <p style="margin-bottom:14px;"><strong>Seu mantra · Om Mani Padme Hum</strong>, «a joia no lótus», o mantra da compaixão de Avalokiteshvara. Abre o coração da alma.</p>
+    <p style="margin-bottom:14px;font-size:14.5px;">▶ <a href="https://www.youtube.com/watch?v=2wBbL2xYVqQ" style="color:var(--gold-soft);text-decoration:underline;">Om Mani Padme Hum</a>, de Deva Premal &amp; Miten.</p>
+    <p style="margin-bottom:0;"><strong>Sua respiração · em caixa</strong>, 4-4-4-4, para entrar na coerência do coração de onde a alma fala.</p>
+  </div>
+</section>
+
+<!-- ===== COLIBRÍ EN PROFUNDIDAD: ESCUCHAR AL ALMA ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 3 · em profundidade</p>
+  <h1 class="chapter-title">Escutar a sua própria alma</h1>
+  <p class="chapter-sub">Quando o destino que outros sonham para você não é o seu</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">O Beija-flor é o guardião da alma, e a alma tem uma voz própria, distinta da do medo e distinta da dos outros. Às vezes a confundimos com o que se espera de nós, com o caminho que outros, mesmo a partir do amor mais sincero, traçaram para a nossa vida. Mas a alma conhece seu voo. E há uma história, nascida numa montanha de Granada, que conta isso como poucas.</p>
+
+  <h3 class="sub">O menino que tinha tudo escrito</h3>
+  <p>No alto das Alpujarras, perto do Mulhacén, há um centro de retiro budista chamado <strong>O Sel Ling</strong>, «lugar da luz clara», que o próprio Dalai Lama batizou. Perto dali, no povoado de Bubión, nasceu em 1985 <strong>Osel Hita Torres</strong>, filho de dois discípulos do grande mestre tibetano <strong>Lama Yeshe</strong>, fundador de uma das tradições budistas mais difundidas no Ocidente. Lama Yeshe havia morrido um ano antes. E quando Osel tinha apenas catorze meses, o Dalai Lama o reconheceu como sua reencarnação. Entronizaram-no sendo quase um bebê. Aos seis anos o levaram a um monastério na Índia, onde cresceu entre rezas e disciplina, longe da família, preparado para herdar a linhagem do seu mestre. Tinha, literalmente, o destino mais alto que uma tradição pode oferecer, escrito desde o berço.</p>
+
+  <h3 class="sub">O dia em que escolheu seu próprio voo</h3>
+  <p>E, no entanto, ao chegar aos dezoito, Osel fez algo que quase ninguém esperava: deixou os hábitos e voltou ao Ocidente para viver sua própria vida. Não renegou o que aprendeu, ao contrário, agradece profundamente, mas disse, com uma honestidade desarmante, que já não se encaixava naquela vida, que sentia que vivia «algo imposto de fora». Estudou cinema, viajou, tornou-se pai, e hoje dedica boa parte de sua energia a plantar árvores e cuidar da terra. Continuou sendo espiritual, à sua maneira, com sua própria prática. Escolheu, em definitivo, escutar sua alma acima do papel que o mundo inteiro lhe havia atribuído.</p>
+
+  <h3 class="sub">Sua alma também sabe voar</h3>
+  <p>Sua história me comove porque é a do Beija-flor em estado puro. Não se trata de rejeitar quem nos ama nem a sabedoria que nos deram; Osel honra seus mestres. Trata-se de algo mais sutil e mais corajoso: distinguir entre o caminho que outros sonham para você, ainda que o amem, e aquele que sua alma reconhece como seu. Quase ninguém carregará uma coroa como a dele, mas todas nós carregamos expectativas alheias sobre os ombros: as de nossos pais, de nossa cultura, do que «deveríamos» ter sido. O Beija-flor pergunta a única coisa que importa: este voo é o meu, ou o que me emprestaram?</p>
+
+  <div class="quote">
+    Você pode agradecer o ninho que lhe deram e, ainda assim, levantar voo. Honrar quem o amou não é viver o sonho dessas pessoas: é atrever-se a viver o seu, que no fundo é o que de verdade queriam para você.
+  </div>
+
+  <p>Por isso este é o nível da alma. Aqui não se trata de fugir nem de romper por romper, mas de afinar o ouvido para dentro até reconhecer sua própria nota, aquela que só você pode tocar, e ter a coragem de segui-la. Minha mãe me disse isso à sua maneira ao me deixar partir: «siga sua intuição, e nunca errará». Isso é o Beija-flor: a valentia de seguir sua alma, ainda que o caminho não tenha nome.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A pergunta do Beija-flor</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--ink);margin-bottom:0;">Este sonho que persigo é de verdade meu, ou o herdei sem escolhê-lo?</p>
+  </div>
+</section>
+
+<!-- ===== ÁGUILA-CÓNDOR ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 4 · Leste · Hanan Pacha</p>
+  <h1 class="chapter-title">Águia-Condor · o espírito</h1>
+  <p class="chapter-sub">Energia pura. Divindade criadora. A visão.</p>
+  <hr class="title-rule">
+
+  <div class="attrs"><span>Elemento · Ar</span><span>Lobos pré-frontais</span><span>Autoobservação · escolha consciente</span></div>
+
+  <p class="lead drop">A águia e o condor voam tão alto que veem a paisagem inteira, o que para os de baixo é invisível. É o quarto nível: o <strong>espírito</strong>, a energia pura, a divindade criadora que pulsa em você. Aqui você não pergunta o que fazer, mas quem você vem a ser. É o nível da visão, da conexão com algo mais vasto, do propósito visto de cima.</p>
+
+  <p>Aqui se sustenta a verdade que me devolveu a vida em minhas horas mais escuras: somos seres energéticos, e a energia não se destrói, apenas muda de forma; aí vive nossa conexão com toda a criação e com quem já partiu. Deste nível, a dor deixa de ser castigo e se revela como via; as perdas, como limiares; e sua vida, como uma missão que você escolheu experimentar. É o ar onde a Águia e o Condor por fim voam juntos, e onde se aproxima o Acorde 13.</p>
+
+  <p>No espírito se acendem os lobos pré-frontais: a parte mais humana do cérebro, a da autoobservação, da análise serena e da escolha consciente. É a testemunha capaz de olhar o corpo, a emoção e o pensamento sem ser arrastada por nenhum: a transcendência do eu. Seu elemento é o <strong>ar</strong>, o sutil que tudo abarca e nada retém. A partir daqui você <em>escolhe</em>, em vez de reagir.</p>
+
+  <div class="quote">
+    Você não nasceu para viver uma versão pequena do seu potencial. Nasceu para descobrir do que é capaz, e isso só se vê do alto.
+  </div>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A pergunta da Águia-Condor</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:var(--ink);margin-bottom:10px;">Em quem eu quero me tornar?</p>
+    <p style="margin-bottom:14px;"><strong>Seu mantra · o Maha-mantra</strong>, «Hare Krishna, Hare Krishna, Krishna Krishna, Hare Hare, Hare Rama, Hare Rama, Rama Rama, Hare Hare»: devoção e dissolução no divino. O voo rumo ao 13.</p>
+    <p style="margin-bottom:14px;font-size:14.5px;">▶ <a href="https://www.youtube.com/watch?v=0OWMmg5HTZ8&amp;list=OLAK5uy_mOfGX38KCqgRXqyv5S5SfVa5XgZe5kNqU&amp;index=5" style="color:var(--gold-soft);text-decoration:underline;">Mahamantra</a>, de Deva Premal &amp; Miten.</p>
+    <p style="margin-bottom:0;">E a segunda grande pergunta do caminho, companheira desta: <em>que caminho sinto que é correto?</em></p>
+  </div>
+</section>
+
+<!-- ===== ÁGUILA-CÓNDOR EN PROFUNDIDAD: EL ESPÍRITU ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 4 · em profundidade</p>
+  <h1 class="chapter-title">A força que tudo cria</h1>
+  <p class="chapter-sub">O amor incondicional, linguagem do espírito</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">No mais alto, onde voam a Águia e o Condor, vive a força que faz com que a vida exista e que as casualidades deixem de ser casuais. Não se demonstra com argumentos: se reconhece quando, de repente, você sente que algo maior, inteligente e amoroso o sustenta. Neste nível já não se trata de acreditar nessa força, mas de aprender a falar seu idioma. E seu idioma é um só: o amor.</p>
+
+  <h3 class="sub">Uma só força, mil nomes</h3>
+  <p>Cada cultura a nomeou à sua maneira. Os Andes a chamam <strong>Wiracocha</strong>; outras tradições dizem Deus, a Fonte, o Grande Espírito, o Tao, o Campo. Os nomes mudam; a experiência, não. É a mesma presença que pulsa sob todos os relatos: a certeza de que você não está só, de que pertence a algo vasto e vivo. Reconhecê-la não o torna de nenhuma religião em particular: o devolve à raiz comum de todas.</p>
+
+  <h3 class="sub">Ho'oponopono · curar o mundo curando você</h3>
+  <p>Há uma tradição havaiana, parte da sabedoria que alguns chamam de <strong>Huna</strong>, que leva essa ideia até sua forma mais radical e mais bela: o <strong>Ho'oponopono</strong>, «pôr as coisas em seu lugar». Sua prática mais conhecida cabe em quatro frases, «sinto muito, perdoe-me, obrigado, eu te amo», mas seu coração é uma ideia que desarma: assumir cem por cento da responsabilidade pelo que aparece em sua vida e curá-lo dentro de você, não fora.</p>
+
+  <p>Conta-se o caso do <strong>Dr. Ihaleakala Hew Len</strong>, psicólogo que nos anos oitenta trabalhou quatro anos na ala de pacientes com doença mental e antecedentes criminais do Hospital Estadual do Havaí. Não fazia terapia convencional: revisava o prontuário de cada paciente e, em vez de trabalhar sobre eles, trabalhava sobre si mesmo, repetindo essas quatro frases, limpando nele o que via lá fora. Com os anos, dizem, a ala se transformou: pacientes que melhoravam, funcionários que pararam de ir embora, até que a ala fechou. Convém dizê-lo com honestidade: é um relato célebre, registrado no livro <em>Zero Limits</em>, não um estudo clínico verificado, então o tomamos como testemunho inspirador, não como prova. Mas seu ensinamento é profundamente da Águia-Condor: não há um «lá fora» totalmente separado de você; quando você cura seu olhar com amor, muda o que vê.</p>
+
+  <h3 class="sub">Theta · a frequência da alma serena</h3>
+  <p>E este nível deixa também sua marca no cérebro. Quando a mente se aquieta de verdade, suas ondas descem até o ritmo <strong>theta</strong>, aquele limiar entre a vigília e o sonho onde se abrandam as fronteiras do eu, se abre a intuição e o corpo entra em seu modo mais profundo de reparação. Não é por acaso que a oração profunda, a meditação e a cura acontecem ali. Theta é, em linguagem da neurociência, a antessala da unidade: a quietude a partir da qual o amor incondicional deixa de ser uma ideia e se torna experiência.</p>
+
+  <div class="quote">
+    Este nível não se pensa: se ama. O espírito não entende de argumentos, entende de amor. E quando você fala seu idioma, o mundo, por dentro e por fora, começa a se reorganizar.
+  </div>
+
+  <p>Por isso a Águia e o Condor culminam aqui, na <strong>compaixão</strong> e no <strong>amor incondicional</strong>: não o amor que pede, mas o que se dá; não a compaixão que olha de cima, mas a que se reconhece no outro. É a linguagem do espírito e, não por acaso, a nota que acende o Acorde 13. Habitar este nível é, no fundo, aprender a amar sem condições, começando por você.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A prática do Ho'oponopono</div>
+    <p style="margin-bottom:0;">Diante de qualquer coisa que o perturbe, uma pessoa, uma notícia, uma lembrança, em vez de brigar com o de fora, volte para dentro e repita, sentindo de verdade: <span style="background:var(--gold-soft);color:var(--midnight);padding:2px 8px;border-radius:4px;font-weight:500;">«Sinto muito. Perdoe-me. Obrigado. Eu te amo.»</span> Você não fala ao outro: fala à parte de você que ainda carrega essa ferida. Limpa seu olhar, e a partir daí, tudo começa a mudar.</p>
+  </div>
+</section>
+
+<!-- ===== LA TIERRA VIVA ===== -->
+<section class="page">
+  <p class="eyebrow">Nível 4 · em profundidade</p>
+  <h1 class="chapter-title">A Terra viva</h1>
+  <p class="chapter-sub">Pachamama não é um símbolo. É um ser.</p>
+  <hr class="title-rule">
+
+  <div class="attrs"><span>Pachamama</span><span>Gaia</span><span>Os chakras da Terra</span></div>
+
+  <p class="lead drop">Do alto, onde voam a Águia e o Condor, se vê algo que embaixo se esquece: a Terra não é o cenário da nossa vida, está viva. Para os Andes nunca foi metáfora: a <strong>Pachamama</strong> é uma mãe, um ser a quem se pede permissão, a quem se agradece e a quem se devolve. A ciência chegou tarde à mesma intuição e a chamou de <strong>Gaia</strong>: o planeta inteiro comportando-se como um organismo vivo que se autorregula para sustentar a vida.</p>
+
+  <p>Houve quem fosse mais longe. <strong>Robert Coon</strong> dedicou sua vida a cartografar a Terra como um corpo energético vivo, com seus <strong>chakras</strong>, centros de energia, distribuídos pelo planeta, assim como os tem o corpo humano. E aqui acontece algo que me estremeceu: em seu mapa, um desses grandes centros pulsa no <strong>lago Titicaca</strong>, no coração do mundo andino. A mesma terra que guardou os Q'ero é, nesta linguagem, um dos chakras do planeta.</p>
+
+  <p>Em seu mapa, os <strong>sete grandes chakras da Terra</strong> são:</p>
+
+  <ul class="clean">
+    <li><strong>Raiz · Monte Shasta</strong>, Califórnia (EUA): a vitalidade primária, a força de vida bruta do planeta.</li>
+    <li><strong>Sacro · lago Titicaca</strong>, Peru e Bolívia: o centro do novo, de onde a vida se cria e se renova.</li>
+    <li><strong>Plexo solar · Uluru e Kata Tjuta</strong>, Austrália: o poder e a vitalidade que alimentam todos os seres.</li>
+    <li><strong>Coração · Glastonbury</strong>, Inglaterra: o amor e a vontade do mundo.</li>
+    <li><strong>Garganta · a Grande Pirâmide, o Sinai e o Monte das Oliveiras</strong>, Oriente Médio: a voz da Terra.</li>
+    <li><strong>Terceiro olho · um centro móvel</strong> (hoje, aparentemente, na Inglaterra: Shaftesbury): a visão, que se desloca com as grandes eras.</li>
+    <li><strong>Coroa · Monte Kailash</strong>, Tibete: o cume sagrado, ponto de união com o mais alto.</li>
+  </ul>
+
+  <p>E repare no detalhe que me arrepia a pele: para Coon, o Titicaca é o centro <strong>sacro</strong>, aquele «onde nasce o novo», o berço da vida que se renova. É exatamente a mesma água da qual, na memória andina, emergiu <strong>Wiracocha</strong> para criar o sol e os primeiros seres. Esse mesmo Wiracocha que neste livro é um dos nomes do centro, do Ser Luminoso. A linhagem e a geografia voltam a coincidir.</p>
+
+  <div class="quote">
+    Se a Terra é um corpo vivo, então não vivemos <em>sobre</em> ela: vivemos <em>dentro</em> dela, como uma célula dentro de um ser imenso. E nenhuma célula prospera adoecendo o corpo que a sustenta.
+  </div>
+
+  <p>Não lhe trago isto como dogma, mas como um <strong>convite a se fazer melhores perguntas</strong>, que é, afinal, do que trata este livro. Se de verdade a Terra é um ser energético vivo, cada ato cotidiano se torna uma conversa com ela. E convém perguntar-se, sem culpa mas com honestidade:</p>
+
+  <ul class="clean">
+    <li>O que consumo, o que jogo fora, o que compro, <strong>cuida do corpo do qual sou célula, ou o adoece?</strong></li>
+    <li>Tomo da Terra como quem saqueia, ou como quem recebe de uma mãe e lhe devolve?</li>
+    <li>Se eu pudesse agradecer algo hoje à Pachamama com um ato, não com palavras, <strong>qual seria?</strong></li>
+  </ul>
+
+  <p>Os avós Q'ero fazem <em>despachos</em>, ainda hoje: oferendas à terra, um modo de devolver e de lembrar que se pertence a ela, não o contrário. Você não precisa do ritual deles; precisa da consciência deles. Começar a viver como quem sabe que pisa um ser vivo já muda as perguntas, e quando mudam as perguntas, muda a vida. A Águia e o Condor não voltam a voar juntos só dentro de você: o fazem também em como você habita esta Terra que o sustenta.</p>
+</section>
+
+
+<!-- ============ PARTE III DIVIDER ============ -->
+<section class="divider">
+  <div class="pnum">PARTE III</div>
+  <h2>Os 12 Arquétipos</h2>
+  <div class="pdesc">Seu arco-íris emocional: seis que ativam, seis que equilibram, cada um, luz e sombra</div>
+  <svg class="orn" width="120" height="20" viewBox="0 0 120 20" aria-hidden="true">
+    <line x1="0" y1="10" x2="46" y2="10" stroke="#C9A24B" stroke-width="1"/>
+    <circle cx="60" cy="10" r="5" fill="none" stroke="#C9A24B" stroke-width="1"/><circle cx="60" cy="10" r="2" fill="#C9A24B"/>
+    <line x1="74" y1="10" x2="120" y2="10" stroke="#C9A24B" stroke-width="1"/>
+  </svg>
+</section>
+
+<!-- ===== INTRO ARQUETIPOS ===== -->
+<section class="page">
+  <p class="eyebrow">O eixo horizontal</p>
+  <h1 class="chapter-title">Tuas doze luzes e tuas doze sombras</h1>
+  <p class="chapter-sub">Elétricos e magnéticos · ativadores e integradores</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Se os quatro níveis são a profundidade, os doze arquétipos são tua <strong>natureza</strong>: as doze energias ou características do ser que todos compartilhamos. Nasces com uma marca, conforme teu ano de nascimento, mas levas as doze dentro de ti, e a obra é despertá-las e integrá-las todas até soarem como um só acorde.</p>
+
+  <p>Distribuem-se em dois grupos, que são as duas asas:</p>
+  <div class="two">
+    <div class="card"><h4>1-6 · Radiadores</h4><p><strong>Elétricos.</strong> Ativam, projetam, irradiam para fora. O polo Águia. São os que <em>acendem</em>.</p></div>
+    <div class="card"><h4>7-12 · Equilibradores</h4><p><strong>Magnéticos.</strong> Integram, sustentam, equilibram para dentro. O polo Condor. São os que <em>harmonizam</em>.</p></div>
+  </div>
+
+  <p>Cada arquétipo tem sua <strong>luz</strong> (sua ressonância) e sua <strong>sombra</strong> (sua dissonância). A sombra não é o contrário da luz: é a mesma energia não integrada, soando em dissonância em vez de em ressonância, girando no medo em vez do amor.</p>
+
+  <p>As doze energias giram num <strong>ciclo de doze anos</strong> que recomeça: a cada ano nascem pessoas com uma nota predominante distinta. Mas essa nota não é a única que carregas, é <strong>uma desperta e onze adormecidas</strong>, presentes em ti ainda que ainda não soem. A verdadeira arte tem dois movimentos. Primeiro, <strong>dar-te conta</strong> e ir <strong>despertando-as uma a uma</strong>, à medida que as provas da vida as exigem de ti. Depois, o mais poderoso, aprender a <strong>escolher conscientemente que mistura</strong> de arquétipos queres encarnar em cada momento, e de quais preferes te cercar, conforme o projeto de vida que estiveres tecendo. Não há uma ordem fixa nem uma sequência obrigatória: há tua marca, tuas onze notas adormecidas, e tua liberdade de afinar o acorde que cada etapa necessita.</p>
+
+  <div class="quote">
+    Tua missão sagrada só se ativa em coerência emocional e amor incondicional. Nenhum arquétipo desperta a partir do medo. A coerência do coração, o Munay, é o interruptor de todo o sistema.
+  </div>
+
+  <p>Lê os doze. Reconhece tua marca, sim, mas sobretudo, busca em quais brilhas e em quais te custa. Esses são teu mapa de trabalho. <span class="note">Tua marca se calcula pelo teu ano de nascimento, em ciclos de doze; o app da DAyllu faz isso por ti.</span></p>
+</section>
+
+<!-- ===== RADIADORES ===== -->
+<section class="page">
+  <p class="eyebrow">1-6 · Elétricos · Águia</p>
+  <h1 class="chapter-title">Os Radiadores</h1>
+  <p class="chapter-sub">Os que ativam, projetam e irradiam</p>
+  <hr class="title-rule">
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 01</div>
+    <h4>A Generosidade</h4>
+    <p class="freq">Magnetismo manifestador · acesso à abundância universal</p>
+    <p>A energia de dar sem limite e, por isso mesmo, de receber tudo. Quem leva esta nota é um canal aberto: a abundância não fica retida nela, flui através dela e volta multiplicada. Seu poder é a confiança profunda de que há suficiente para todos, e seu prazer mais fundo é ver florescer aquilo que oferece. Não dá para ficar bem visto: dá porque dar é sua maneira natural de existir.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Dá a partir da abundância, abre portas para outros, multiplica o que toca, confia que há suficiente.</div>
+      <div class="som"><b>Sombra</b>Dá para ser amada e se esvazia; ou retém por medo da escassez. Generosidade com fatura a pagar.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">O que tenho de sobra que o mundo precisa, e o que me custa receber?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Dá hoje algo sem que ninguém saiba nem te agradeça, tempo, uma palavra, dinheiro, e sente como é dar a partir da plenitude, não a partir da espera.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Da próxima vez que deres, pergunta-te: dou a partir do transbordamento ou para que me amem? Se for o segundo, recebe algo primeiro, pede ajuda, aceita um elogio, antes de voltar a dar.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 02</div>
+    <h4>A Palavra</h4>
+    <p class="freq">O poder criativo do verbo · comunicação que cura</p>
+    <p>A palavra cria realidade: o que se nomeia, começa a existir. Quem leva esta nota move corações com aquilo que diz, e suas palavras ficam gravadas em quem as escuta muito depois de o som se apagar. Seu verbo pode curar ou ferir, erguer ou derrubar, por isso sua responsabilidade é enorme. Quando fala a partir da verdade, desperta; quando fala a partir do ego, confunde.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Nomeia, inspira, cura e convence com verdade. Sua voz desperta os outros.</div>
+      <div class="som"><b>Sombra</b>Charlatanismo, manipulação, palavra que fere ou seduz sem fundo. Falar para preencher o vazio.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Minhas palavras estão construindo o mundo que quero habitar?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Diz hoje a alguém, em voz alta, algo verdadeiro e belo que normalmente calarias. Observa o efeito de tua palavra quando ela constrói.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Durante um dia, caça tuas palavras automáticas: queixa, crítica, exagero. Antes de falar, pergunta-te se soma ou só preenche o silêncio, e cala uma a cada três.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 03</div>
+    <h4>A Sociabilidade</h4>
+    <p class="freq">Tecelão de relações · criador de comunidades</p>
+    <p>Ímã que atrai e une. Quem leva esta nota tece o ayllu sem esforço: convoca, conecta e cria comunidade onde antes havia dispersão e solidão. Tem o talento de fazer com que pessoas muito distintas se sintam parte de algo, e de acender redes vivas em torno de um propósito. Sua missão não é brilhar no centro, mas unir para que o todo seja mais que a soma de suas partes.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Une as pessoas, cria pertencimento, acende redes vivas a serviço do bem comum.</div>
+      <div class="som"><b>Sombra</b>Não suporta a solidão, depende da aprovação, usa o vínculo para se preencher. Conexão por vazio.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Estou unindo as pessoas em direção a algo maior, ou só buscando companhia?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Conecta duas pessoas que precisem uma da outra sem tirar nada para ti: apresenta, aproxima, tece a ponte, e sente o gozo de unir.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Passa uma tarde sozinho, em silêncio e sem telas. Observa que incômodo aparece: ali vive o medo de não ser ninguém sem os demais.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 04</div>
+    <h4>A Beleza</h4>
+    <p class="freq">Canal de estética cósmica · transformador de espaços</p>
+    <p>O olho que vê o que é belo e o revela. Quem leva esta nota eleva tudo o que toca, um espaço, uma ideia, uma pessoa, e tem o raro talento de reconhecer a beleza interior de cada ser e nomeá-la em voz alta. Onde outros veem defeito, ela vê potencial; onde há feiura, cria harmonia. A beleza, em suas mãos, não é adorno: é uma forma de dignificar a vida.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Embeleza, dignifica, vê o que é valioso nos outros e o nomeia. Eleva a vibração de um espaço.</div>
+      <div class="som"><b>Sombra</b>Critica o que é feio em vez de criar beleza; vaidade, juízo estético, culto à superfície.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Que beleza, em mim ou nos outros, sou chamada a ver e a celebrar hoje?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Embeleza hoje um espaço ou um momento só pelo prazer de criar harmonia, e nomeia a alguém a beleza interior que vês nele.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Cada vez que te surpreenderes criticando o que é feio (em ti ou em outro), converte-o: nomeia algo belo nisso mesmo. A beleza se exercita escolhendo o que olhar.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 05</div>
+    <h4>O Ensino</h4>
+    <p class="freq">Ativador de potencial · transmissor de sabedoria</p>
+    <p>Aquele que educa o ouvido e abre a mente. Quem leva esta nota desperta o potencial adormecido nos demais, traduzindo o complexo em algo simples e luminoso. Não transmite apenas dados: acende a vontade de aprender, e deixa cada pessoa um pouco maior do que a encontrou. Sua maior maestria é ensinar sem impor, semeando perguntas mais que respostas.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Transmite, revela, ativa o aprendizado, faz os outros crescerem com paciência e clareza.</div>
+      <div class="som"><b>Sombra</b>Catequizar a partir da superioridade, dogmatismo, ensinar para brilhar e não para servir.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">O que aprendi na própria pele que poderia iluminar o caminho de outro?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Ensina a alguém algo que dominas, mas com perguntas em vez de respostas: guia-o a descobrir sozinho. Esse é o ensino que liberta.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Nota quando ensinas para ficar por cima ou ter razão. Esta semana diz mais vezes «não sei» e deixa que outro te ensine.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 06</div>
+    <h4>A Autoridade</h4>
+    <p class="freq">Liderança consciente · organizador de sistemas</p>
+    <p>Destacar-se fazendo com que outros se destaquem. Quem leva esta nota lidera pondo sua força a serviço do bem comum, não do mando: ordena o caos, sustenta a direção e tira o melhor de cada um. A verdadeira autoridade não precisa gritar nem se impor, inspira respeito porque serve. Seu poder não se gasta ao se repartir: cresce.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Lidera, ordena, organiza e eleva; motiva os outros a darem o melhor de si. Autoridade que serve.</div>
+      <div class="som"><b>Sombra</b>Controle, dominação, mandar por medo, impor-se para se sentir seguro. Poder sobre, não poder com.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Lidero para que outros se elevem, ou para me sentir por cima?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Toma uma decisão de que o grupo precisava e que ninguém tomava, mas faze-o para que outros brilhem. Lidera servindo.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Identifica onde controlas por medo de perder o controle. Delega uma coisa esta semana e solta-a de verdade, ainda que saia diferente de como tu a farias.</div></div>
+  </div>
+</section>
+
+<!-- ===== EQUILIBRADORES ===== -->
+<section class="page">
+  <p class="eyebrow">7-12 · Magnéticos · Condor</p>
+  <h1 class="chapter-title">Os Equilibradores</h1>
+  <p class="chapter-sub">Os que integram, sustentam e harmonizam</p>
+  <hr class="title-rule">
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 07</div>
+    <h4>A Proteção</h4>
+    <p class="freq">Guardião de limites · criador de espaços seguros</p>
+    <p>Aquele que cuida dos mais vulneráveis e cria refúgio. Quem leva esta nota tem um instinto fino para detectar onde alguém está em perigo ou desamparado, e traça limites saudáveis para que a vida floresça em segurança. Sua força é serena e firme ao mesmo tempo: contém sem asfixiar, defende sem aprisionar. No ayllu é quem faz os demais ousarem, porque sabem que alguém lhes guarda as costas.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Protege, contém, sustenta o frágil, traça limites que cuidam sem aprisionar.</div>
+      <div class="som"><b>Sombra</b>Superproteção que asfixia, controle disfarçado de cuidado, muros que isolam. Defender por medo.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Meus limites estão cuidando da vida, ou só levantando muros por medo?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Põe-te hoje ao lado de alguém mais vulnerável: defende, contém, cria um espaço seguro para que ouse.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Olha onde superproteges e roubas a força de alguém. Solta uma corda: deixa que essa pessoa resolva algo sozinha.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 08</div>
+    <h4>O Conhecimento</h4>
+    <p class="freq">Investigador de verdades · sintetizador de informação</p>
+    <p>A sede inesgotável de aprender e compreender. Quem leva esta nota busca sem descanso o porquê das coisas e o caminho que leva ao bem de todos, e tem o talento de sintetizar o disperso em sabedoria clara. Não acumula por acumular: conecta pontos que ninguém havia unido. Seu tesouro é a compreensão profunda, e seu serviço, colocá-la ao alcance dos demais.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Investiga, compreende, conecta saberes, põe o conhecimento a serviço do bem comum.</div>
+      <div class="som"><b>Sombra</b>Acumular dados sem vivê-los, paralisia por análise, saber para ter razão. Mente que não aterrissa.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">O que sei estou vivendo e compartilhando, ou só guardando?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Toma algo que sabes mas não vives, e aplica-o hoje numa única ação concreta. O saber que serve é o que aterrissa.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Detecta uma decisão que adias «até saber mais». Decide já com 80% da informação: às vezes saber demais é medo disfarçado.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 09</div>
+    <h4>A Paz</h4>
+    <p class="freq">Alquimista de conflitos · curador de feridas coletivas</p>
+    <p>A energia da negociação, do acordo e da reconciliação. Quem leva esta nota tem um radar finíssimo para a tensão e o talento de transformar a agressividade em entendimento, não evitando o conflito, mas atravessando-o até o ponto onde todos ganham. Sua paz não é silêncio nem submissão: é o fruto de um coração que sabe escutar as duas margens. Cura feridas que sequer são nomeadas.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Reconcilia, medeia, acalma, encontra o ponto onde todos ganham. Paz que nasce do amor, não do medo.</div>
+      <div class="som"><b>Sombra</b>Evitar o conflito a todo custo, calar para não incomodar, falsa paz. Pacificar por temor.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Busco a paz verdadeira, ou só evito o incômodo?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Aproxima-te hoje de um conflito que evitavas e escuta de verdade as duas partes, incluída a tua, buscando o ponto onde todos ganham.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Detecta onde calas para não incomodar e isso te adoece. Diz uma verdade amável que vinhas guardando: a paz real não é silêncio.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 10</div>
+    <h4>A Justiça</h4>
+    <p class="freq">Equilibrador de sistemas · restaurador da ordem natural</p>
+    <p>A consciência viva do que é justo. Quem leva esta nota valoriza, discerne e restaura o equilíbrio ali onde algo se torceu, e sente no corpo quando algo não está bem. Não se trata de condenar, mas de mostrar o caminho do correto e a alegria profunda de viver em coerência. Seu presente é devolver à vida sua ordem natural, com profundidade antes que com dureza.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Discerne, equilibra, restaura o que é justo, avalia com profundidade antes de agir.</div>
+      <div class="som"><b>Sombra</b>Rigidez, juízo implacável, justiceiro que condena; ou evitar aprofundar por medo da mudança.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Estou discernindo com o coração aberto, ou julgando para ter razão?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Repara hoje um pequeno desequilíbrio que esteja ao teu alcance, um pedido de desculpas, um reconhecimento justo, um limite necessário, e sente a coerência que ele devolve.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Quando sentires o impulso de julgar ou condenar alguém, gira-o: onde faço eu isso mesmo? Discernir não é condenar.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 11</div>
+    <h4>A Liberdade</h4>
+    <p class="freq">Libertador de padrões · pioneiro de possibilidades</p>
+    <p>Aquele que dissolve a mentalidade de escravo, em si mesmo e nos demais. Quem leva esta nota semeia o anseio da verdadeira liberdade e abre caminhos onde outros só viam muros, rompe padrões herdados que ninguém mais ousava questionar. Sua liberdade não é fugir nem mandar: é despertar a autonomia alheia sem se tornar o caudilho de ninguém. Inspira os outros a caminharem com os próprios pés.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Liberta, abre caminhos, rompe padrões herdados, desperta a autonomia nos outros.</div>
+      <div class="som"><b>Sombra</b>Rebeldia sem causa, fuga de todo compromisso, libertinagem; confundir liberdade com fugir.</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Que padrão herdado estou pronto para romper, e quem liberto ao fazê-lo?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Rompe hoje um pequeno padrão herdado «porque sempre se fez assim». Faze uma coisa à tua maneira e observa a liberdade que se abre.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Olha onde confundes liberdade com fugir: um compromisso do qual escapas. Permanece num deles desta vez, a liberdade madura também sabe se comprometer.</div></div>
+  </div>
+
+  <div class="arq">
+    <div class="num">ARQUÉTIPO 12</div>
+    <h4>A Prudência</h4>
+    <p class="freq">Visionário de consequências · conselheiro sábio</p>
+    <p>Aquele que põe mesura e enxerga longe. Quem leva esta nota antecipa as consequências que outros não veem, medeia entre os extremos e aconselha com temperança serena. É a última nota, a que fecha o círculo: não busca brilhar nem mandar, mas estar com todos sem passar por cima de ninguém. Sua sabedoria é a de quem olha o caminho inteiro antes de dar o passo, e por isso evita muitas quedas.</p>
+    <div class="ls">
+      <div class="luz"><b>Luz</b>Mede, modera, antecipa consequências, aconselha com sabedoria serena. Estar com todos sem passar sobre ninguém.</div>
+      <div class="som"><b>Sombra</b>Medo de agir, excesso de cautela, frieza, adiar a vida por «não errar».</div>
+    </div>
+    <p class="afina">Para afinar esta nota: <span style="color:var(--ink)">Esta cautela me protege de verdade, ou só me impede de viver?</span></p>
+    <div class="ejer"><div class="ej luzj"><b>Reconhecer tua luz</b>Antes de uma decisão importante, reserva dez minutos para ver o caminho inteiro a um ano. Aconselha-te como aconselharias quem amas.</div><div class="ej somj"><b>Trabalhar tua sombra</b>Identifica uma decisão que adias «para não errar». Dá um passo imperfeito hoje: a prudência que paralisa já não é prudência, é medo.</div></div>
+  </div>
+
+  <p style="margin-top:34px;">Estas são tuas doze cores. Nenhuma é melhor que outra: as doze, em sua luz, precisam umas das outras. E as doze, em sua sombra, te ensinam. A meta não é ser apenas tua marca, é <strong>tocar as doze notas</strong> até que soem como uma só.</p>
+</section>
+
+
+<!-- ============ PARTE IV DIVIDER ============ -->
+<section class="divider">
+  <div class="pnum">PARTE IV</div>
+  <h2>A Prática Viva</h2>
+  <div class="pdesc">Tua nota de partida, sete forças, duas respirações, quatro mantras, duas práticas e um bônus que ativam tudo</div>
+  <svg class="orn" width="120" height="20" viewBox="0 0 120 20" aria-hidden="true">
+    <line x1="0" y1="10" x2="46" y2="10" stroke="#C9A24B" stroke-width="1"/>
+    <circle cx="60" cy="10" r="5" fill="none" stroke="#C9A24B" stroke-width="1"/><circle cx="60" cy="10" r="2" fill="#C9A24B"/>
+    <line x1="74" y1="10" x2="120" y2="10" stroke="#C9A24B" stroke-width="1"/>
+  </svg>
+</section>
+
+<!-- ===== PASO 0: ARQUETIPO DE PARTIDA ===== -->
+<section class="page">
+  <p class="eyebrow">O ponto de partida</p>
+  <h1 class="chapter-title">Reconheça sua nota de partida</h1>
+  <p class="chapter-sub">O primeiro passo, antes de qualquer prática</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Antes de abrir o espaço, antes da primeira respiração, há um passo que ordena tudo: saber a partir de que nota você parte. É a sua <strong>marca</strong>, o arquétipo com o qual você nasceu, aquele que soa em você sem esforço. Não é um rótulo nem um destino fechado: é a sua casa, o lugar de onde você começa a caminhar.</p>
+
+  <p>Sua marca vem do seu <strong>ano de nascimento</strong>: as doze notas giram em um ciclo de doze anos que recomeça, de modo que a cada ano corresponde um arquétipo predominante. Você pode calculá-la com o aplicativo DAyllu, que faz isso por você em segundos, ou descobri-la lendo os doze da Parte III e reconhecendo qual sente como seu lar, essa energia que em você é natural, quase óbvia.</p>
+
+  <p>E aqui está a chave que não convém esquecer: sua marca é <strong>a porta, não a jaula</strong>. Você carrega as doze notas dentro de si; sua nota de partida apenas lhe diz por onde entrar. Uma vez que a reconhece, o trabalho se torna claro: olhe em quais arquétipos você brilha e em quais tem dificuldade. Esses são o seu mapa, aquilo que você vem despertar e integrar.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>Seu primeiro passo</div>
+    <ol>
+      <li><strong>Calcule sua marca</strong> pelo seu ano de nascimento, com o aplicativo DAyllu ou lendo os doze arquétipos.</li>
+      <li><strong>Reconheça-a</strong> sem julgamento: é o seu ponto de partida, não o seu limite.</li>
+      <li><strong>Marque o seu mapa.</strong> Em quais arquétipos você brilha? Em quais tem dificuldade? Ali está o seu trabalho.</li>
+    </ol>
+  </div>
+
+  <p>Com a sua nota de partida clara, você já pode entrar na prática viva. Tudo o que se segue, as forças, as respirações, os mantras e as perguntas, serve a um único fim: despertar as doze notas e fazê-las soar como um só acorde.</p>
+</section>
+
+<!-- ===== 7 FUERZAS ===== -->
+<section class="page">
+  <p class="eyebrow">O contêiner sagrado</p>
+  <h1 class="chapter-title">As 7 forças</h1>
+  <p class="chapter-sub">Como abrir e fechar o espaço</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Antes de qualquer trabalho interior, abre-se o espaço sagrado. É um gesto simples, um ritual como tantos que fazemos ao longo do dia, mas desta vez com uma intenção clara: declarar que este será um espaço para trabalhar consigo mesma, com respeito, compromisso e honestidade. E dentro dele você coloca a intenção concreta que quiser trabalhar hoje em si. Não é superstição: é colocar atenção e intenção, declarar que este momento é diferente. As sete forças têm uma estrutura simples de lembrar: os <strong>quatro animais de poder</strong> (seus quatro níveis de percepção, as quatro direções), mais o <strong>Munay</strong> no centro, mais o de <strong>cima</strong> (o Sol/Céu) e o de <strong>baixo</strong> (a Pachamama). Quatro direções + centro + cima + baixo = sete.</p>
+
+  <ul class="clean">
+    <li><strong>Serpente · sul.</strong> Que me ajude a soltar o que já cumpriu o seu tempo.</li>
+    <li><strong>Jaguar · oeste.</strong> Que me dê coragem para atravessar o medo e a sombra.</li>
+    <li><strong>Beija-flor · norte.</strong> Que guie a minha viagem e nutra o meu coração.</li>
+    <li><strong>Águia-Condor · leste.</strong> Que me empreste a sua visão e me eleve ao espírito.</li>
+    <li><strong>Pachamama · a Terra (baixo).</strong> Que me sustente e me enraíze.</li>
+    <li><strong>Sol / Céu · Inti (cima).</strong> Que me ilumine e me conecte com o alto.</li>
+    <li><strong>Munay · o coração (centro).</strong> Que o amor seja o centro de onde tudo se faz.</li>
+  </ul>
+
+  <p>Você pode fazê-lo como sentir vontade: com uma vela, com incenso, com água de flores, voltando-se para cada direção, ou simplesmente em silêncio, com a mão no coração. O importante não é a forma, mas a presença. E ao terminar, você <strong>fecha</strong> o espaço: agradece às sete forças e as libera. O que se abre com respeito, fecha-se com gratidão.</p>
+</section>
+
+<!-- ===== RESPIRACIONES Y MANTRAS ===== -->
+<section class="page">
+  <p class="eyebrow">O sopro e o som</p>
+  <h1 class="chapter-title">2 Respirações · 4 Mantras · Bônus</h1>
+  <hr class="title-rule">
+
+  <p class="lead">As duas respirações encarnam os seus dois polos. Não são técnicas soltas: são o sopro dos seus dois grupos de arquétipos.</p>
+
+  <div class="two">
+    <div class="card"><h4>Respiração quadrada · magnética</h4><p><strong>4-4-4-4:</strong> inspire 4, retenha 4, expire 4, retenha 4. Acalma, centra, leva à coerência e ao estado Alfa. A respiração dos Equilibradores: para integrar e aquietar.</p></div>
+    <div class="card"><h4>Respiração de fogo · elétrica</h4><p><strong>Kapalabhati:</strong> expirações curtas e ativas pelo nariz. Acende, energiza, desperta o fogo interno. A respiração dos Radiadores: para ativar e projetar.</p></div>
+  </div>
+
+  <h3 class="sub">Os quatro mantras, um por nível</h3>
+  <ul class="clean">
+    <li><strong>Serpente · corpo, Om Tare Tuttare Ture Soha.</strong> Tara Verde, mãe dos budas: proteção, compaixão e libertação do sofrimento.</li>
+    <li><strong>Jaguar · mente, Ide were were.</strong> Canto a Oshun: as águas doces e as emoções.</li>
+    <li><strong>Beija-flor · alma, Om Mani Padme Hum.</strong> A joia no lótus: a compaixão.</li>
+    <li><strong>Águia-Condor · espírito, o Maha-mantra.</strong> «Hare Krishna, Hare Krishna, Krishna Krishna, Hare Hare, Hare Rama, Hare Rama, Rama Rama, Hare Hare»: devoção, dissolver-se no divino.</li>
+  </ul>
+
+  <p>Cante em voz alta ou em sussurro, com emoção. O mantra é a Palavra posta a vibrar: som mais emoção elevada treinam o seu estado tanto quanto a coerência do coração. Escolha o do nível que você estiver trabalhando.</p>
+
+  <h3 class="sub">Bônus · quatro presentes da minha prática</h3>
+
+  <p>Mais de dez anos praticando budismo mahayana me deixaram quatro presentes que quero lhe dar, porque me sustentaram uma e outra vez: três práticas e, o quarto, uns mantras de cabeceira.</p>
+
+  <div class="two">
+    <div class="card"><h4>1 · Respiração 4-7-8</h4><p>Inspire pelo nariz contando <strong>4</strong>, retenha contando <strong>7</strong> e expire pela boca, lento e completo, contando <strong>8</strong>. Três ou quatro ciclos. A expiração longa é a que acende o nervo vago: reduz a ansiedade em segundos. Ideal antes de dormir ou quando o corpo dispara.</p></div>
+    <div class="card"><h4>2 · As nove rodadas · purificação budista</h4><p>Três rodadas de três respirações, nove no total, por narinas alternadas. <strong>Rodada 1:</strong> inspire pela esquerda, expire pela direita. <strong>Rodada 2:</strong> inspire pela direita, expire pela esquerda. <strong>Rodada 3:</strong> inspire e expire por ambas, subindo pelo canal central. A cada expiração, solte o que turva a mente. Limpa os canais e a deixa «em neutro», pronta para meditar.</p></div>
+  </div>
+
+  <p>E a melhor de todas, a que mais uso: <strong>o triplo filtro</strong>, antes de dizer ou reagir a algo, detenha-se e pergunte-se três coisas.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>3 · O triplo filtro</div>
+    <ol>
+      <li><strong>É verdade?</strong></li>
+      <li><strong>É bom, soma, agrega valor?</strong></li>
+      <li><strong>Posso fazer algo a respeito?</strong></li>
+    </ol>
+    <p style="margin-top:14px;margin-bottom:0;">Se o balanço for <strong>sim</strong>, aja. Se não, leve-o à meditação: ali, quase sempre, dissolve-se sozinho.</p>
+  </div>
+
+  <h3 class="sub">4 · Meus mantras de cabeceira</h3>
+
+  <p>Além dos quatro mantras de cada nível, levo comigo uns cantos que me acompanham no dia a dia. Canto à vitalidade e à longevidade: o mantra da <strong>Tara Branca</strong>, a que prolonga e nutre a vida (não a confunda com a Tara Verde da Serpente: são irmãs, função distinta). <em>Om Tare Tu Tare Ture Mama Ah Yuh Pune Jana Putim Kuru Soha.</em></p>
+  <p style="font-size:14.5px;">▶ <a href="https://www.youtube.com/watch?v=xTVLhCxYhB8" style="color:var(--gold-soft);text-decoration:underline;">White Tara · mantra de longevidade</a>, de Deva Premal &amp; Miten.</p>
+
+  <p>E um que honra a <strong>Mãe Terra</strong>, a Pachamama que pulsa em todo este livro: <em>Gaia Ma</em>, um canto de gratidão ao planeta vivo que nos sustenta.</p>
+  <p style="font-size:14.5px;">▶ <a href="https://www.youtube.com/watch?v=hK_zT39p94Q&amp;list=OLAK5uy_nW11RNEHXIiqFadk_4cJeAb5kjWQOIb5w" style="color:var(--gold-soft);text-decoration:underline;">Gaia Ma</a>, de Deva Premal &amp; Miten.</p>
+
+  <h3 class="sub">E o mantra que os coroa · o Sutra do Coração</h3>
+
+  <p>Acima de todos há um que, para mim, é o mais importante: o que encerra o <em>Sutra do Coração</em>, um dos textos mais recitados de todo o budismo mahayana. É a perfeição da sabedoria feita som.</p>
+
+  <div class="quote">
+    Gate gate paragate parasamgate bodhi svaha
+  </div>
+
+  <p>Costuma ser traduzido como «ido, ido, ido além, ido completamente além; despertar, svaha» (<em>svaha</em> é a exclamação que o encerra, algo como «assim seja!»). Mas o meu mentor, o mestre <strong>Kazuaki Tanahashi</strong>, o lê de uma forma que me estremece: onde quase todos dizem «ido», ele diz <em>chegando</em>; e onde outros colocam um ponto final, ele coloca uma celebração. Na versão dele soa assim: «chegando, chegando, chegando completamente, chegando todos juntos: despertar, alegria!». Não é uma fuga do mundo, mas uma <strong>chegada</strong>; e não em solidão, mas <strong>juntos</strong>. Tanahashi lembra, além disso, que o mantra não está escrito em sânscrito corrente, mas em uma forma de «encantamento», de modo que qualquer tradução é apenas uma aproximação: o mantra não se entende, vibra-se.</p>
+
+  <p>O que pode haver de mais bonito? «Chegar todos juntos ao despertar, com alegria» é, dito em outra língua, o sonho deste livro inteiro, o Acorde 13 cantado em sânscrito.</p>
+</section>
+
+<!-- ===== PRÁCTICA PREGUNTAS ===== -->
+<section class="page">
+  <p class="eyebrow">Prática · a Águia clara</p>
+  <h1 class="chapter-title">Perguntas que abrem</h1>
+  <hr class="title-rule">
+
+  <p class="lead drop">A sua mente responde àquilo que você lhe pergunta. <em>«Por que isso sempre acontece comigo?»</em> a coloca a procurar provas de que sempre acontece com você. <em>«O que isto está me mostrando?»</em> a coloca a procurar a saída. A pergunta não descreve a sua realidade: ela a dirige. Aquilo em que você foca se expande, e a sua pergunta é o foco.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A prática</div>
+    <ol>
+      <li><strong>Cace a pergunta oculta.</strong> No mal-estar há sempre uma pergunta automática e dissonante. Escreva-a tal como soa.</li>
+      <li><strong>Faça o giro.</strong> Transforme-a em uma que abre. <em>«O que há de errado comigo?»</em> → <em>«Que parte de mim pede amor agora?»</em>. <em>«E se eu falhar?»</em> → <em>«Em quem eu me torno se tentar?»</em>.</li>
+      <li><strong>Percorra as quatro perguntas dos níveis.</strong> O que preciso soltar? (Serpente) · Que medo dirige isto disfarçado de razão? (Jaguar) · O que me dá vida? (Beija-flor) · Em quem quero me tornar? (Águia-Condor).</li>
+      <li><strong>Encerre com as duas grandes perguntas.</strong> Em quem quero me tornar? E que caminho sinto que é correto?</li>
+      <li><strong>Pergunte a partir da coerência, não do ruído.</strong> Entre em Alfa com a respiração quadrada, faça a pergunta e <em>não force a resposta</em>: viva a pergunta e a solte. A resposta chega depois, no banho, não na escrivaninha.</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== PRÁCTICA SOMBRA ===== -->
+<section class="page">
+  <p class="eyebrow">Prática · a via do Jaguar</p>
+  <h1 class="chapter-title">Reivindicar sua sombra</h1>
+  <hr class="title-rule">
+
+  <p class="lead drop">Cada arquétipo tem a sua luz e a sua sombra. A sombra não é sua inimiga: é o seu poder negado. O que você não torna consciente, você vive como destino. Não se trata de matar a sombra, isso é Águia sem Condor: trata-se de reivindicá-la com amor, a via do Jaguar, para além do medo.</p>
+
+  <div class="practice">
+    <div class="tag"><span class="dot"></span>A prática</div>
+    <ol>
+      <li><strong>Encontre-a pelo seu rastro: a projeção.</strong> O que mais a irrita ou que você julga em outra pessoa costuma ser a sua sombra negada. <em>Que qualidade alheia me ativa demais?</em> (Ou observe a sombra do seu arquétipo na Parte III.)</li>
+      <li><strong>Dê-lhe voz.</strong> Em coerência, pergunte a ela: <em>do que você está me protegendo?</em> A sombra sempre protege algo, um medo, uma ferida antiga. Escute-a; não a combata.</li>
+      <li><strong>Faça o giro.</strong> Pegue o julgamento, «ela é controladora», e gire-o para você: «eu controlo», «eu me controlo», «eu não me controlo». Procure onde isso é igual ou mais verdadeiro em você, sem culpa: com honestidade amorosa.</li>
+      <li><strong>Reivindique a energia escondida.</strong> Toda sombra é uma nota em dissonância que esconde a sua ressonância. O controle integrado torna-se estrutura e liderança; o dar demais, generosidade a partir da plenitude. Nomeie-a e agradeça-lhe.</li>
+      <li><strong>Integre-a com amor.</strong> Leve-a ao Munay, ao coração. O que você ama se integra; o que você rejeita o governa. Encerre com gratidão a essa parte de você.</li>
+    </ol>
+  </div>
+
+  <h3 class="sub">O arco de uma sessão Numina</h3>
+  <ul class="clean">
+    <li><strong>Você abre</strong> o espaço, as 7 forças.</li>
+    <li><strong>Você respira</strong>, quadrada para integrar, fogo para ativar.</li>
+    <li><strong>Você canta</strong>, o mantra do nível que trabalha.</li>
+    <li><strong>Você entra no numinoso</strong>, perguntas ou sombra.</li>
+    <li><strong>Você ativa com Amor</strong>, porque a sua missão sagrada só se ativa em coerência emocional e amor incondicional.</li>
+    <li><strong>Você fecha</strong>, agradece e libera as 7 forças.</li>
+  </ul>
+</section>
+
+<!-- ============ CIERRE, ACORDE 13 ============ -->
+<section class="divider">
+  <div class="pnum">ENCERRAMENTO</div>
+  <h2>O Acorde 13</h2>
+  <div class="pdesc">Onde as doze notas se tornam uma só luz</div>
+  <svg class="orn" width="160" height="40" viewBox="0 0 160 40" aria-hidden="true">
+    <circle cx="80" cy="20" r="11" fill="#FBEFD2"/>
+    <circle cx="80" cy="20" r="18" fill="none" stroke="#C9A24B" stroke-width="1"/>
+    <circle cx="80" cy="20" r="26" fill="none" stroke="rgba(201,162,75,.4)" stroke-width="1"/>
+  </svg>
+</section>
+
+
+<section class="page">
+  <p class="eyebrow">Seu Ser Luminoso · Wiracocha</p>
+  <h1 class="chapter-title">O acorde, fora do tempo</h1>
+  <hr class="title-rule">
+
+  <p class="lead drop">Você chegou até aqui. Percorreu a dor como bússola, subiu os quatro mundos, conheceu seus doze arquétipos em luz e em sombra, aprendeu a respirar, a cantar, a perguntar e a reivindicar o que lhe foi negado. Tudo isso converge em um único ponto: o 13.</p>
+
+  <p>O 13 é onde os dois eixos se cruzam em seu ponto mais alto: os <strong>doze arquétipos integrados</strong> e os <strong>quatro níveis ascendidos</strong>. As doze notas soando ao mesmo tempo, o acorde completo. As doze cores juntas, a luz branca. O Si-mesmo de Jung, a chakana inteira, Wiracocha. O <strong>Ser Luminoso</strong>, essa experiência fora do tempo em que você deixa de ser uma só nota e se torna toda a sua música.</p>
+
+  <div class="quote">
+    Você nasceu afinada em uma só nota. Numina lhe ensinou a tocar as doze, e a soar como uma só.
+  </div>
+
+  <p>Não é um lugar a que se chega para ficar. É um estado que se visita, se reconhece e se volta a habitar, cada vez com mais facilidade, cada vez mais seu. E a chave é sempre a mesma, a que os Q'ero guardaram e a que me sustentou quando tudo desmoronava: <strong>o Amor.</strong> Sua missão sagrada só se ativa em coerência emocional e amor incondicional. A coerência do coração, o interruptor de todo o sistema, e o equilíbrio dos seus três centros de poder ajudam a integração deste último acorde.</p>
+
+  <p>O Acorde 13 está aí, acessível a todo coração sincero que se atreva a integrar suas sombras, a fazer-se as perguntas que despertam a alma e a lembrar a grande missão que veio viver. Não é teoria. É o mapa que me devolveu a vida. Hoje é seu.</p>
+
+  <p class="lead">Que sua vida seja esse canto: as duas asas abertas, o coração à frente, e o Amor como única bússola. O mundo inteiro espera sua nota. Volte a voar.</p>
+  <p style="font-family:'Bebas Neue',sans-serif;letter-spacing:.3em;color:var(--gold);font-size:22px;margin-top:10px;">Aho.</p>
+</section>
+
+<!-- ============ DAYLLU ============ -->
+<section class="page">
+  <p class="eyebrow">Seu próximo passo · sua comunidade</p>
+  <h1 class="chapter-title">DAyllu</h1>
+  <p class="chapter-sub">Pare de caminhar sozinha. E reconheça a nota com a qual nasceu.</p>
+  <hr class="title-rule">
+
+  <p class="lead drop">Em quéchua, <em>ayllu</em> significa comunidade: a família estendida, a tribo que sustenta. Acrescentamos o <strong>D</strong> de digital, porque esta é uma comunidade que estamos tecendo on-line, para este tempo e este mundo. <strong>Numina é o caminho; DAyllu é o ayllu onde você o percorre, nunca sozinha.</strong></p>
+
+  <p>Você percorreu o mapa inteiro. E o que de verdade você anseia ao chegar até aqui talvez não seja mais um dado sobre si: é deixar de caminhar sozinha. Isso é DAyllu, sua comunidade. O primeiro passo para entrar é também o mais gentil: reconhecer a nota com a qual você nasceu.</p>
+
+  <div style="border:1px solid rgba(224,188,99,.55);border-radius:14px;background:linear-gradient(180deg,rgba(168,119,236,.12),rgba(168,119,236,.04));padding:32px 32px 30px;margin:32px 0;text-align:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:.26em;font-size:14px;color:var(--gold);text-transform:uppercase;">Sua nota, sua comunidade</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--ink);line-height:1.4;margin:14px auto 24px;max-width:31ch;">Reconheça a nota com a qual você nasceu (menos de um minuto no app DAyllu) e entre no seu arco-íris emocional e na comunidade que caminha com você.</p>
+    <a href="#" style="display:inline-block;font-family:'Bebas Neue',sans-serif;letter-spacing:.2em;font-size:16px;color:var(--midnight);background:var(--gold);text-decoration:none;border-radius:10px;padding:15px 36px;">Reconhecer minha nota →</a>
+  </div>
+
+  <p>Quando você a conhecer, esse será apenas o começo. Dentro do DAyllu você descobre seu mundo energético, reconhece seus doze arquétipos em luz e em sombra, integra suas sombras com o método Numina e o acompanhamento da sua comunidade e ressignifica sua dor: você a reconhece como bússola, como via, como mestre, até ativar seu Acorde 13.</p>
+
+  <div style="border:1px solid var(--rule);border-radius:12px;background:rgba(168,119,236,.10);padding:32px 36px;margin:38px 0;">
+    <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:.28em;font-size:15px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;">O sonho que dá sentido a tudo</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:23px;line-height:1.5;color:var(--ink);margin:0 0 16px;">Comunidades de doze, uma em cada cidade, onde cada pessoa ancora a nota com a qual nasceu, já integrada e inteira, e juntas soam como um só acorde.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:23px;line-height:1.5;color:var(--ink);margin:0 0 18px;">E se uma crença sustentada com amor pode mudar um corpo, sonhamos em levar essa mesma coerência ao corpo vivo que sustenta a todas nós, nossa Pachamama, sobretudo pelas novas gerações que herdarão a Terra que hoje lhes deixarmos.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;line-height:1.45;color:var(--gold-soft);margin:0;">O reencontro da Águia e do Condor começa por você, com você, hoje.</p>
+  </div>
+
+  <div class="center" style="margin-top:46px;">
+    <svg width="64" height="64" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="100" cy="100" r="26" fill="#FBEFD2"/>
+      <g>
+        <circle cx="100" cy="40" r="3.4" fill="#E24B4A"/><circle cx="130" cy="48" r="3.4" fill="#E2724B"/><circle cx="152" cy="70" r="3.4" fill="#EF9F27"/><circle cx="160" cy="100" r="3.4" fill="#C9A24B"/><circle cx="152" cy="130" r="3.4" fill="#97C459"/><circle cx="130" cy="152" r="3.4" fill="#1D9E75"/><circle cx="100" cy="160" r="3.4" fill="#4F8FD9"/><circle cx="70" cy="152" r="3.4" fill="#5B6FD8"/><circle cx="48" cy="130" r="3.4" fill="#7B4FC9"/><circle cx="40" cy="100" r="3.4" fill="#9B4FC4"/><circle cx="48" cy="70" r="3.4" fill="#B85BC4"/><circle cx="70" cy="48" r="3.4" fill="#D4537E"/>
+      </g>
+    </svg>
+    <p style="font-family:'Bebas Neue',sans-serif;letter-spacing:.34em;color:var(--gold);font-size:15px;margin-top:18px;">DAYLLU &nbsp;·&nbsp; NUMINA &nbsp;·&nbsp; O ACORDE 13</p>
+    <p class="note" style="margin-top:4px;">Um método do sistema DAyllu · ACEAI Online Marketing Ltd</p>
+  </div>
+</section>
+
+
+<!-- ============ FUENTES ============ -->
+<section class="page">
+  <p class="eyebrow">Apêndice</p>
+  <h1 class="chapter-title">Fontes e influências</h1>
+  <p class="chapter-sub">Os ombros sobre os quais Numina se tece</p>
+  <hr class="title-rule">
+
+  <p class="lead">Numina não nasceu do nada: é um tecido. Cada fio vem de mestres, cientistas e tradições que me formaram. Eu os nomeio com gratidão, porque honrar as fontes faz parte do Munay, e porque talvez você também queira beber delas.</p>
+
+  <h3 class="sub">Psicologia e neurociência</h3>
+  <ul class="clean">
+    <li><strong>Carl G. Jung</strong>, os arquétipos, o inconsciente coletivo, a sombra, a individuação e o Si-mesmo como centro da mandala.</li>
+    <li><strong>Rollo May</strong>, a psicologia existencial e a crise de significado. <em>O homem à procura de si mesmo</em> · <em>O significado da ansiedade</em> · <em>A necessidade do mito</em>.</li>
+    <li><strong>Bruce Lipton</strong>, a epigenética: o ambiente e a crença moldam a expressão dos genes. <em>A biologia da crença</em>.</li>
+    <li><strong>Joe Dispenza</strong>, a neurociência da mudança. <em>Quebrando o hábito de ser você mesmo</em> · <em>O placebo é você</em>.</li>
+    <li><strong>HeartMath Institute</strong> (Doc Childre, Rollin McCraty), a coerência cardíaca e a inteligência do coração.</li>
+    <li><strong>Annie Marquier</strong>, a inteligência do coração; onde ouvi falar de HeartMath pela primeira vez. <em>O mestre do coração</em>.</li>
+    <li><strong>Stephen Porges</strong>, a teoria polivagal e o nervo vago.</li>
+    <li><strong>Antonio Valenzuela</strong>, a psiconeuroimunologia e a estimulação do nervo vago. <em>Estimule seu nervo vago</em>.</li>
+    <li><strong>Gabor Maté</strong>, o trauma como ferida interior («não é o que aconteceu com você, é o que ficou dentro») e sua raiz no vício e no não se sentir merecedor. <em>O mito do normal</em>.</li>
+    <li><strong>Tim Fletcher</strong>, o trauma complexo e a distinção entre o trauma «T», o golpe único, e os «t» pequenos da negligência repetida.</li>
+    <li><strong>Kristin Neff</strong>, a pesquisadora da autocompaixão: tratar-se com a mesma ternura que se dá a um ente querido, algo muito diferente da pena e da autoexigência.</li>
+    <li><strong>Programação Neurolinguística (PNL)</strong>, de Richard Bandler e John Grinder: a modelagem da experiência e a reprogramação de padrões.</li>
+    <li><strong>Santiago Ramón y Cajal</strong>, pai da neurociência moderna (Nobel 1906) e precursor da neuroplasticidade: «todo homem pode ser, se assim o quiser, escultor de seu próprio cérebro».</li>
+    <li><strong>Paul MacLean</strong>, o modelo do cérebro triúno (reptiliano, límbico e neocórtex), com os lobos pré-frontais como seu cume; um mapa simplificado, mas muito revelador.</li>
+    <li><strong>Tony Robbins</strong>, o desenvolvimento humano e o cérebro que se forma por etapas, camada sobre camada, até os lobos pré-frontais; a reprogramação de padrões.</li>
+  </ul>
+
+  <h3 class="sub">Mestres do propósito e da consciência</h3>
+  <ul class="clean">
+    <li><strong>Peter Sage</strong>, o propósito que se constrói, o 80/20 entre psicologia e mecânica, os quatro níveis de percepção (to-me, by-me, through-me, as-me) e as duas perguntas-chave. <em>The Inside Track</em>.</li>
+    <li><strong>Joseph Campbell</strong>, o monomito e a jornada do herói: o mito universal sob todos os relatos. <em>O herói de mil faces</em>.</li>
+    <li><strong>Byron Katie</strong>, <em>O Trabalho</em>, o giro e a investigação aplicada ao corpo e aos vícios. <em>Amar o que é</em>.</li>
+    <li><strong>Jiddu Krishnamurti</strong>, a observação sem julgamento e as quatro qualidades de quem desperta: discernimento, ausência de desejos, conduta reta e amor. <em>Aos pés do Mestre</em>.</li>
+    <li><strong>Claude M. Bristol</strong>, o poder da crença, a técnica do espelho e sua palavra às mulheres. <em>A magia de acreditar</em>.</li>
+    <li><strong>Thomas Campbell</strong>, <strong>Robert Monroe</strong> (Monroe Institute) e o <strong>relatório Gateway da CIA</strong> (1983, desclassificado), um só fio: a consciência como primária, a realidade como sistema de informação e a investigação dos estados expandidos de consciência. <em>My Big TOE</em>.</li>
+    <li><strong>Miguel Ruiz</strong>, a sabedoria tolteca. <em>Os quatro compromissos</em>.</li>
+    <li><strong>Keiron Le Grice</strong>, a psicologia arquetipal em escala cósmica. <em>O cosmos arquetipal</em>.</li>
+  </ul>
+
+  <h3 class="sub">Tradição andina e os Q'ero</h3>
+  <ul class="clean">
+    <li><strong>O povo Q'ero</strong>, guardiões vivos da sabedoria inca e da profecia da Águia e do Condor.</li>
+    <li><strong>Alberto Villoldo</strong>, o Munay-Ki, os quatro animais de poder e o corpo luminoso. <em>Xamã, curador, sábio</em> · <em>As quatro revelações</em>.</li>
+    <li><strong>Marcela Lobos</strong>, os códigos sagrados andinos e as iniciações Munay-Ki, recebidas do povo Q'ero, como caminho de cura e despertar. <em>Os sagrados códigos andinos</em>.</li>
+    <li><strong>Óscar Núñez del Prado</strong>, o antropólogo que abriu ao mundo o conhecimento dos Q'ero (expedição de 1955).</li>
+    <li><strong>Robert Coon</strong>, a Terra como organismo vivo e seus chakras planetários; o lago Titicaca como centro sagrado. <em>Earth Chakras</em>.</li>
+    <li>A hipótese <strong>Gaia</strong> (James Lovelock), o planeta como um sistema vivo que se autorregula.</li>
+  </ul>
+
+  <h3 class="sub">Tradições espirituais e mantras</h3>
+  <ul class="clean">
+    <li><strong>Rudolf Otto</strong>, <em>o numinoso</em>, a experiência direta do sagrado que deu nome a este método. <em>O Sagrado</em>.</li>
+    <li><strong>Tara Verde</strong> (budismo tibetano), <em>Om Tare Tuttare Ture Soha</em>: proteção e compaixão. Do ciclo tântrico de Tara, recolhido nos <span style="background:var(--gold-soft);color:var(--midnight);padding:1px 6px;border-radius:4px;">«Vinte e um louvores a Tara»</span>.</li>
+    <li><strong>Avalokiteshvara</strong> (budismo), <em>Om Mani Padme Hum</em>: a compaixão, a joia no lótus. Do <em>Sutra Karandavyuha</em>, sutra maaiana onde aparece pela primeira vez.</li>
+    <li><strong>Oshun</strong> (tradição iorubá), <em>Ide were were</em>: as águas doces e as emoções. Da tradição oral e cerimonial iorubá, sem texto escrito.</li>
+    <li><strong>O maha-mantra</strong> (bhakti), <em>Hare Krishna… Hare Rama…</em>: a devoção. Do <em>Kali-Santarana Upanishad</em>, um dos Upanishads vaishnavas dos Vedas.</li>
+  </ul>
+
+    <div class="bio-mark" style="margin-top:46px;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-7 4 14 3-7h4"/></svg><span class="ml">Mapas paralelos · para aprofundar</span><span class="mline"></span></div>
+
+  <p>Os quatro níveis da Parte II aparecem, com outros nomes, em tradições que jamais se conheceram. Não foram copiados: descrevem a mesma ascensão. Reúno aqui esses mapas paralelos para quem quiser olhá-los lado a lado, sem sobrecarregar o caminho principal.</p>
+
+  <div class="lenses">
+    <div class="lens">
+      <h4>Serpente · o corpo</h4>
+      <div class="row"><b>Inca</b><span>Soltar, instinto, sobrevivência. Voltar à terra.</span></div>
+      <div class="row"><b>Krishnamurti</b><span>Discernimento: distinguir o real do passageiro.</span></div>
+      <div class="row"><b>Percepção</b><span>O plano denso: perceber apenas o material.</span></div>
+    </div>
+    <div class="lens">
+      <h4>Jaguar · mente e emoções</h4>
+      <div class="row"><b>Inca</b><span>Atravessar o medo, reivindicar a sombra.</span></div>
+      <div class="row"><b>Krishnamurti</b><span>Ausência de desejos: não ser arrastado pelo querer.</span></div>
+      <div class="row"><b>Percepção</b><span>O plano emocional e mental: perceber desejo e pensamento.</span></div>
+    </div>
+    <div class="lens">
+      <h4>Beija-flor · a alma</h4>
+      <div class="row"><b>Inca</b><span>Criar, nutrir, seguir o néctar.</span></div>
+      <div class="row"><b>Krishnamurti</b><span>Conduta reta: viver em coerência com o que você vê.</span></div>
+      <div class="row"><b>Percepção</b><span>O plano da alma: perceber o sentido e a beleza.</span></div>
+    </div>
+    <div class="lens">
+      <h4>Águia-Condor · o espírito</h4>
+      <div class="row"><b>Inca</b><span>Visão, testemunha, escolha consciente.</span></div>
+      <div class="row"><b>Krishnamurti</b><span>Amor: a força que tudo une.</span></div>
+      <div class="row"><b>Percepção</b><span>A consciência unitária: perceber o todo como um.</span></div>
+    </div>
+  </div>
+
+  <p><strong>Krishnamurti</strong> reuniu essas quatro qualidades em <em>Aos pés do Mestre</em>: discernimento, ausência de desejos, conduta reta e, coroando tudo, o amor. É, nota por nota, a mesma ascensão da Serpente à Águia-Condor.</p>
+
+  <p>E a consciência, olhada com olhos de hoje, diz o mesmo. O físico <strong>Thomas Campbell</strong>, formado junto a <strong>Robert Monroe</strong>, propõe que a realidade tem níveis que aprendemos a perceber; aquela investigação chegou a ser analisada em um relatório hoje desclassificado da <strong>CIA</strong>, o <em>Gateway Process</em> (1983). <strong>Peter Sage</strong> o traduz em linguagem cotidiana: vivemos em quatro níveis conforme o lugar de onde nos relacionamos com a vida. A vida acontece <em>a mim</em> (<em>to-me</em>): sinto-me vítima. A vida sou <em>eu</em> que faço (<em>by-me</em>): tomo as rédeas. A vida acontece <em>através de mim</em> (<em>through-me</em>): torno-me canal. E a vida sou <em>eu</em> (<em>as-me</em>): a consciência de que tudo é um. É a mesma escada que o cérebro percorre em suas ondas, da agitação à quietude: <strong>gama, beta, alfa e teta</strong>. Quatro animais, quatro qualidades, quatro níveis: uma só escada.</p>
+  <p class="note">Numina é minha síntese pessoal de tudo isso, tecida com minha própria vida. O modelo dos doze arquétipos segundo o ano de nascimento se inspira em antigos sistemas de doze energias, a roda do zodíaco, os ciclos de doze, reinterpretados aqui em chave andina e junguiana. Numina não representa nem substitui nenhuma dessas tradições nem seus mestres: bebe delas com respeito e convida você a aprofundar por conta própria. Qualquer erro de interpretação é só meu.</p>
+
+  <div style="text-align:center;margin:24px 0 8px;break-inside:avoid;page-break-inside:avoid;">
+    <svg width="132" height="132" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Numina" style="display:block;margin:0 auto;">
+      <defs>
+        <radialGradient id="core-end" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#FFFFFF"/><stop offset="40%" stop-color="#FBEFD2"/><stop offset="100%" stop-color="#FBEFD2" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <g fill="none" stroke="rgba(201,194,221,.18)" stroke-width="0.8">
+        <circle cx="100" cy="100" r="34"/><circle cx="100" cy="100" r="52"/><circle cx="100" cy="100" r="70"/>
+      </g>
+      <circle cx="100" cy="100" r="30" fill="url(#core-end)"/>
+      <g>
+        <circle cx="100" cy="30" r="4" fill="#E24B4A"/>
+        <circle cx="135" cy="39" r="4" fill="#E2724B"/>
+        <circle cx="161" cy="65" r="4" fill="#EF9F27"/>
+        <circle cx="170" cy="100" r="4" fill="#C9A24B"/>
+        <circle cx="161" cy="135" r="4" fill="#97C459"/>
+        <circle cx="135" cy="161" r="4" fill="#1D9E75"/>
+        <circle cx="100" cy="170" r="4" fill="#4F8FD9"/>
+        <circle cx="65" cy="161" r="4" fill="#5B6FD8"/>
+        <circle cx="39" cy="135" r="4" fill="#7B4FC9"/>
+        <circle cx="30" cy="100" r="4" fill="#9B4FC4"/>
+        <circle cx="39" cy="65" r="4" fill="#B85BC4"/>
+        <circle cx="65" cy="39" r="4" fill="#D4537E"/>
+      </g>
+      <circle cx="100" cy="100" r="6" fill="#FFFFFF"/>
+    </svg>
+    <div style="font-family:'Cormorant Garamond',serif;font-weight:500;font-size:34px;letter-spacing:.04em;color:var(--ink);margin:18px 0 0;">Numina</div>
+    <div style="font-family:'Bebas Neue',sans-serif;letter-spacing:.34em;font-size:13px;color:var(--gold-soft);text-transform:uppercase;margin:4px 0 0;">O Acorde 13</div>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:25px;line-height:1.5;color:var(--ink);max-width:30ch;margin:34px auto 0;">Obrigada por caminhar até aqui. Se algo nestas páginas ressoou em você, não foi por acaso: era sua própria nota se reconhecendo.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:21px;line-height:1.5;color:var(--gold-soft);max-width:32ch;margin:18px auto 0;">Agora você sabe o nome dela. Nos vemos lá dentro, para caminhar o método juntas, até que soe seu Acorde 13.</p>
+    <p style="font-family:'Bebas Neue',sans-serif;letter-spacing:.32em;color:var(--gold);font-size:22px;margin-top:22px;">Aho.</p>
+
+    <p style="font-family:'Bebas Neue',sans-serif;letter-spacing:.22em;font-size:13px;color:var(--lav-dim);text-transform:uppercase;margin-top:46px;line-height:1.9;">&copy; 2026 ACEAI Online Marketing Ltd. · Todos os direitos reservados<br>Sistema DAyllu&trade; · Método Numina</p>
+    <p style="font-family:'Inter',sans-serif;font-size:11.5px;letter-spacing:.04em;color:var(--lav-dim);margin:14px 0 0;line-height:1.7;">Obra registrada e protegida · Licença Safe Creative · 2026.<br>É proibida sua reprodução total ou parcial sem autorização do titular.</p>
+  </div>
+</section>
+
+
+</div>
+
+<!-- Paginación de medios impresos (cabeceras/pies en cajas de margen, saltos de página).
+     Genera la vista de e-book paginado y permite "Imprimir → Guardar como PDF". -->
+<script src="paged.polyfill.js"></script>
+</body>
+</html>
