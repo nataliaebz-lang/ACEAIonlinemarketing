@@ -1,0 +1,19 @@
+{
+  "name": "aceai-auth-worker",
+  "version": "1.0.0",
+  "description": "Auth (magic link), gating por nivel, API de recursos y panel /admin para ACEAI sobre Cloudflare Workers + D1.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:create": "wrangler d1 create aceai-resources",
+    "db:init": "wrangler d1 execute aceai-resources --file=./schema.sql",
+    "db:init:local": "wrangler d1 execute aceai-resources --local --file=./schema.sql",
+    "db:seed": "wrangler d1 execute aceai-resources --file=./seed.sql",
+    "db:seed:local": "wrangler d1 execute aceai-resources --local --file=./seed.sql"
+  },
+  "devDependencies": {
+    "wrangler": "^3.90.0"
+  }
+}

@@ -1,0 +1,39 @@
+name = "aceai-auth-worker"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# ── Base de datos D1 (gestor de contenidos) ─────────────────────────────
+# Crea la base con:  npx wrangler d1 create aceai-resources
+# Copia el database_id que te devuelve y pégalo abajo.
+[[d1_databases]]
+binding = "DB"
+database_name = "aceai-resources"
+database_id = "REEMPLAZAR_CON_TU_DATABASE_ID"
+
+# ── Variables públicas (no secretas) ────────────────────────────────────
+[vars]
+# Origen del frontend (Cloudflare Pages). Para varios, sepáralos con coma.
+ALLOWED_ORIGIN = "https://aceaionlinemarketing.com,https://www.aceaionlinemarketing.com"
+# A dónde se redirige a la fundadora tras hacer clic en el magic link.
+APP_URL = "https://aceaionlinemarketing.com/panel"
+# Nombre del proyecto en GHL (solo para los correos).
+BRAND_NAME = "ACEAI"
+# Remitente de los correos de magic link.
+EMAIL_FROM = "ACEAI <hola@aceaionlinemarketing.com>"
+# SameSite de la cookie de sesión. Usa "None" si el Worker y el frontend
+# están en dominios distintos; "Lax" si comparten dominio raíz (subdominios).
+COOKIE_SAMESITE = "None"
+# Versión de la API de GHL.
+GHL_API_VERSION = "2021-07-28"
+# Nombre del custom field en GHL que guarda el nivel de la fundadora.
+GHL_LEVEL_FIELD = "membership_level"
+# Nivel por defecto si el contacto existe en GHL pero no tiene nivel asignado.
+DEFAULT_LEVEL = "1"
+
+# ── Secretos (NO van aquí) ──────────────────────────────────────────────
+# Configúralos con:  npx wrangler secret put NOMBRE
+#   AUTH_SECRET        → firma de los magic links y las sesiones (cadena larga aleatoria)
+#   ADMIN_PASSWORD     → contraseña del panel /admin
+#   GHL_API_TOKEN      → Private Integration token de GoHighLevel
+#   GHL_LOCATION_ID    → ID de la subcuenta (Location) en GHL
+#   RESEND_API_KEY     → API key de Resend para enviar los correos (opcional en dev)
