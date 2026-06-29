@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<!-- Portal de Fundadoras · ACEAI  (antes "dashboard-fundadoras.html" del instructivo)
+     Versión LISTA PARA CLOUDFLARE PAGES:
+       · Sin panel de prueba (#panelPrueba eliminado).
+       · Lee los niveles desde la URL que pasa GHL: ?cid=&p=&ia=&pmf=
+       · Enlaces centralizados en el mapa LINKS (rellena las URLs en un solo lugar).
+       · La seguridad real la hace el Worker (window.API_BASE). La interfaz solo ordena. -->
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal de Fundadoras · ACEAI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --rojo:#ED1B24; --violeta:#5B3A8C; --oro:#B8893B;
+    --tinta:#241B2E; --suave:#6E6478;
+    --papel:#F7F3EE; --papel2:#FBF8F4; --linea:#E7DFD4;
+    --violeta-claro:#F1ECF6; --rojo-claro:#FBEBEB; --oro-claro:#F6EFE2;
+    --sombra:0 1px 2px rgba(36,27,46,.04), 0 8px 24px rgba(36,27,46,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:
+      radial-gradient(1200px 600px at 85% -10%, var(--violeta-claro) 0%, transparent 55%),
+      radial-gradient(900px 500px at -10% 5%, var(--rojo-claro) 0%, transparent 50%),
+      var(--papel);
+    color:var(--tinta);
+    font-family:'Jost',system-ui,sans-serif;
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:clamp(20px,4vw,56px) clamp(16px,4vw,40px) 80px}
+
+  /* Encabezado */
+  .top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:8px}
+  .marca{font-family:'Jost';font-weight:600;letter-spacing:.32em;text-transform:uppercase;font-size:12px;color:var(--rojo)}
+  h1{font-family:'Cormorant Garamond';font-weight:600;font-size:clamp(34px,6vw,56px);line-height:1.02;margin:6px 0 0;color:var(--tinta);letter-spacing:.005em}
+  h1 em{font-style:italic;color:var(--violeta)}
+  .sub{font-family:'Jost';font-weight:300;color:var(--suave);font-size:clamp(14px,2.2vw,16px);max-width:54ch;margin-top:14px}
+  .saludo{font-family:'Cormorant Garamond';font-style:italic;font-size:18px;color:var(--oro);text-align:right;min-width:140px}
+
+  .regla{height:1px;background:linear-gradient(90deg,var(--oro),transparent);margin:30px 0 8px;border:0}
+
+  /* Bloque de área */
+  .area{margin-top:46px}
+  .area-head{display:flex;align-items:baseline;gap:16px;margin-bottom:20px}
+  .codigo{font-family:'Jost';font-weight:600;font-size:13px;letter-spacing:.28em;padding:6px 12px;border-radius:999px;line-height:1}
+  .codigo.p{color:var(--violeta);background:var(--violeta-claro);border:1px solid #E0D5EC}
+  .codigo.ia{color:var(--rojo);background:var(--rojo-claro);border:1px solid #F3D7D7}
+  .codigo.pmf{color:var(--oro);background:var(--oro-claro);border:1px solid #ECDDC2}
+  .area-titulo{font-family:'Cormorant Garamond';font-weight:600;font-size:clamp(24px,3.6vw,34px);color:var(--tinta);margin:0}
+  .area-nota{font-family:'Jost';font-weight:300;color:var(--suave);font-size:14px;margin:2px 0 0}
+
+  /* Rejilla de tarjetas */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:16px}
+  .card{
+    position:relative;background:var(--papel2);border:1px solid var(--linea);
+    border-radius:16px;padding:22px 20px 20px;box-shadow:var(--sombra);
+    display:flex;flex-direction:column;gap:8px;min-height:148px;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    overflow:hidden;
+  }
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--linea)}
+  .card[data-req-area="p"]::before{background:linear-gradient(var(--violeta),var(--oro))}
+  .card[data-req-area="ia"]::before{background:var(--rojo)}
+  .card:not(.bloqueado):hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(36,27,46,.05),0 16px 36px rgba(36,27,46,.10);border-color:#DACFE6}
+  .nivel-tag{font-family:'Jost';font-weight:600;font-size:11px;letter-spacing:.16em;color:var(--suave);text-transform:uppercase}
+  .card[data-req-area="p"] .nivel-tag{color:var(--violeta)}
+  .card[data-req-area="ia"] .nivel-tag{color:var(--rojo)}
+  .card h3{font-family:'Cormorant Garamond';font-weight:600;font-size:23px;line-height:1.12;margin:2px 0 0;color:var(--tinta)}
+  .card p{font-family:'Jost';font-weight:300;font-size:13.5px;color:var(--suave);margin:0}
+  .card .abrir{margin-top:auto;font-family:'Jost';font-weight:500;font-size:13px;letter-spacing:.04em;color:var(--violeta);display:inline-flex;align-items:center;gap:6px;text-decoration:none}
+  .card[data-req-area="ia"] .abrir{color:var(--rojo)}
+  .card .abrir svg{width:14px;height:14px}
+
+  /* Estado bloqueado (candado) */
+  .card.bloqueado{filter:saturate(.35);opacity:.92}
+  .card.bloqueado h3,.card.bloqueado p{opacity:.55}
+  .card.bloqueado::before{background:var(--linea)!important}
+  .candado{
+    position:absolute;inset:0;background:rgba(247,243,238,.62);backdrop-filter:blur(1px);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+    cursor:pointer;text-align:center;padding:16px;
+  }
+  .candado .ico{width:28px;height:28px;color:var(--oro)}
+  .candado .txt{font-family:'Jost';font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta)}
+  .candado .req{font-family:'Jost';font-weight:400;font-size:12px;color:var(--suave)}
+
+  /* Banner PMF */
+  .pmf-banner{
+    margin-top:46px;border-radius:18px;padding:26px 28px;
+    background:linear-gradient(105deg,#2C2140 0%,#4A2F6E 55%,#6B4A8F 100%);
+    color:#F4EFE6;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+    box-shadow:0 14px 40px rgba(44,33,64,.28);position:relative;overflow:hidden;
+  }
+  .pmf-banner::after{content:"";position:absolute;right:-40px;top:-40px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(184,137,59,.45),transparent 65%)}
+  .pmf-banner .ll{position:relative;z-index:1}
+  .pmf-banner .eyebrow{font-family:'Jost';font-weight:600;letter-spacing:.28em;font-size:11px;color:var(--oro);text-transform:uppercase}
+  .pmf-banner h2{font-family:'Cormorant Garamond';font-weight:600;font-size:30px;margin:6px 0 4px}
+  .pmf-banner p{font-family:'Jost';font-weight:300;font-size:14px;color:#D9CFE6;margin:0;max-width:46ch}
+  .pmf-banner .estado{position:relative;z-index:1;font-family:'Jost';font-weight:500;font-size:13px;letter-spacing:.04em;padding:10px 18px;border-radius:999px;border:1px solid rgba(244,239,230,.35);white-space:nowrap}
+
+  .vacio{font-family:'Cormorant Garamond';font-style:italic;color:var(--suave);font-size:18px;padding:8px 2px}
+
+  @media (max-width:560px){
+    .saludo{text-align:left}
+    .pmf-banner{flex-direction:column;align-items:flex-start}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <div>
+      <div class="marca">ACEAI · Círculo de Fundadoras</div>
+      <h1>Tu <em>portal</em></h1>
+      <p class="sub">Todo lo que has desbloqueado, en un solo lugar. Lo que aún no está abierto te espera con candado: ahí ves hacia dónde puedes seguir creciendo.</p>
+    </div>
+    <div class="saludo" id="saludo">Bienvenida</div>
+  </div>
+  <hr class="regla">
+
+  <!-- ===================== ÁREA P — PROPÓSITO ===================== -->
+  <section class="area" data-area-block="p">
+    <div class="area-head">
+      <span class="codigo p">P · PROPÓSITO</span>
+      <div>
+        <h2 class="area-titulo">Numina &amp; DAyllu</h2>
+        <p class="area-nota">El camino del propósito: tu libro, tu app de arquetipos y tus prácticas.</p>
+      </div>
+    </div>
+    <div class="grid">
+
+      <!-- P1 -->
+      <article class="card" data-req-area="p" data-req-level="1">
+        <span class="nivel-tag">P1</span>
+        <h3>Libro Numina</h3>
+        <p>El Acorde 13. Tu método del propósito.</p>
+        <a class="abrir" data-link="p_libro_numina" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="1">
+        <span class="nivel-tag">P1</span>
+        <h3>App DAyllu</h3>
+        <p>Tu mapa de 12 arquetipos.</p>
+        <a class="abrir" data-link="p_app_dayllu" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="1">
+        <span class="nivel-tag">P1</span>
+        <h3>Apps DAyllu</h3>
+        <p>Tus mini-apps de arquetipos y práctica.</p>
+        <a class="abrir" data-link="p_apps_dayllu" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="1">
+        <span class="nivel-tag">P1</span>
+        <h3>Agentes DAyllu</h3>
+        <p>Agentes conversacionales de tu método.</p>
+        <a class="abrir" data-link="p_agentes_dayllu" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- P2 -->
+      <article class="card" data-req-area="p" data-req-level="2">
+        <span class="nivel-tag">P2</span>
+        <h3>Curso 7 días · Propósito</h3>
+        <p>Tu introducción guiada al propósito.</p>
+        <a class="abrir" data-link="p_curso7" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="2">
+        <span class="nivel-tag">P2</span>
+        <h3>Música</h3>
+        <p>Frecuencias para tu práctica diaria.</p>
+        <a class="abrir" data-link="p_musica" href="#">Escuchar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="2">
+        <span class="nivel-tag">P2</span>
+        <h3>Meditaciones</h3>
+        <p>Sesiones guiadas para anclar tu enfoque.</p>
+        <a class="abrir" data-link="p_meditaciones" href="#">Escuchar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="2">
+        <span class="nivel-tag">P2</span>
+        <h3>Mantras</h3>
+        <p>Repeticiones para sostener tu intención.</p>
+        <a class="abrir" data-link="p_mantras" href="#">Escuchar <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="2">
+        <span class="nivel-tag">P2</span>
+        <h3>Apps DAyllu · Prácticas</h3>
+        <p>Apps de música, meditación y ritmo diario.</p>
+        <a class="abrir" data-link="p_apps_practicas" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="2">
+        <span class="nivel-tag">P2</span>
+        <h3>Agentes DAyllu · Plus</h3>
+        <p>Agentes que te guían en tu propósito.</p>
+        <a class="abrir" data-link="p_agentes_plus" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- P3 -->
+      <article class="card" data-req-area="p" data-req-level="3">
+        <span class="nivel-tag">P3</span>
+        <h3>Curso 41 días · Propósito</h3>
+        <p>El programa profundo de transformación.</p>
+        <a class="abrir" data-link="p_curso41" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="3">
+        <span class="nivel-tag">P3</span>
+        <h3>Apps DAyllu · Pro</h3>
+        <p>Apps avanzadas del programa de 41 días.</p>
+        <a class="abrir" data-link="p_apps_pro" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="p" data-req-level="3">
+        <span class="nivel-tag">P3</span>
+        <h3>Agentes DAyllu · Pro</h3>
+        <p>Agentes de acompañamiento profundo.</p>
+        <a class="abrir" data-link="p_agentes_pro" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+    </div>
+    <p class="vacio" data-vacio hidden>Aún no tienes acceso al área de Propósito.</p>
+  </section>
+
+  <!-- ===================== ÁREA IA ===================== -->
+  <section class="area" data-area-block="ia">
+    <div class="area-head">
+      <span class="codigo ia">IA · INTELIGENCIA ARTIFICIAL</span>
+      <div>
+        <h2 class="area-titulo">Herramientas &amp; Formación IA</h2>
+        <p class="area-nota">Tus cursos, bibliotecas de prompts y directorio de IA.</p>
+      </div>
+    </div>
+    <div class="grid">
+
+      <!-- IA1 -->
+      <article class="card" data-req-area="ia" data-req-level="1">
+        <span class="nivel-tag">IA1</span>
+        <h3>Libro SOS-IA+P</h3>
+        <p>Tu punto de partida en IA con propósito.</p>
+        <a class="abrir" data-link="ia_libro" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="1">
+        <span class="nivel-tag">IA1</span>
+        <h3>Apps IA</h3>
+        <p>Tus primeras apps de IA con propósito.</p>
+        <a class="abrir" data-link="ia_apps" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="1">
+        <span class="nivel-tag">IA1</span>
+        <h3>Agentes IA</h3>
+        <p>Agentes de IA para empezar a delegar.</p>
+        <a class="abrir" data-link="ia_agentes" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- IA2 -->
+      <article class="card" data-req-area="ia" data-req-level="2">
+        <span class="nivel-tag">IA2</span>
+        <h3>Curso 7 días · IA</h3>
+        <p>Tu introducción práctica a la IA.</p>
+        <a class="abrir" data-link="ia_curso7" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="2">
+        <span class="nivel-tag">IA2</span>
+        <h3>Biblioteca de Prompts · Básica</h3>
+        <p>Prompts listos para empezar a crear.</p>
+        <a class="abrir" data-link="ia_prompts_basica" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="2">
+        <span class="nivel-tag">IA2</span>
+        <h3>Directorio IA</h3>
+        <p>Las herramientas que sí valen la pena.</p>
+        <a class="abrir" data-link="ia_directorio" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="2">
+        <span class="nivel-tag">IA2</span>
+        <h3>Apps IA · Plus</h3>
+        <p>Apps conectadas a tu biblioteca de prompts.</p>
+        <a class="abrir" data-link="ia_apps_plus" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="2">
+        <span class="nivel-tag">IA2</span>
+        <h3>Agentes IA · Plus</h3>
+        <p>Agentes que ejecutan tareas de tu negocio.</p>
+        <a class="abrir" data-link="ia_agentes_plus" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <!-- IA3 -->
+      <article class="card" data-req-area="ia" data-req-level="3">
+        <span class="nivel-tag">IA3</span>
+        <h3>Curso 41 días · IA</h3>
+        <p>Lanza tu negocio con IA, paso a paso.</p>
+        <a class="abrir" data-link="ia_curso41" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="3">
+        <span class="nivel-tag">IA3</span>
+        <h3>Biblioteca de Prompts · Intermedia</h3>
+        <p>Prompts avanzados para escalar tu trabajo.</p>
+        <a class="abrir" data-link="ia_prompts_inter" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="3">
+        <span class="nivel-tag">IA3</span>
+        <h3>Apps IA · Pro</h3>
+        <p>Apps avanzadas: Studio, Telar y Risk Lab.</p>
+        <a class="abrir" data-link="ia_apps_pro" data-studio href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+      <article class="card" data-req-area="ia" data-req-level="3">
+        <span class="nivel-tag">IA3</span>
+        <h3>Agentes IA · Pro</h3>
+        <p>Agentes a medida para escalar tu negocio.</p>
+        <a class="abrir" data-link="ia_agentes_pro" href="#">Abrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </article>
+
+    </div>
+    <p class="vacio" data-vacio hidden>Aún no tienes acceso al área de IA.</p>
+  </section>
+
+  <!-- ===================== PMF — CÍRCULO FUNDADOR ===================== -->
+  <section class="pmf-banner" id="pmfBanner">
+    <div class="ll">
+      <div class="eyebrow">PMF · CÍRCULO FUNDADOR</div>
+      <h2>Tienes acceso total</h2>
+      <p>Como fundadora, todo el portal está abierto para ti: Propósito e IA, completos, sin candados.</p>
+    </div>
+    <div class="estado">Acceso P + IA desbloqueado</div>
+  </section>
+
+</div>
+
+<script>
+(function(){
+  // ============================================================
+  // CONFIGURACIÓN — rellena estos dos bloques
+  // ============================================================
+
+  // URL del Worker de Cloudflare (Studio / créditos / verificación de nivel).
+  // Lo usa el Studio; aquí queda disponible para el resto de la app.
+  window.API_BASE = "https://TU-WORKER.workers.dev";
+
+  // Enlace real de cada tarjeta (botón "Abrir/Escuchar").
+  // Deja "" para que la tarjeta no lleve a ningún lado todavía.
+  // La tarjeta de Studio recibe automáticamente ?cid={{contact.id}}.
+  var LINKS = {
+    // P · PROPÓSITO
+    p_libro_numina:   "",
+    p_app_dayllu:     "",
+    p_apps_dayllu:    "",
+    p_agentes_dayllu: "",
+    p_curso7:         "",
+    p_musica:         "",
+    p_meditaciones:   "",
+    p_mantras:        "",
+    p_apps_practicas: "",
+    p_agentes_plus:   "",
+    p_curso41:        "",
+    p_apps_pro:       "",
+    p_agentes_pro:    "",
+    // IA · INTELIGENCIA ARTIFICIAL
+    ia_libro:         "",
+    ia_apps:          "",
+    ia_agentes:       "",
+    ia_curso7:        "",
+    ia_prompts_basica:"",
+    ia_directorio:    "",
+    ia_apps_plus:     "",
+    ia_agentes_plus:  "",
+    ia_curso41:       "",
+    ia_prompts_inter: "",
+    ia_apps_pro:      "studio.html",   // abre el Studio (se le añade ?cid=)
+    ia_agentes_pro:   ""
+  };
+
+  // ============================================================
+  // 1) LEER NIVELES — en producción llegan desde GHL por la URL:
+  //    ?cid=...&p=2&ia=3&pmf=1
+  //    Si NO llegan parámetros → todo a 0 (fail-closed: se ve con candado).
+  // ============================================================
+  var q = new URLSearchParams(location.search);
+
+  function leerNiveles(){
+    return {
+      cid: q.get('cid') || 'default',
+      p:   parseInt(q.get('p')   || '0',10),
+      ia:  parseInt(q.get('ia')  || '0',10),
+      pmf: parseInt(q.get('pmf') || '0',10)
+    };
+  }
+
+  // ============================================================
+  // 2) ¿Tiene acceso? — niveles acumulativos + PMF abre TODO P+IA
+  // ============================================================
+  function tieneAcceso(USER, area, nivelRequerido){
+    if (USER.pmf >= 1) return true;                 // PMF ve todo el dashboard P+IA
+    var n = (area==='p') ? USER.p : (area==='ia') ? USER.ia : USER.pmf;
+    return n >= nivelRequerido;                      // acumulativo: nivel >= requerido
+  }
+
+  // Texto del candado según lo que falta
+  function textoRequisito(area, nivel){
+    if (area==='p')  return 'Disponible en P'+nivel;
+    if (area==='ia') return 'Disponible en IA'+nivel;
+    return 'Solo Círculo Fundador';
+  }
+
+  var ICONO_CANDADO = '<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+
+  // ============================================================
+  // 3) ENLACES — pone el href real de cada tarjeta desbloqueada
+  // ============================================================
+  function aplicarEnlaces(cid){
+    document.querySelectorAll('a.abrir[data-link]').forEach(function(a){
+      var key = a.getAttribute('data-link');
+      var url = LINKS[key] || '';
+      if (!url){ a.setAttribute('href','#'); return; }
+      if (a.hasAttribute('data-studio')){             // el Studio recibe el id del contacto
+        url += (url.indexOf('?')===-1 ? '?' : '&') + 'cid=' + encodeURIComponent(cid || '');
+      }
+      a.setAttribute('href', url);
+      a.setAttribute('target','_top');                // salir del iframe de GHL al abrir
+      a.setAttribute('rel','noopener');
+    });
+  }
+
+  // ============================================================
+  // 4) APLICAR PERMISOS a cada tarjeta marcada
+  // ============================================================
+  var MODO_CANDADO = true;   // true = mostrar con candado (vende la oferta) · false = ocultar
+
+  function aplicarGating(){
+    var USER = leerNiveles();
+    window.ACEAI_USER = USER;          // disponible para el resto de la app
+    window.CLIENT_ID  = USER.cid;      // lo usa el Worker para nivel y créditos
+
+    aplicarEnlaces(USER.cid);
+
+    // saludo
+    var s = document.getElementById('saludo');
+    if (s) s.textContent = USER.pmf>=1 ? 'Fundadora' : 'Bienvenida';
+
+    document.querySelectorAll('[data-req-area]').forEach(function(el){
+      var area  = (el.getAttribute('data-req-area')||'').toLowerCase();
+      var nivel = parseInt(el.getAttribute('data-req-level')||'1',10);
+
+      // limpiar estado previo
+      el.classList.remove('bloqueado');
+      var prev = el.querySelector('.candado'); if (prev) prev.remove();
+      el.style.display = '';
+
+      if (tieneAcceso(USER, area, nivel)) return;   // tiene acceso → se muestra normal
+
+      if (MODO_CANDADO){
+        el.classList.add('bloqueado');
+        el.setAttribute('aria-disabled','true');
+        var c = document.createElement('div');
+        c.className = 'candado';
+        c.innerHTML = ICONO_CANDADO +
+          '<span class="txt">Desbloquéalo</span>' +
+          '<span class="req">'+textoRequisito(area,nivel)+'</span>';
+        el.appendChild(c);
+      } else {
+        el.style.display = 'none';
+      }
+    });
+
+    // ocultar el bloque de un área si NO hay ninguna tarjeta visible/desbloqueada en ella
+    document.querySelectorAll('[data-area-block]').forEach(function(block){
+      var area = block.getAttribute('data-area-block');
+      var algunaAbierta = Array.prototype.some.call(
+        block.querySelectorAll('[data-req-area]'),
+        function(el){ return tieneAcceso(USER, area, parseInt(el.getAttribute('data-req-level'),10)); }
+      );
+      var vacio = block.querySelector('[data-vacio]');
+      if (!MODO_CANDADO){
+        if (vacio) vacio.hidden = algunaAbierta;
+      } else {
+        if (vacio) vacio.hidden = true;
+      }
+    });
+
+    // banner PMF: solo para fundadoras
+    var banner = document.getElementById('pmfBanner');
+    if (banner) banner.style.display = (USER.pmf>=1) ? '' : 'none';
+  }
+
+  aplicarGating();
+
+  // ============================================================
+  // NOTA DE SEGURIDAD:
+  // Este bloqueo SOLO ordena lo que se ve. La verificación real
+  // (abrir contenido de pago, gastar créditos del Studio) la hace
+  // el WORKER en Cloudflare, comprobando el nivel real contra GHL.
+  // La interfaz oculta; el Worker decide.
+  // ============================================================
+})();
+</script>
+</body>
+</html>
