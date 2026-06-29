@@ -147,9 +147,9 @@
   .run-head,.run-foot{display:none;}
 
   @media print{
-    /* Uniform per-page margins reserve a header/footer band on EVERY printed
-       page, so flowing text can never slip underneath the running marks. */
-    @page{size:A4;margin:16mm 0;}
+    /* Full-bleed pages (no paper margin = no white edges). Chromium reserves
+       room for the fixed header/footer below, so flowing text never collides. */
+    @page{size:A4;margin:0;}
     html,body{background:var(--midnight);-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     body{font-size:11.5pt;}
     .book{max-width:none;}
@@ -176,13 +176,12 @@
     .run-head .rh-l,.run-foot .rf-r{color:var(--gold-soft);}
     .run-foot .rf-c{color:var(--gold);letter-spacing:0;font-size:8.5pt;}
 
-    /* Text pages: comfortable margins plus a little breathing room below the
-       header and above the footer. */
-    .page{padding:9mm 22mm;page-break-before:always;min-height:auto;}
+    /* Text pages: side margins for a readable measure, plus top/bottom space
+       that clears the running header and footer bands. */
+    .page{padding:26mm 22mm;page-break-before:always;min-height:auto;}
 
-    /* Cover & dividers: each fills exactly one page (page box minus margins),
-       so the full-bleed artwork never spills onto a second page. */
-    .cover,.divider{min-height:calc(297mm - 38mm);}
+    /* Cover & dividers: full-bleed artwork filling the whole page. */
+    .cover,.divider{min-height:100vh;}
     .cover{page-break-after:always;}
     .divider{page-break-before:always;page-break-after:always;}
 
