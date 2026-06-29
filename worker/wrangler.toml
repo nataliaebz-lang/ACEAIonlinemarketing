@@ -1,0 +1,22 @@
+name = "aceai-studio"
+main = "worker.js"
+compatibility_date = "2024-09-01"
+
+# ── Créditos (opcional): descomenta y crea la D1 con `wrangler d1 create aceai`
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "aceai"
+# database_id = "TU-DATABASE-ID"
+
+# ── Secretos (NO van aquí; se cargan con `wrangler secret put NOMBRE`):
+#   ANTHROPIC_API_KEY   (obligatorio)
+#   ALLOWED_ORIGIN      (recomendado: https://app.tudominio.com)
+#
+#   NIVELES (seguridad real):
+#   GHL_PIT             token de integración privada de GHL (lee el contacto)
+#   GHL_FIELD_P         id del campo personalizado nivel_p
+#   GHL_FIELD_IA        id del campo personalizado nivel_ia
+#   GHL_FIELD_PMF       id del campo personalizado acceso_pmf
+#
+#   Proveedores (opcionales): IMAGE_ENDPOINT, VIDEO_RENDER_URL, CAPTIONS_URL,
+#   PUBLISH_URL, GHL_WEBHOOK_SECRET
