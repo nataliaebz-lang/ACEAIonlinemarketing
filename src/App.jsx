@@ -1,6 +1,12 @@
 import * as React from "react";
 const _jsxFileName = "";import { Switch, Route, Router as WouterRouter, useLocation } from "wouter";
+import { useHashLocation } from "wouter/use-hash-location";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+// Demo (preview en un solo HTML / file://): usa routing por hash para que las
+// rutas funcionen sin servidor. Off en producción.
+const DEMO = import.meta.env.VITE_DEMO === "1" ||
+  (typeof location !== "undefined" && (new URLSearchParams(location.search).has("demo") || location.protocol === "file:"));
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout";
@@ -92,7 +98,7 @@ function App() {
       , React.createElement(AuthProvider, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 91}}
         , React.createElement(QueryClientProvider, { client: queryClient, __self: this, __source: {fileName: _jsxFileName, lineNumber: 92}}
           , React.createElement(TooltipProvider, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 93}}
-            , React.createElement(WouterRouter, { base: import.meta.env.BASE_URL.replace(/\/$/, ""), __self: this, __source: {fileName: _jsxFileName, lineNumber: 94}}
+            , React.createElement(WouterRouter, { base: DEMO ? "" : import.meta.env.BASE_URL.replace(/\/$/, ""), hook: DEMO ? useHashLocation : undefined, __self: this, __source: {fileName: _jsxFileName, lineNumber: 94}}
               , React.createElement(ProtectedRouter, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 95}} )
             )
             , React.createElement(Toaster, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 97}} )

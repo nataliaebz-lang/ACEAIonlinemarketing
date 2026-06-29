@@ -20,9 +20,15 @@ const AuthContext = createContext(null);
 const TOKEN_KEY = "aceai_token";
 const API_BASE = import.meta.env.BASE_URL.replace(/\/$/, "").replace("/dashboard", "") + "/api";
 
+// Modo demo (solo previsualización): entra al dashboard sin backend.
+// Se activa con VITE_DEMO=1 en build o con ?demo en la URL. Off en producción.
+const DEMO = import.meta.env.VITE_DEMO === "1" ||
+  (typeof location !== "undefined" && new URLSearchParams(location.search).has("demo"));
+const DEMO_MEMBER = { firstName: "Natalia", lastName: "E", email: "demo@aceai.com" };
+
 export function AuthProvider({ children }) {
-  const [member, setMember] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [member, setMember] = useState(DEMO ? DEMO_MEMBER : null);
+  const [loading, setLoading] = useState(DEMO ? false : true);
 
   const fetchMe = useCallback(async () => {
     const token = localStorage.getItem(TOKEN_KEY);
@@ -45,7 +51,7 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  useEffect(() => { fetchMe(); }, [fetchMe]);
+  useEffect(() => { if (!DEMO) fetchMe(); }, [fetchMe]);
 
   const login = async (email, password) => {
     try {
