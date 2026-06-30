@@ -29,9 +29,32 @@ const DEMO = import.meta.env.VITE_DEMO === "1" ||
 // GHL en el objeto `member` del login.
 const DEMO_MEMBER = { firstName: "Natalia", lastName: "E", email: "demo@aceai.com", p: 1, ia: 1, pmf: 0 };
 
+// ── Modo GHL (incrustado por iframe) ─────────────────────────────────────────
+// El dashboard se incrusta en GHL y recibe el nivel por la URL:
+//   ?cid=<id contacto>&p=<nivel_p>&ia=<nivel_ia>&pmf=<0|1>&nombre=&email=
+// No hay login: GHL ya autenticó a la persona. Los niveles de la URL son
+// spoofeables → sirven SOLO para mostrar/ocultar (los candados). La seguridad
+// real la aplica el Worker en cada acción de pago ("la interfaz oculta, el
+// Worker decide").
+function readGhlParams() {
+  if (typeof location === "undefined") return null;
+  const q = new URLSearchParams(location.search);
+  if (!q.has("p") && !q.has("ia") && !q.has("pmf") && !q.has("cid")) return null;
+  const n = (v) => { const x = parseInt(v, 10); return Number.isNaN(x) ? 0 : x; };
+  return {
+    cid: q.get("cid") || "",
+    p: n(q.get("p")),
+    ia: n(q.get("ia")),
+    pmf: n(q.get("pmf")),
+    firstName: q.get("nombre") || q.get("name") || "",
+    email: q.get("email") || "",
+  };
+}
+const GHL_MEMBER = DEMO ? null : readGhlParams();
+
 export function AuthProvider({ children }) {
-  const [member, setMember] = useState(DEMO ? DEMO_MEMBER : null);
-  const [loading, setLoading] = useState(DEMO ? false : true);
+  const [member, setMember] = useState(DEMO ? DEMO_MEMBER : (GHL_MEMBER || null));
+  const [loading, setLoading] = useState(DEMO || GHL_MEMBER ? false : true);
 
   const fetchMe = useCallback(async () => {
     const token = localStorage.getItem(TOKEN_KEY);
@@ -54,7 +77,8 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  useEffect(() => { if (!DEMO) fetchMe(); }, [fetchMe]);
+  // En modo GHL el nivel ya vino por la URL: no consultamos /auth/me.
+  useEffect(() => { if (!DEMO && !GHL_MEMBER) fetchMe(); }, [fetchMe]);
 
   const login = async (email, password) => {
     try {
