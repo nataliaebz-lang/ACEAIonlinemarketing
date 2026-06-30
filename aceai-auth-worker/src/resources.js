@@ -8,9 +8,13 @@ const VALID_AREAS = ["P", "IA", "abierto"];
 const VALID_LANGS = ["es", "en", "pt"];
 
 // GET /api/resources[?lang=es]
-// Devuelve SOLO los recursos que el nivel de la fundadora desbloquea.
-// Regla de gating: el recurso se muestra si su `level` <= nivel de la fundadora.
-// (level = 0 significa abierto a todas.)
+// Devuelve TODOS los recursos del dashboard. La fundadora ve el dashboard
+// completo; los recursos que su nivel aún no desbloquea llegan marcados como
+// `locked: true` y SIN su enlace, para que el frontend los muestre con candado
+// ("Disponible en …") en vez de ocultarlos.
+//
+// Regla de gating: un recurso está desbloqueado si su `level` <= nivel de la
+// fundadora. (level = 0 = abierto a todas.)
 export async function handleResources(request, env) {
   const session = await getSession(request, env);
   if (!session) return json({ error: "unauthenticated" }, request, env, 401);
@@ -20,16 +24,20 @@ export async function handleResources(request, env) {
 
   const { results } = await env.DB.prepare(
     `SELECT * FROM resources
-       WHERE active = 1 AND level <= ?
-       ORDER BY area, sort_order, id`
-  )
-    .bind(level)
-    .all();
+       WHERE active = 1
+       ORDER BY area, sort_order, level, id`
+  ).all();
 
-  const items = (results || []).map((r) => shapeForFounder(r, lang));
+  const items = (results || []).map((r) => shapeForFounder(r, lang, level));
 
   return json(
-    { level, lang, count: items.length, resources: items },
+    {
+      level,
+      lang,
+      count: items.length,
+      unlocked: items.filter((i) => !i.locked).length,
+      resources: items,
+    },
     request,
     env
   );
@@ -39,15 +47,22 @@ function pickLang(lang) {
   return VALID_LANGS.includes(lang) ? lang : "es";
 }
 
-// Da forma a un recurso para la fundadora: un solo idioma + todos los idiomas
-// por si el frontend quiere cambiar de idioma sin recargar.
-function shapeForFounder(r, lang) {
+// Da forma a un recurso para la fundadora.
+// - Siempre se devuelven título y descripción (en el idioma pedido y en los tres)
+//   para poder mostrar la tarjeta aunque esté bloqueada.
+// - `locked` indica si el nivel de la fundadora aún no lo desbloquea.
+// - El `link` solo se incluye si está desbloqueado; si está bloqueado va `null`
+//   para que no se pueda abrir el contenido.
+function shapeForFounder(r, lang, founderLevel) {
+  const locked = Number(r.level) > Number(founderLevel);
   return {
     id: r.id,
     type: r.type,
     area: r.area,
     level: r.level,
-    link: r.link,
+    locked,
+    unlock_level: r.level, // nivel necesario para desbloquearlo (p. ej. P2)
+    link: locked ? null : r.link,
     image_url: r.image_url,
     title: r[`title_${lang}`] || r.title_es,
     description: r[`desc_${lang}`] || r.desc_es,

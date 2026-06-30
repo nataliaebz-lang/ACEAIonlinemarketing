@@ -118,12 +118,22 @@ const { resources } = await res.json(); // solo los que su nivel desbloquea
 
 ## 7. Modelo de gating
 
+> **Importante:** todas las fundadoras ven el **dashboard completo**. No se
+> ocultan secciones. Lo que su nivel aún no desbloquea aparece **con candado**
+> ("Disponible en …"), para que vean hacia dónde pueden seguir creciendo.
+
 - Cada fundadora tiene un **nivel** (número) que viene de GHL (custom field
   `membership_level` o un tag tipo `nivel-2`).
-- Cada recurso tiene un **nivel mínimo**. La fundadora ve el recurso si
-  `recurso.nivel <= nivel de la fundadora`.
+- Cada recurso tiene un **nivel mínimo**. El recurso está **desbloqueado** si
+  `recurso.nivel <= nivel de la fundadora`; si no, llega `locked: true`.
+- `GET /api/resources` devuelve **todos** los recursos activos. Cada uno trae:
+  - `locked` → `true`/`false`
+  - `unlock_level` → nivel necesario para abrirlo (p. ej. `2` → "Disponible en P2")
+  - `link` → la URL real solo si está desbloqueado; si está bloqueado va `null`
+    (así el contenido no se puede abrir, pero la tarjeta sí se muestra).
 - `nivel 0` = recurso **abierto** a todas.
-- El **área** (`P`, `IA`, `abierto`) sirve para agrupar visualmente.
+- El **área** (`P`, `IA`, `abierto`) sirve para agrupar visualmente. El badge
+  tipo `P1` / `P2` se compone en el frontend con `área + nivel`.
 
 ---
 
@@ -146,9 +156,11 @@ const { resources } = await res.json(); // solo los que su nivel desbloquea
 El panel autónomo está terminado cuando:
 
 1. Una fundadora registrada en GHL escribe su correo y **recibe el magic link**.
-2. Al hacer clic, **entra a `/panel`** y ve **solo** los recursos que su nivel
-   desbloquea, en su idioma (es / en / pt).
-3. Una fundadora de **nivel inferior no ve** los recursos de nivel superior.
+2. Al hacer clic, **entra al dashboard completo** y lo ve entero, en su idioma
+   (es / en / pt).
+3. Una fundadora de **nivel inferior ve igualmente** las secciones de nivel
+   superior, pero **con candado** ("Disponible en P2"); no puede abrir ese
+   contenido hasta que sube de nivel.
 4. Natalia entra a **`/admin`** con su contraseña y puede **crear, editar y
    borrar** recursos, y esos cambios se reflejan al instante en lo que ven las
    fundadoras — **sin tocar código**.
