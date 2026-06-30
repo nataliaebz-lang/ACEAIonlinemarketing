@@ -82,6 +82,14 @@ export function accessibleIds(member) {
   }
 
   set.add(1); // Comunidad (base): cualquier miembra logueada
+
+  // Portadas-resumen de cada sección: visibles para quien tenga CUALQUIER nivel
+  // de ese track, para que pueda entrar al resumen y ver los candados de adentro.
+  // (Si prefieres seguir la tabla al pie de la letra —solo PMF—, borra estas 2
+  // líneas. Si las quieres abiertas para TODAS, cámbialas por set.add(5)/add(13).)
+  if (p >= 1) set.add(5); // El Camino (resumen Propósito)
+  if (ia >= 1) set.add(13); // Centro IA (resumen IA)
+
   GLOBAL_BLOCKED.forEach((id) => set.delete(id)); // bloqueados de momento (para todas)
   return set;
 }
