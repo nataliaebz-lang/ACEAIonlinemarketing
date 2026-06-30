@@ -269,11 +269,11 @@
   .award-card.flash{border-color:var(--gold);box-shadow:0 0 0 3px rgba(242,183,5,.45);background:#fff}
 
   /* ====== APARTADO PREMIOS ====== */
-  .awards-overlay{position:absolute;inset:0;z-index:1500;display:none;
+  .awards-overlay{position:fixed;inset:0;z-index:1500;display:none;
     background:rgba(40,22,46,.55);backdrop-filter:blur(3px)}
   .awards-overlay.show{display:flex;align-items:stretch;justify-content:center}
   .awards-inner{background:var(--paper);width:100%;max-width:980px;margin:0 auto;
-    display:flex;flex-direction:column;box-shadow:var(--shadow)}
+    display:flex;flex-direction:column;min-height:0;max-height:100%;overflow:hidden;box-shadow:var(--shadow)}
   .awards-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
     padding:18px 24px;color:#fff;
     background:radial-gradient(120% 120% at 100% 0%, rgba(255,255,255,.18), transparent 55%),linear-gradient(160deg,var(--violet),var(--violet-deep))}
@@ -283,7 +283,7 @@
     padding:7px 13px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:.18s}
   .awards-close:hover{background:rgba(255,255,255,.26)}
   .awards-intro{padding:16px 24px 4px;margin:0;font-size:13.5px;color:var(--muted);max-width:62ch}
-  .awards-grid{padding:14px 24px 26px;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+  .awards-grid{padding:14px 24px 26px;flex:1 1 auto;min-height:0;overflow-y:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;align-content:start}
   .award-card{display:flex;gap:12px;border:1px solid var(--line);border-radius:14px;
     background:var(--paper-2);padding:14px 15px;transition:.16s}
   .award-card:hover{border-color:var(--gold);background:#fff}
