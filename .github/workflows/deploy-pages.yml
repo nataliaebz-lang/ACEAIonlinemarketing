@@ -1,8 +1,8 @@
 name: Deploy demo to GitHub Pages
 
 on:
-  push:
-    branches: [claude/dashboard-recreation-jwexhd]
+  # Pages solo despliega desde la rama por defecto (main). Dejamos este deploy
+  # en disparo manual; se activará cuando el workflow viva en main.
   workflow_dispatch:
 
 permissions:
