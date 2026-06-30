@@ -24,7 +24,10 @@ const API_BASE = import.meta.env.BASE_URL.replace(/\/$/, "").replace("/dashboard
 // Se activa con VITE_DEMO=1 en build o con ?demo en la URL. Off en producción.
 const DEMO = import.meta.env.VITE_DEMO === "1" ||
   (typeof location !== "undefined" && new URLSearchParams(location.search).has("demo"));
-const DEMO_MEMBER = { firstName: "Natalia", lastName: "E", email: "demo@aceai.com" };
+// El demo trae niveles de ejemplo (P1 e IA1, sin PMF) para que se vean unas
+// secciones abiertas y otras con candado. En producción los niveles llegan de
+// GHL en el objeto `member` del login.
+const DEMO_MEMBER = { firstName: "Natalia", lastName: "E", email: "demo@aceai.com", p: 1, ia: 1, pmf: 0 };
 
 export function AuthProvider({ children }) {
   const [member, setMember] = useState(DEMO ? DEMO_MEMBER : null);

@@ -3,7 +3,7 @@ const _jsxFileName = ""; function _nullishCoalesce(lhs, rhsFn) { if (lhs != null
 import {
   Heart, BookOpen, Crown, Music, Sparkles,
   Brain, FileText, Bot, Compass, Menu, X, Rocket, List, LogOut, Globe, FlaskConical, Wand2,
-  Users2, Flame, Cpu, LayoutGrid
+  Users2, Flame, Cpu, LayoutGrid, Lock
 } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { StarField } from "@/components/star-field";
 import { useLanguage, } from "@/context/language";
 import { useAuth } from "@/context/auth";
+import { hasAccess, lockBadge } from "@/lib/access";
 
 export function Layout({ children }) {
   const [location] = useLocation();
@@ -103,6 +104,26 @@ export function Layout({ children }) {
       , React.createElement('div', { className: "space-y-0.5", __self: this, __source: {fileName: _jsxFileName, lineNumber: 102}}
         , links.map((link) => {
           const active = isActive(link.href);
+          const locked = !hasAccess(member, link.href);
+
+          // Sección BLOQUEADA: se ve en el menú con candado y atenuada, pero no
+          // navega (al hacer clic no pasa nada). El nivel real lo controla GHL.
+          if (locked) {
+            return (
+              React.createElement('div', {
+                key: link.href,
+                title: l("Disponible en tu próximo nivel", "Available at your next level", "Disponível no seu próximo nível"),
+                onClick: (e) => e.preventDefault(),
+                className: "flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-foreground/35 cursor-not-allowed select-none",
+                __self: this, __source: {fileName: _jsxFileName, lineNumber: 107}}
+                , React.createElement(link.icon, { className: "w-4 h-4 shrink-0 text-foreground/25"    , __self: this, __source: {fileName: _jsxFileName, lineNumber: 115}} )
+                , React.createElement('span', { className: "truncate", __self: this, __source: {fileName: _jsxFileName, lineNumber: 119}}, link.label)
+                , lockBadge(link.href) && React.createElement('span', { className: "ml-auto text-[9px] font-bold tracking-widest text-foreground/30"      , __self: this, __source: {fileName: _jsxFileName, lineNumber: 120}}, lockBadge(link.href))
+                , React.createElement(Lock, { className: cn("w-3.5 h-3.5 shrink-0 text-foreground/30", lockBadge(link.href) ? "ml-1.5" : "ml-auto"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 121}} )
+              )
+            );
+          }
+
           return (
             React.createElement(Link, { key: link.href, href: link.href, onClick: () => setMobileMenuOpen(false), __self: this, __source: {fileName: _jsxFileName, lineNumber: 106}}
               , React.createElement('div', {
@@ -232,7 +253,23 @@ export function Layout({ children }) {
       /* Main Content */
       , React.createElement('main', { className: "flex-1 h-screen overflow-y-auto relative z-10"    , __self: this, __source: {fileName: _jsxFileName, lineNumber: 232}}
         , React.createElement('div', { className: "max-w-6xl mx-auto min-h-full"  , __self: this, __source: {fileName: _jsxFileName, lineNumber: 233}}
-          , children
+          , hasAccess(member, location)
+            ? children
+            : React.createElement('div', { className: "min-h-[70vh] flex flex-col items-center justify-center text-center px-6"        , __self: this, __source: {fileName: _jsxFileName, lineNumber: 234}}
+                , React.createElement('div', { className: "w-16 h-16 rounded-full bg-black/5 flex items-center justify-center mb-6"        , __self: this, __source: {fileName: _jsxFileName, lineNumber: 235}}
+                  , React.createElement(Lock, { className: "w-7 h-7 text-foreground/40"   , __self: this, __source: {fileName: _jsxFileName, lineNumber: 236}} )
+                )
+                , React.createElement('h2', { className: "font-serif text-3xl mb-2"   , __self: this, __source: {fileName: _jsxFileName, lineNumber: 237}}
+                  , l("Sección bloqueada", "Locked section", "Seção bloqueada")
+                )
+                , React.createElement('p', { className: "text-foreground/55 max-w-md"   , __self: this, __source: {fileName: _jsxFileName, lineNumber: 238}}
+                  , l(
+                      "Esta sección aún no está incluida en tu nivel. Cuando la desbloquees, aparecerá aquí.",
+                      "This section isn't part of your level yet. Once you unlock it, it'll appear here.",
+                      "Esta seção ainda não faz parte do seu nível. Quando você desbloquear, aparecerá aqui."
+                    )
+                )
+              )
         )
       )
     )
