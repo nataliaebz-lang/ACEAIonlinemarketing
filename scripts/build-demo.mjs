@@ -3,7 +3,10 @@
 import { execSync } from "node:child_process";
 import fs from "node:fs";
 
-execSync("vite build --outDir dist-demo", {
+// base "./" → rutas relativas (p. ej. el iframe del mapa apunta a
+// ./mapamundi-femenino.html, junto al propio HTML; necesario para servir el
+// preview desde una subcarpeta vía githack).
+execSync("vite build --base=./ --outDir dist-demo", {
   stdio: "inherit",
   env: { ...process.env, DEMO: "1", VITE_DEMO: "1" },
 });

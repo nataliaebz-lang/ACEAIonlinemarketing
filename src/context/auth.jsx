@@ -50,11 +50,15 @@ function readGhlParams() {
     email: q.get("email") || "",
   };
 }
-const GHL_MEMBER = DEMO ? null : readGhlParams();
+// Niveles por URL (?p=&ia=&pmf=). Funcionan tanto en producción (GHL) como en
+// el preview/demo: así se puede previsualizar cualquier nivel de candados, p. ej.
+//   preview/dashboard.html?p=2&ia=0   ó   ?pmf=1
+const URL_MEMBER = readGhlParams();
 
 export function AuthProvider({ children }) {
-  const [member, setMember] = useState(DEMO ? DEMO_MEMBER : (GHL_MEMBER || null));
-  const [loading, setLoading] = useState(DEMO || GHL_MEMBER ? false : true);
+  // Prioridad: niveles en la URL > (en demo) miembro de ejemplo > login real.
+  const [member, setMember] = useState(URL_MEMBER || (DEMO ? DEMO_MEMBER : null));
+  const [loading, setLoading] = useState(URL_MEMBER || DEMO ? false : true);
 
   const fetchMe = useCallback(async () => {
     const token = localStorage.getItem(TOKEN_KEY);
@@ -77,8 +81,8 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  // En modo GHL el nivel ya vino por la URL: no consultamos /auth/me.
-  useEffect(() => { if (!DEMO && !GHL_MEMBER) fetchMe(); }, [fetchMe]);
+  // Si el nivel ya vino por la URL (GHL/preview) o es demo, no consultamos /auth/me.
+  useEffect(() => { if (!DEMO && !URL_MEMBER) fetchMe(); }, [fetchMe]);
 
   const login = async (email, password) => {
     try {
