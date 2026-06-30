@@ -38,6 +38,7 @@ jobs:
           mkdir -p _site/portal
           cp dist-demo/dashboard-demo.html _site/index.html
           cp portal/index.html _site/portal/index.html
+          cp public/mapamundi-femenino.html _site/mapamundi-femenino.html
 
       - uses: actions/configure-pages@v5
         with:

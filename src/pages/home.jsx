@@ -123,12 +123,11 @@ export default function Home() {
 
       /* ── STATS — vibrant colored cards ── */
       , React.createElement('section', { className: "px-8 md:px-12 -mt-10 relative z-10 mb-16"     , __self: this, __source: {fileName: _jsxFileName, lineNumber: 124}}
-        , React.createElement('div', { className: "grid grid-cols-3 gap-5 items-center"   , __self: this, __source: {fileName: _jsxFileName, lineNumber: 125}}
+        , React.createElement('div', { className: "grid grid-cols-3 gap-5 items-stretch"   , __self: this, __source: {fileName: _jsxFileName, lineNumber: 125}}
           , stats.map((s, i) => {
-            const waveClass = `stat-wave stat-wave-${i + 1}`;
             const inner = (
               React.createElement('div', {
-                className: `relative overflow-hidden border ${s.border} ${s.bg} ${s.glow} px-4 py-5 flex flex-col gap-1.5 ${waveClass} ${s.href ? "cursor-pointer" : ""}`, __self: this, __source: {fileName: _jsxFileName, lineNumber: 129}}
+                className: `relative overflow-hidden border ${s.border} ${s.bg} ${s.glow} px-4 py-5 flex flex-col gap-1.5 rounded-3xl h-full ${s.href ? "cursor-pointer" : ""}`, __self: this, __source: {fileName: _jsxFileName, lineNumber: 129}}
 
                 /* Exclusive badge */
                 , s.exclusive && (

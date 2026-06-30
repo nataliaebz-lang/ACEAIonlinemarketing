@@ -25,8 +25,8 @@ export default function Atlas() {
 
       /* Full-height iframe */
       , React.createElement('iframe', {
-        src: "/dashboard/atlas.html",
-        title: l("Atlas de Mujeres Líderes", "Atlas of Women Leaders"),
+        src: `${import.meta.env.BASE_URL}mapamundi-femenino.html`,
+        title: l("Mapamundi Femenino — Mujeres Emprendedoras", "Female Mapamundi — Women Entrepreneurs"),
         className: "flex-1 w-full border-0"  ,
         allow: "fullscreen", __self: this, __source: {fileName: _jsxFileName, lineNumber: 26}}
       )
