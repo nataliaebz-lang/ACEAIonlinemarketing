@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { StarField } from "@/components/star-field";
 import { useLanguage, } from "@/context/language";
 import { useAuth } from "@/context/auth";
-import { hasAccess, lockBadge } from "@/lib/access";
+import { hasAccess, lockReason } from "@/lib/access";
 
 export function Layout({ children }) {
   const [location] = useLocation();
@@ -104,22 +104,27 @@ export function Layout({ children }) {
       , React.createElement('div', { className: "space-y-0.5", __self: this, __source: {fileName: _jsxFileName, lineNumber: 102}}
         , links.map((link) => {
           const active = isActive(link.href);
-          const locked = !hasAccess(member, link.href);
+          const reason = lockReason(member, link.href);
+          const locked = reason !== null;
+          const soon = reason === "soon"; // bloqueado para todas de momento
 
           // Sección BLOQUEADA: se ve en el menú con candado y atenuada, pero no
           // navega (al hacer clic no pasa nada). El nivel real lo controla GHL.
           if (locked) {
+            const soonLabel = soon ? l("Pronto", "Soon", "Em breve") : "";
             return (
               React.createElement('div', {
                 key: link.href,
-                title: l("Disponible en tu próximo nivel", "Available at your next level", "Disponível no seu próximo nível"),
+                title: soon
+                  ? l("Disponible muy pronto", "Available very soon", "Disponível em breve")
+                  : l("Disponible en tu próximo nivel", "Available at your next level", "Disponível no seu próximo nível"),
                 onClick: (e) => e.preventDefault(),
                 className: "flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-foreground/35 cursor-not-allowed select-none",
                 __self: this, __source: {fileName: _jsxFileName, lineNumber: 107}}
                 , React.createElement(link.icon, { className: "w-4 h-4 shrink-0 text-foreground/25"    , __self: this, __source: {fileName: _jsxFileName, lineNumber: 115}} )
                 , React.createElement('span', { className: "truncate", __self: this, __source: {fileName: _jsxFileName, lineNumber: 119}}, link.label)
-                , lockBadge(link.href) && React.createElement('span', { className: "ml-auto text-[9px] font-bold tracking-widest text-foreground/30"      , __self: this, __source: {fileName: _jsxFileName, lineNumber: 120}}, lockBadge(link.href))
-                , React.createElement(Lock, { className: cn("w-3.5 h-3.5 shrink-0 text-foreground/30", lockBadge(link.href) ? "ml-1.5" : "ml-auto"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 121}} )
+                , soonLabel && React.createElement('span', { className: "ml-auto text-[9px] font-bold tracking-widest text-foreground/30 uppercase"      , __self: this, __source: {fileName: _jsxFileName, lineNumber: 120}}, soonLabel)
+                , React.createElement(Lock, { className: cn("w-3.5 h-3.5 shrink-0 text-foreground/30", soonLabel ? "ml-1.5" : "ml-auto"), __self: this, __source: {fileName: _jsxFileName, lineNumber: 121}} )
               )
             );
           }
