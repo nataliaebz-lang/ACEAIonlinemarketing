@@ -3,7 +3,22 @@
 El mismo Worker `aceai-studio` ahora también **alimenta al dashboard** y aloja el
 **gestor de contenidos**. Todo junto: frontend + backend + manejador.
 
-## Rutas nuevas
+## Acceso (magic-link) — panel independiente, sin iframe
+
+El panel es **independiente** (no se incrusta en GHL por iframe). La fundadora
+pide acceso con su correo y entra por un **enlace de un solo uso**:
+
+| Ruta | Qué hace |
+|---|---|
+| `POST /api/auth/request { email }` | Busca el contacto en GHL; si existe, envía el enlace de acceso al correo. |
+| `GET /api/auth/verify?token=` | Valida el enlace y crea la cookie de sesión (guarda el `cid` del contacto). |
+| `GET /api/auth/me` | Datos de la sesión + **nivel real leído de GHL** (P/IA/PMF). |
+| `POST /api/auth/logout` | Cierra la sesión. |
+
+El nivel **nunca viaja por la URL**: `/api/resources` y `/api/file` leen el nivel
+real del contacto en GHL (con `nivelReal`) a partir de la sesión.
+
+## Rutas de contenido
 
 | Ruta | Qué hace |
 |---|---|
@@ -34,10 +49,15 @@ npx wrangler d1 execute aceai --file=./schema.sql
 npx wrangler d1 execute aceai --file=./seed.sql
 # 3) Crear el bucket R2 para los archivos subidos
 npx wrangler r2 bucket create aceai-files
-# 4) Secretos del gestor
-npx wrangler secret put ADMIN_PASSWORD
-npx wrangler secret put AUTH_SECRET
-# 5) Desplegar
+# 4) Secretos del gestor y del acceso
+npx wrangler secret put ADMIN_PASSWORD    # contraseña del gestor /admin
+npx wrangler secret put AUTH_SECRET       # cadena larga aleatoria (sesiones + magic-link)
+npx wrangler secret put GHL_PIT           # token de integración privada de GHL
+npx wrangler secret put GHL_LOCATION_ID   # id de la subcuenta (Location) en GHL
+npx wrangler secret put RESEND_API_KEY    # para enviar el correo del enlace
+#   (y GHL_FIELD_P / GHL_FIELD_IA / GHL_FIELD_PMF con los ids de los campos de nivel)
+# 5) En wrangler.toml, poner APP_URL = la URL del panel (para el redirect del enlace)
+# 6) Desplegar
 npx wrangler deploy
 ```
 

@@ -22,10 +22,8 @@ export function ResourcesProvider({ children }) {
 
   useEffect(() => {
     let cancel = false;
-    const p = member?.p ?? "";
-    const ia = member?.ia ?? "";
-    const pmf = member?.pmf ?? "";
-    const url = `${API_BASE}/resources?p=${p}&ia=${ia}&pmf=${pmf}&lang=${lang}`;
+    // El nivel lo decide el backend con la sesión (cookie); aquí solo pedimos el idioma.
+    const url = `${API_BASE}/resources?lang=${lang}`;
 
     fetch(url, { credentials: "include" })
       .then((r) => (r.ok ? r.json() : null))
@@ -47,10 +45,9 @@ export function ResourcesProvider({ children }) {
     };
   }, [member, lang]);
 
-  // URL (con nivel) para leer un archivo subido desde /admin.
-  const fileUrl = (id, fileLang) =>
-    `${API_BASE}/file/${id}?lang=${fileLang || ""}` +
-    `&p=${member?.p ?? ""}&ia=${member?.ia ?? ""}&pmf=${member?.pmf ?? ""}`;
+  // URL para leer un archivo subido desde /admin. El nivel lo decide el backend
+  // con la cookie de sesión (que viaja con la petición del iframe/audio).
+  const fileUrl = (id, fileLang) => `${API_BASE}/file/${id}?lang=${fileLang || ""}`;
 
   return React.createElement(
     ResourcesContext.Provider,

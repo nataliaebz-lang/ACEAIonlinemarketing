@@ -15,17 +15,13 @@ function jsonR(obj, status, cors) {
   });
 }
 
-export async function handleResources(request, env, cors) {
+// `levels` = { p, ia, pmf } leídos REAL desde GHL por el worker (no de la URL).
+export async function handleResources(request, env, cors, levels) {
   if (!env.DB) return jsonR({ error: "db_not_configured", resources: [] }, 200, cors);
 
   const url = new URL(request.url);
   const lang = LANGS.includes(url.searchParams.get("lang")) ? url.searchParams.get("lang") : "es";
-  const levels = {
-    p: url.searchParams.get("p"),
-    ia: url.searchParams.get("ia"),
-    pmf: url.searchParams.get("pmf"),
-  };
-  const allowed = accessibleIds(levels);
+  const allowed = accessibleIds(levels || {});
 
   const { results } = await env.DB.prepare(
     "SELECT * FROM resources WHERE active = 1 ORDER BY sort_order, id"

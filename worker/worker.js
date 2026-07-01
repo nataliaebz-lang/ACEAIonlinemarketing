@@ -1,6 +1,7 @@
 import { handleResources } from './resources.js';
 import { handleAdmin } from './admin.js';
 import { handleFile } from './files.js';
+import { handleAuth, getSession } from './auth-link.js';
 
 // ACEAI Studio — Worker ÚNICO de Cloudflare (backend + orquestador)
 // ─────────────────────────────────────────────────────────────────────────────
@@ -68,10 +69,17 @@ export default {
     const path = new URL(request.url).pathname.replace(/\/+$/, '') || '/';
 
     // ── Contenidos del dashboard + gestor /admin (unificados en este worker) ──
-    // /api/resources alimenta al frontend; /admin es el gestor de contenidos.
-    if (path === '/api/resources') return handleResources(request, env, cors);
-    if (path.startsWith('/api/file/')) return handleFile(request, env, new URL(request.url), cors);
-    if (path === '/admin' || path.startsWith('/api/admin')) return handleAdmin(request, env, new URL(request.url), cors);
+    const _url = new URL(request.url);
+    // Acceso por magic-link (panel independiente, sin iframe).
+    if (path.startsWith('/api/auth/')) return handleAuth(request, env, _url, cors, nivelReal);
+    // Contenido: el nivel se lee REAL desde GHL a partir de la sesión (no de la URL).
+    if (path === '/api/resources' || path.startsWith('/api/file/')) {
+      const sess = await getSession(request, env);
+      const levels = await nivelReal(env, sess && sess.cid);
+      if (path === '/api/resources') return handleResources(request, env, cors, levels);
+      return handleFile(request, env, _url, cors, levels);
+    }
+    if (path === '/admin' || path.startsWith('/api/admin')) return handleAdmin(request, env, _url, cors);
 
     // ── Consultar saldo:  GET /balance?client=ID   o  POST /balance {client_id}
     if (path === '/balance') {

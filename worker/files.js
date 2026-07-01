@@ -4,19 +4,15 @@
 
 import { accessibleIds, isBlocked } from "./access.js";
 
-export async function handleFile(request, env, url, cors) {
+// `levels` = { p, ia, pmf } leídos REAL desde GHL por el worker (no de la URL).
+export async function handleFile(request, env, url, cors, levels) {
   const m = url.pathname.match(/^\/api\/file\/(\d+)$/);
   if (!m) return new Response("not found", { status: 404, headers: cors });
   const id = parseInt(m[1], 10);
   const lang = url.searchParams.get("lang") || "";
 
-  // Gating por nivel (mismo modelo que /api/resources).
-  const levels = {
-    p: url.searchParams.get("p"),
-    ia: url.searchParams.get("ia"),
-    pmf: url.searchParams.get("pmf"),
-  };
-  if (isBlocked(id) || !accessibleIds(levels).has(id)) {
+  // Gating por nivel real (mismo modelo que /api/resources).
+  if (isBlocked(id) || !accessibleIds(levels || {}).has(id)) {
     return new Response("forbidden", { status: 403, headers: cors });
   }
 
