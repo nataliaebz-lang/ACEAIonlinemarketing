@@ -12,6 +12,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Layout } from "@/components/layout";
 import { LanguageProvider } from "@/context/language";
 import { AuthProvider, useAuth } from "@/context/auth";
+import { ResourcesProvider } from "@/context/resources";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 
@@ -96,6 +97,7 @@ function App() {
   return (
     React.createElement(LanguageProvider, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 90}}
       , React.createElement(AuthProvider, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 91}}
+        , React.createElement(ResourcesProvider, null
         , React.createElement(QueryClientProvider, { client: queryClient, __self: this, __source: {fileName: _jsxFileName, lineNumber: 92}}
           , React.createElement(TooltipProvider, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 93}}
             , React.createElement(WouterRouter, { base: DEMO ? "" : import.meta.env.BASE_URL.replace(/\/$/, ""), hook: DEMO ? useHashLocation : undefined, __self: this, __source: {fileName: _jsxFileName, lineNumber: 94}}
@@ -103,6 +105,7 @@ function App() {
             )
             , React.createElement(Toaster, {__self: this, __source: {fileName: _jsxFileName, lineNumber: 97}} )
           )
+        )
         )
       )
     )

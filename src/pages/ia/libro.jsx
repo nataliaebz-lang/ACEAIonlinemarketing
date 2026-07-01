@@ -2,6 +2,7 @@ import * as React from "react";
 const _jsxFileName = "";import { BookOpen, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/language";
+import { useResource } from "@/context/resources";
 
 const excerptEs = `El mayor error que cometen las emprendedoras cuando descubren la inteligencia artificial es creer que su trabajo es aprender la herramienta.
 
@@ -30,6 +31,8 @@ Welcome to the side that already knows.`;
 export default function LibroIA() {
   const { lang } = useLanguage();
   const l = (es, en) => lang === "es" ? es : en;
+  // Enlace del PDF gestionado desde /admin (si está configurado).
+  const libro = useResource("/ia/libro");
 
   const excerpt = lang === "es" ? excerptEs : excerptEn;
 
@@ -79,7 +82,9 @@ export default function LibroIA() {
               )
             ))
           )
-          , React.createElement(Button, { className: "gap-2 w-full sm:w-auto"  , 'data-testid': "btn-download-libro", __self: this, __source: {fileName: _jsxFileName, lineNumber: 81}}
+          , React.createElement(Button, { className: "gap-2 w-full sm:w-auto"  , 'data-testid': "btn-download-libro",
+              disabled: !(libro && libro.link),
+              onClick: () => { if (libro && libro.link) window.open(libro.link, "_blank", "noopener"); }, __self: this, __source: {fileName: _jsxFileName, lineNumber: 81}}
             , React.createElement(Download, { className: "w-4 h-4" , __self: this, __source: {fileName: _jsxFileName, lineNumber: 82}} ), " " , l("Descargar PDF", "Download PDF")
           )
         )

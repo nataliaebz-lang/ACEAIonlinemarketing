@@ -1,10 +1,13 @@
 import * as React from "react";
 const _jsxFileName = "";import { Rocket, FlaskConical, Clapperboard, FolderKanban, ArrowRight } from "lucide-react";
 import { useLanguage } from "@/context/language";
+import { useResource } from "@/context/resources";
 
 export default function Apps() {
   const { lang } = useLanguage();
   const l = (es, en) => lang === "es" ? es : en;
+  // Enlace gestionado desde /admin (con respaldo al valor actual).
+  const appsLive = useResource("/apps");
 
   const demoCategories = [
     {
@@ -57,7 +60,7 @@ export default function Apps() {
             , React.createElement('p', { className: "text-xs text-muted-foreground mt-0.5"  , __self: this, __source: {fileName: _jsxFileName, lineNumber: 56}}, l("Aplicaciones en producción", "Production applications"))
           )
         )
-        , React.createElement('a', { href: "https://aceaionlinemarketing.com", target: "_blank", rel: "noopener noreferrer" , __self: this, __source: {fileName: _jsxFileName, lineNumber: 59}}
+        , React.createElement('a', { href: (appsLive && appsLive.link) || "https://aceaionlinemarketing.com", target: "_blank", rel: "noopener noreferrer" , __self: this, __source: {fileName: _jsxFileName, lineNumber: 59}}
           , React.createElement('div', { className: "group rounded-2xl border border-green-200/70 bg-gradient-to-br from-green-50/80 to-emerald-50/60 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md cursor-pointer flex items-center gap-5"               , __self: this, __source: {fileName: _jsxFileName, lineNumber: 60}}
             , React.createElement('div', { className: "w-11 h-11 rounded-xl bg-green-100 border border-green-200 flex items-center justify-center shrink-0"         , __self: this, __source: {fileName: _jsxFileName, lineNumber: 61}}
               , React.createElement('span', { className: "w-2.5 h-2.5 rounded-full bg-green-500 animate-pulse"    , __self: this, __source: {fileName: _jsxFileName, lineNumber: 62}} )
