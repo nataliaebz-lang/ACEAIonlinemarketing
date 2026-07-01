@@ -2,15 +2,24 @@ name = "aceai-studio"
 main = "worker.js"
 compatibility_date = "2024-09-01"
 
-# ── Créditos (opcional): descomenta y crea la D1 con `wrangler d1 create aceai`
-# [[d1_databases]]
-# binding = "DB"
-# database_name = "aceai"
-# database_id = "TU-DATABASE-ID"
+[vars]
+BRAND_NAME = "ACEAI"
+
+# ── Base de datos D1 (contenidos del dashboard + créditos) ───────────────────
+# Crea la base:   npx wrangler d1 create aceai
+# Copia el database_id que imprime y pégalo abajo. Luego:
+#   npx wrangler d1 execute aceai --file=./schema.sql   (crea la tabla)
+#   npx wrangler d1 execute aceai --file=./seed.sql     (siembra las 20 secciones)
+[[d1_databases]]
+binding = "DB"
+database_name = "aceai"
+database_id = "REEMPLAZAR_CON_TU_DATABASE_ID"
 
 # ── Secretos (NO van aquí; se cargan con `wrangler secret put NOMBRE`):
-#   ANTHROPIC_API_KEY   (obligatorio)
+#   ANTHROPIC_API_KEY   (obligatorio para el Studio)
 #   ALLOWED_ORIGIN      (recomendado: https://app.tudominio.com)
+#   ADMIN_PASSWORD      (contraseña del gestor /admin)
+#   AUTH_SECRET         (cadena larga aleatoria; firma la sesión del /admin)
 #
 #   NIVELES (seguridad real):
 #   GHL_PIT             token de integración privada de GHL (lee el contacto)

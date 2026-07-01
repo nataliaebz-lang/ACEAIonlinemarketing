@@ -1,3 +1,6 @@
+import { handleResources } from './resources.js';
+import { handleAdmin } from './admin.js';
+
 // ACEAI Studio — Worker ÚNICO de Cloudflare (backend + orquestador)
 // ─────────────────────────────────────────────────────────────────────────────
 // Claude (API) pone el CEREBRO: textos, coach, miniaturas (concepto), títulos,
@@ -62,6 +65,11 @@ export default {
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
 
     const path = new URL(request.url).pathname.replace(/\/+$/, '') || '/';
+
+    // ── Contenidos del dashboard + gestor /admin (unificados en este worker) ──
+    // /api/resources alimenta al frontend; /admin es el gestor de contenidos.
+    if (path === '/api/resources') return handleResources(request, env, cors);
+    if (path === '/admin' || path.startsWith('/api/admin')) return handleAdmin(request, env, new URL(request.url), cors);
 
     // ── Consultar saldo:  GET /balance?client=ID   o  POST /balance {client_id}
     if (path === '/balance') {
