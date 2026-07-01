@@ -62,7 +62,7 @@ export default {
     const cors = {
       'Access-Control-Allow-Origin': origin,
       'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, X-GHL-Signature, X-WH-Signature, X-Filename'
+      'Access-Control-Allow-Headers': 'Content-Type, X-GHL-Signature, X-WH-Signature, X-Webhook-Secret, X-Filename'
     };
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
 
@@ -81,24 +81,22 @@ export default {
     }
     if (path === '/admin' || path.startsWith('/api/admin')) return handleAdmin(request, env, _url, cors);
 
-    // ── Consultar saldo:  GET /balance?client=ID   o  POST /balance {client_id}
+    // ── Consultar saldo (AUTENTICADO): GET /balance → devuelve TU propio saldo.
+    // Usa el cid de la sesión; ya no acepta un client id arbitrario por la URL.
     if (path === '/balance') {
-      const clientId = clientFrom(request) || 'default';
-      const credits = await getBalance(env, clientId);
-      return json({ client_id: clientId, credits, credits_enabled: !!env.DB }, 200, cors);
+      const s = await getSession(request, env);
+      if (!s) return json({ error: 'no_autenticado' }, 401, cors);
+      const credits = await getBalance(env, s.cid);
+      return json({ client_id: s.cid, credits, credits_enabled: !!env.DB }, 200, cors);
     }
 
-    // ── Recargar créditos desde GHL (webhook de compra)
+    // ── Recargar créditos desde GHL (webhook de compra, con firma verificada)
     if (path === '/ghl-webhook') {
       return handleGhlWebhook(request, env, cors);
     }
 
-    // ── Consultar nivel real (QA):  GET /nivel?client=ID  → {p, ia, pmf}
-    if (path === '/nivel') {
-      const clientId = clientFrom(request) || 'default';
-      const user = await nivelReal(env, clientId);
-      return json({ client_id: clientId, nivel: user, niveles_enabled: !!env.GHL_PIT }, 200, cors);
-    }
+    // (Se eliminó /nivel: era una ruta de diagnóstico que exponía el nivel de un
+    //  contacto sin autenticación.)
 
     if (request.method !== 'POST') return json({ error: 'Method not allowed' }, 405, cors);
 
@@ -340,10 +338,14 @@ async function topup(env, clientId, amount, reason) {
 // Webhook de GHL: al comprar un pack, suma créditos al cliente.
 async function handleGhlWebhook(request, env, cors) {
   try {
+    // Sin secreto configurado, el webhook queda DESHABILITADO (no acepta llamadas).
+    if (!env.GHL_WEBHOOK_SECRET) return json({ error: 'webhook_deshabilitado' }, 403, cors);
+    // Verificación de firma: la llamada debe traer el secreto compartido en la
+    // cabecera (configúralo en el webhook personalizado de GHL).
+    const provided = request.headers.get('X-Webhook-Secret') || request.headers.get('X-WH-Signature') || '';
+    if (provided !== env.GHL_WEBHOOK_SECRET) return json({ error: 'firma_invalida' }, 401, cors);
+
     const raw = await request.text();
-    // Verificación de firma (recomendado): GHL firma con X-GHL-Signature (Ed25519).
-    // Implementa la verificación con tu clave pública antes de confiar en el payload.
-    // if (!verifyGhlSignature(raw, request.headers.get('X-GHL-Signature'), env)) return json({error:'firma_invalida'},401,cors);
     const data = JSON.parse(raw);
     const clientId = data.client_id || data.contact_id || data.email || 'default';
     // Mapa pack → créditos (ajusta a tus packs 400/800/1600)

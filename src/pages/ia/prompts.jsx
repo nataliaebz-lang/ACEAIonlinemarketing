@@ -3,6 +3,7 @@ const _jsxFileName = ""; function _optionalChain(ops) { let lastAccessLHS = unde
 import { Copy, Check, Search, Zap, BookOpen, Sparkles } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/context/language";
+import { SectionUpload } from "@/components/section-upload";
 
 
 
@@ -151,6 +152,7 @@ export default function PromptsLibrary() {
 
   return (
     React.createElement('div', { className: "px-6 py-10 md:px-10 md:py-14"   , 'data-testid': "prompts-library", __self: this, __source: {fileName: _jsxFileName, lineNumber: 152}}
+      , React.createElement(SectionUpload, { route: "/ia/prompts" })
       /* Header */
       , React.createElement('div', { className: "mb-8", __self: this, __source: {fileName: _jsxFileName, lineNumber: 154}}
         , React.createElement('p', { className: "text-xs uppercase tracking-[0.25em] text-accent mb-2"    , __self: this, __source: {fileName: _jsxFileName, lineNumber: 155}}, l("IA · Recursos", "AI · Resources"))

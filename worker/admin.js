@@ -28,7 +28,8 @@ function b64urlToBytes(str) {
   return b;
 }
 async function key(secret) {
-  return crypto.subtle.importKey("raw", enc.encode(secret || "dev-secret"),
+  if (!secret) throw new Error("AUTH_SECRET no configurado");
+  return crypto.subtle.importKey("raw", enc.encode(secret),
     { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
 }
 async function sign(payload, secret) {
@@ -56,6 +57,7 @@ function readCookie(request, name) {
   return null;
 }
 async function isAdmin(request, env) {
+  if (!env.AUTH_SECRET) return false;
   const raw = readCookie(request, COOKIE);
   const p = raw && (await verify(raw, env.AUTH_SECRET));
   return !!(p && p.admin === true);
@@ -75,6 +77,7 @@ export async function handleAdmin(request, env, url, cors) {
 
   // Login / logout
   if (path === "/api/admin/login" && method === "POST") {
+    if (!env.AUTH_SECRET) return jsonR({ error: "server_misconfigured" }, 500, cors);
     const { password } = await request.json().catch(() => ({}));
     if (!env.ADMIN_PASSWORD || password !== env.ADMIN_PASSWORD) {
       return jsonR({ error: "invalid_password" }, 401, cors);

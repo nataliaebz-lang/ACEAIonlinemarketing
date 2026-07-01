@@ -35,3 +35,11 @@ CREATE TABLE IF NOT EXISTS files (
   uploaded_at  TEXT    NOT NULL DEFAULT (datetime('now')),
   PRIMARY KEY (resource_id, lang)
 );
+
+-- Enlaces de acceso de un solo uso (magic-link). Cada enlace tiene un jti único;
+-- al usarse se BORRA la fila, así el enlace no se puede reutilizar.
+CREATE TABLE IF NOT EXISTS magic_links (
+  jti        TEXT PRIMARY KEY,
+  exp        INTEGER,
+  created_at TEXT DEFAULT (datetime('now'))
+);

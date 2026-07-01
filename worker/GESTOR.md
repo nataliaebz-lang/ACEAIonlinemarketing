@@ -56,6 +56,13 @@ npx wrangler secret put GHL_PIT           # token de integración privada de GHL
 npx wrangler secret put GHL_LOCATION_ID   # id de la subcuenta (Location) en GHL
 npx wrangler secret put RESEND_API_KEY    # para enviar el correo del enlace
 #   (y GHL_FIELD_P / GHL_FIELD_IA / GHL_FIELD_PMF con los ids de los campos de nivel)
+
+# Seguridad:
+#  · AUTH_SECRET es OBLIGATORIO: sin él, el acceso y el gestor no operan (no usa clave genérica).
+#  · Los enlaces de acceso son de un SOLO USO (se registran en la tabla magic_links y se borran al usarse).
+#  · El webhook de créditos (/ghl-webhook) queda DESHABILITADO salvo que configures
+#    GHL_WEBHOOK_SECRET y la llamada traiga la cabecera  X-Webhook-Secret: <ese valor>.
+#    npx wrangler secret put GHL_WEBHOOK_SECRET   # solo si vas a usar el webhook de créditos
 # 5) En wrangler.toml, poner APP_URL = la URL del panel (para el redirect del enlace)
 # 6) Desplegar
 npx wrangler deploy

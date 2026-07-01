@@ -33,11 +33,10 @@ jobs:
       - name: Build dashboard demo (single file)
         run: npm run build:demo
 
-      - name: Assemble site (dashboard demo + portal)
+      - name: Assemble site (dashboard demo)
         run: |
-          mkdir -p _site/portal
+          mkdir -p _site
           cp dist-demo/dashboard-demo.html _site/index.html
-          cp portal/index.html _site/portal/index.html
           cp public/mapamundi-femenino.html _site/mapamundi-femenino.html
 
       - uses: actions/configure-pages@v5

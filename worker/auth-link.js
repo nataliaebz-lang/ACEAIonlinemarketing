@@ -36,7 +36,9 @@ function b64urlBytes(str) {
   for (let i = 0; i < bin.length; i++) b[i] = bin.charCodeAt(i); return b;
 }
 async function hkey(secret) {
-  return crypto.subtle.importKey("raw", enc.encode(secret || "dev-secret"),
+  // Sin secreto NO se firma nada (evita sesiones falsificables con clave genérica).
+  if (!secret) throw new Error("AUTH_SECRET no configurado");
+  return crypto.subtle.importKey("raw", enc.encode(secret),
     { name: "HMAC", hash: "SHA-256" }, false, ["sign", "verify"]);
 }
 async function sign(payload, secret) {
@@ -106,6 +108,7 @@ async function sendMagicLink(env, email, link) {
 
 // ── Sesión: lee la cookie y devuelve { email, cid, name } o null ─────────────
 export async function getSession(request, env) {
+  if (!env.AUTH_SECRET) return null;
   const raw = readCookie(request, SESSION_COOKIE);
   if (!raw) return null;
   const p = await verify(raw, env.AUTH_SECRET);
@@ -118,6 +121,9 @@ export async function handleAuth(request, env, url, cors, nivelReal) {
   const path = url.pathname.replace(/\/+$/, "") || "/";
   const method = request.method;
 
+  // Sin la clave de firma, el sistema NO opera (sesiones no falsificables).
+  if (!env.AUTH_SECRET) return jsonR({ error: "server_misconfigured" }, 500, cors);
+
   // Solicitar acceso
   if (path === "/api/auth/request" && method === "POST") {
     const { email } = await request.json().catch(() => ({}));
@@ -125,10 +131,11 @@ export async function handleAuth(request, env, url, cors, nivelReal) {
     const clean = email.trim().toLowerCase();
     const contact = await ghlContactByEmail(env, clean);
     if (contact) {
-      const token = await sign(
-        { t: "magic", email: clean, cid: contact.id, name: contact.name, exp: Date.now() + MAGIC_TTL_MS },
-        env.AUTH_SECRET
-      );
+      const jti = crypto.randomUUID();
+      const exp = Date.now() + MAGIC_TTL_MS;
+      // Registra el enlace para que sea de un solo uso (se borra al verificarse).
+      if (env.DB) await env.DB.prepare("INSERT INTO magic_links (jti, exp) VALUES (?, ?)").bind(jti, exp).run();
+      const token = await sign({ t: "magic", jti, email: clean, cid: contact.id, name: contact.name, exp }, env.AUTH_SECRET);
       const link = `${url.origin}/api/auth/verify?token=${encodeURIComponent(token)}`;
       await sendMagicLink(env, clean, link);
     }
@@ -140,9 +147,17 @@ export async function handleAuth(request, env, url, cors, nivelReal) {
   if (path === "/api/auth/verify" && method === "GET") {
     const appUrl = env.APP_URL || "/";
     const payload = await verify(url.searchParams.get("token"), env.AUTH_SECRET);
-    if (!payload || payload.t !== "magic" || !payload.cid) {
+    if (!payload || payload.t !== "magic" || !payload.cid || !payload.jti) {
       return Response.redirect(`${appUrl}?auth=expired`, 302);
     }
+    // Un solo uso REAL: consume el jti (lo borra). Si ya no existe, el enlace
+    // ya se usó → se rechaza, aunque no haya pasado el tiempo de expiración.
+    let consumed = false;
+    if (env.DB) {
+      const del = await env.DB.prepare("DELETE FROM magic_links WHERE jti=?").bind(payload.jti).run();
+      consumed = !!(del && del.meta && del.meta.changes === 1);
+    }
+    if (!consumed) return Response.redirect(`${appUrl}?auth=used`, 302);
     const sess = await sign(
       { t: "sess", email: payload.email, cid: payload.cid, name: payload.name || "", exp: Date.now() + SESSION_TTL_S * 1000 },
       env.AUTH_SECRET
