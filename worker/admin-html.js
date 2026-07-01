@@ -55,7 +55,8 @@ export function adminPageHtml(env) {
 
 <script>
 const API="/api/admin/resources";
-const ERR={invalid_password:"Contraseña incorrecta.",unauthorized:"Sesión caducada. Vuelve a entrar."};
+let FILES={}; // resource_id -> { lang: {filename,size} }
+const ERR={invalid_password:"Contraseña incorrecta.",unauthorized:"Sesión caducada. Vuelve a entrar.",r2_not_configured:"Falta configurar el almacenamiento (R2)."};
 function msg(c){return ERR[c]||c||"Error"}
 function esc(s){const d=document.createElement("div");d.textContent=s==null?"":s;return d.innerHTML}
 
@@ -75,6 +76,8 @@ async function show(){
   document.getElementById("login").classList.add("hidden");
   document.getElementById("panel").classList.remove("hidden");
   const d=await r.json();
+  const fr=await fetch("/api/admin/files").then(x=>x.ok?x.json():{files:[]}).catch(()=>({files:[]}));
+  FILES={};(fr.files||[]).forEach(f=>{(FILES[f.resource_id]=FILES[f.resource_id]||{})[f.lang||""]=f;});
   render(d.resources||[]);
 }
 
@@ -106,8 +109,19 @@ function render(items){
           "<label style='display:flex;align-items:center;gap:6px;text-transform:none'><input data-f='active' type='checkbox' style='width:auto' "+(res.active?"checked":"")+"> Visible</label>"+
           "<button style='margin-left:auto' data-save>Guardar</button>"+
         "</div>"+
+        "<h3>Archivos (PDF / app / material del curso)</h3>"+
+        "<div style='display:flex;gap:8px;align-items:center;flex-wrap:wrap'>"+
+          "<select data-uplang style='width:auto'><option value=''>Sin idioma</option><option value='es'>ES</option><option value='en'>EN</option><option value='pt'>PT</option></select>"+
+          "<input data-upfile type='file' style='width:auto'>"+
+          "<button data-upload>Subir</button>"+
+          "<span data-upstatus class='muted' style='font-size:12px'></span>"+
+        "</div>"+
+        "<div data-uplist class='muted' style='margin-top:6px;font-size:12px'></div>"+
       "</div>";
     c.querySelector("[data-save]").onclick=()=>save(res.id,c);
+    c.querySelector("[data-upload]").onclick=()=>uploadFile(res.id,c);
+    c.querySelector("[data-uplist]").innerHTML=fileListHtml(res.id);
+    wireDel(c);
     list.appendChild(c);
   });
 }
@@ -122,6 +136,40 @@ async function save(id,card){
   const r=await fetch(API+"/"+id,{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
   const d=await r.json().catch(()=>({}));
   note.textContent=r.ok?"✓ Guardado":("Error: "+msg(d.error));note.className=r.ok?"saved":"saved err";
+}
+
+function fileListHtml(id){
+  var m=FILES[id]||{}; var ks=Object.keys(m);
+  if(!ks.length) return "Sin archivos subidos.";
+  return ks.map(function(k){var f=m[k];var tag=k?k.toUpperCase():"—";
+    return "<span style='margin-right:12px'>["+tag+"] "+esc(f.filename||"archivo")+" <a href='#' data-del='"+id+"|"+k+"'>✕</a></span>";
+  }).join("");
+}
+async function uploadFile(id,card){
+  var lang=card.querySelector("[data-uplang]").value;
+  var inp=card.querySelector("[data-upfile]");
+  var st=card.querySelector("[data-upstatus]");
+  var f=inp.files&&inp.files[0];
+  if(!f){st.textContent="Elige un archivo.";return}
+  st.textContent="Subiendo…";
+  var r=await fetch("/api/admin/upload/"+id+"?lang="+encodeURIComponent(lang),{method:"POST",headers:{"Content-Type":f.type||"application/octet-stream","X-Filename":encodeURIComponent(f.name)},body:f});
+  var d=await r.json().catch(function(){return{}});
+  if(!r.ok){st.textContent="Error: "+msg(d.error);return}
+  st.textContent="✓ Subido";
+  (FILES[id]=FILES[id]||{})[lang||""]={filename:f.name,size:f.size};
+  card.querySelector("[data-uplist]").innerHTML=fileListHtml(id);
+  wireDel(card);
+}
+async function delFile(id,lang,card){
+  await fetch("/api/admin/file/"+id+"?lang="+encodeURIComponent(lang),{method:"DELETE"});
+  if(FILES[id]) delete FILES[id][lang];
+  card.querySelector("[data-uplist]").innerHTML=fileListHtml(id);
+  wireDel(card);
+}
+function wireDel(card){
+  card.querySelectorAll("[data-del]").forEach(function(a){
+    a.onclick=function(e){e.preventDefault();var parts=a.dataset.del.split("|");delFile(parseInt(parts[0],10),parts[1],card)};
+  });
 }
 
 show();

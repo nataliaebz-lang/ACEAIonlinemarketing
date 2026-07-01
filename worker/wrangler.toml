@@ -15,6 +15,12 @@ binding = "DB"
 database_name = "aceai"
 database_id = "REEMPLAZAR_CON_TU_DATABASE_ID"
 
+# ── Almacenamiento R2 (archivos subidos desde /admin: libro, app, cursos) ────
+# Crea el bucket:   npx wrangler r2 bucket create aceai-files
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "aceai-files"
+
 # ── Secretos (NO van aquí; se cargan con `wrangler secret put NOMBRE`):
 #   ANTHROPIC_API_KEY   (obligatorio para el Studio)
 #   ALLOWED_ORIGIN      (recomendado: https://app.tudominio.com)

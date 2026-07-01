@@ -3,7 +3,7 @@ const _jsxFileName = ""; function _nullishCoalesce(lhs, rhsFn) { if (lhs != null
 import { BookOpen, Download, Upload, CheckCircle2, AlertCircle, Loader2, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/language";
-import { useResource } from "@/context/resources";
+import { useResource, useFileUrl } from "@/context/resources";
 
 const BASE = import.meta.env.BASE_URL;
 const API = "/api";
@@ -86,6 +86,7 @@ export default function Ebook() {
   const l = (es, en, pt) =>
     lang === "pt" ? (_nullishCoalesce(pt, () => ( es))) : lang === "en" ? en : es;
   const managed = useResource("/proposito/ebook");
+  const fileUrl = useFileUrl();
 
   const [info, setInfo] = useState(null);
   const [downloading, setDownloading] = useState(false);
@@ -107,6 +108,8 @@ export default function Ebook() {
   // URL del libro en el idioma actual. Si el gestor /admin tiene un PDF asignado
   // (link gestionado) se usa; si no, el PDF estático servido desde /books.
   function bookUrl() {
+    // 1º archivo subido desde /admin · 2º link gestionado · 3º PDF estático.
+    if (managed && managed.fileLangs && managed.fileLangs.length) return fileUrl(7, lang);
     return (managed && managed.link) || `${BASE}books/numina-${lang}.pdf`;
   }
   // Abre el libro para leerlo (visor PDF del navegador; desde ahí se descarga).

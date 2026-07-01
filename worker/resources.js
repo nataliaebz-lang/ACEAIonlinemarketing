@@ -31,6 +31,15 @@ export async function handleResources(request, env, cors) {
     "SELECT * FROM resources WHERE active = 1 ORDER BY sort_order, id"
   ).all();
 
+  // Qué idiomas tienen archivo subido, por sección (para saber cuándo hay "leer").
+  const fileMap = {};
+  try {
+    const fr = await env.DB.prepare("SELECT resource_id, lang FROM files").all();
+    (fr.results || []).forEach((f) => {
+      (fileMap[f.resource_id] = fileMap[f.resource_id] || []).push(f.lang || "");
+    });
+  } catch (e) { /* la tabla files puede no existir todavía */ }
+
   const items = (results || []).map((r) => {
     const blocked = isBlocked(r.id);          // bloqueado para todas de momento
     const locked = blocked || !allowed.has(r.id);
@@ -41,6 +50,7 @@ export async function handleResources(request, env, cors) {
       type: r.type,
       locked,
       reason: locked ? (blocked ? "soon" : "level") : null,
+      fileLangs: locked ? [] : (fileMap[r.id] || []), // idiomas con archivo (si desbloqueado)
       link: locked ? null : r.link,           // el enlace solo si está desbloqueado
       image_url: r.image_url,
       title: r[`title_${lang}`] || r.title_es,

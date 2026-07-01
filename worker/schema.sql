@@ -21,3 +21,17 @@ CREATE TABLE IF NOT EXISTS resources (
 );
 
 CREATE INDEX IF NOT EXISTS idx_resources_area ON resources(area);
+
+-- Archivos subidos desde /admin (PDF del libro, la app, materiales de curso).
+-- Se guardan en Cloudflare R2; aquí solo va la ficha (metadatos).
+-- lang: '' = sin idioma · es/en/pt = un archivo por idioma (p. ej. el libro).
+CREATE TABLE IF NOT EXISTS files (
+  resource_id  INTEGER NOT NULL,
+  lang         TEXT    NOT NULL DEFAULT '',
+  r2_key       TEXT    NOT NULL,
+  filename     TEXT,
+  content_type TEXT,
+  size         INTEGER,
+  uploaded_at  TEXT    NOT NULL DEFAULT (datetime('now')),
+  PRIMARY KEY (resource_id, lang)
+);

@@ -47,9 +47,14 @@ export function ResourcesProvider({ children }) {
     };
   }, [member, lang]);
 
+  // URL (con nivel) para leer un archivo subido desde /admin.
+  const fileUrl = (id, fileLang) =>
+    `${API_BASE}/file/${id}?lang=${fileLang || ""}` +
+    `&p=${member?.p ?? ""}&ia=${member?.ia ?? ""}&pmf=${member?.pmf ?? ""}`;
+
   return React.createElement(
     ResourcesContext.Provider,
-    { value: { byRoute, ready } },
+    { value: { byRoute, ready, fileUrl } },
     children
   );
 }
@@ -64,4 +69,9 @@ export function useResource(route) {
 
 export function useResources() {
   return useContext(ResourcesContext);
+}
+
+// Devuelve una función fileUrl(id, lang) para abrir un archivo subido.
+export function useFileUrl() {
+  return useContext(ResourcesContext).fileUrl;
 }

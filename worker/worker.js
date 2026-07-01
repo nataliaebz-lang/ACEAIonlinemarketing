@@ -1,5 +1,6 @@
 import { handleResources } from './resources.js';
 import { handleAdmin } from './admin.js';
+import { handleFile } from './files.js';
 
 // ACEAI Studio — Worker ÚNICO de Cloudflare (backend + orquestador)
 // ─────────────────────────────────────────────────────────────────────────────
@@ -59,8 +60,8 @@ export default {
     const origin = env.ALLOWED_ORIGIN || '*';
     const cors = {
       'Access-Control-Allow-Origin': origin,
-      'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, X-GHL-Signature, X-WH-Signature'
+      'Access-Control-Allow-Methods': 'POST, GET, PUT, DELETE, OPTIONS',
+      'Access-Control-Allow-Headers': 'Content-Type, X-GHL-Signature, X-WH-Signature, X-Filename'
     };
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: cors });
 
@@ -69,6 +70,7 @@ export default {
     // ── Contenidos del dashboard + gestor /admin (unificados en este worker) ──
     // /api/resources alimenta al frontend; /admin es el gestor de contenidos.
     if (path === '/api/resources') return handleResources(request, env, cors);
+    if (path.startsWith('/api/file/')) return handleFile(request, env, new URL(request.url), cors);
     if (path === '/admin' || path.startsWith('/api/admin')) return handleAdmin(request, env, new URL(request.url), cors);
 
     // ── Consultar saldo:  GET /balance?client=ID   o  POST /balance {client_id}

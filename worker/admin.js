@@ -116,5 +116,45 @@ export async function handleAdmin(request, env, url, cors) {
     return jsonR({ ok: true, id }, 200, cors);
   }
 
+  // Subir un archivo:  POST /api/admin/upload/:id?lang=es   (cuerpo = el archivo)
+  const up = path.match(/^\/api\/admin\/upload\/(\d+)$/);
+  if (up && method === "POST") {
+    if (!env.FILES) return jsonR({ error: "r2_not_configured" }, 500, cors);
+    const id = parseInt(up[1], 10);
+    const lang = url.searchParams.get("lang") || "";
+    const ct = request.headers.get("Content-Type") || "application/octet-stream";
+    const filename = decodeURIComponent(request.headers.get("X-Filename") || "archivo");
+    const r2key = `r/${id}/${lang || "default"}`;
+    const put = await env.FILES.put(r2key, request.body, { httpMetadata: { contentType: ct } });
+    const size = put && put.size ? put.size : null;
+    await env.DB.prepare(
+      `INSERT INTO files (resource_id, lang, r2_key, filename, content_type, size, uploaded_at)
+       VALUES (?,?,?,?,?,?,datetime('now'))
+       ON CONFLICT(resource_id, lang) DO UPDATE SET
+         r2_key=excluded.r2_key, filename=excluded.filename,
+         content_type=excluded.content_type, size=excluded.size, uploaded_at=datetime('now')`
+    ).bind(id, lang, r2key, filename, ct, size).run();
+    return jsonR({ ok: true, id, lang, filename, size }, 200, cors);
+  }
+
+  // Borrar un archivo:  DELETE /api/admin/file/:id?lang=es
+  const del = path.match(/^\/api\/admin\/file\/(\d+)$/);
+  if (del && method === "DELETE") {
+    const id = parseInt(del[1], 10);
+    const lang = url.searchParams.get("lang") || "";
+    const row = await env.DB.prepare("SELECT r2_key FROM files WHERE resource_id=? AND lang=?").bind(id, lang).first();
+    if (row && env.FILES) await env.FILES.delete(row.r2_key);
+    await env.DB.prepare("DELETE FROM files WHERE resource_id=? AND lang=?").bind(id, lang).run();
+    return jsonR({ ok: true }, 200, cors);
+  }
+
+  // Estado de archivos subidos (para el gestor)
+  if (path === "/api/admin/files" && method === "GET") {
+    const { results } = await env.DB.prepare(
+      "SELECT resource_id, lang, filename, size, uploaded_at FROM files"
+    ).all();
+    return jsonR({ files: results || [] }, 200, cors);
+  }
+
   return jsonR({ error: "not_found" }, 404, cors);
 }

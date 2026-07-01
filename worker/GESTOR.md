@@ -11,6 +11,13 @@ El mismo Worker `aceai-studio` ahora también **alimenta al dashboard** y aloja 
 | `GET /admin` | Gestor de contenidos (Natalia edita enlaces y textos por sección). |
 | `POST /api/admin/login` · `/logout` | Entrada/salida del gestor (contraseña). |
 | `GET/PUT /api/admin/resources[/:id]` | Listar / editar el contenido de cada sección. |
+| `POST /api/admin/upload/:id?lang=` | **Subir un archivo** (PDF del libro, app, material de curso). El cuerpo es el archivo; `lang` = es/en/pt o vacío. |
+| `DELETE /api/admin/file/:id?lang=` | Borrar un archivo subido. |
+| `GET /api/file/:id?lang=&p=&ia=&pmf=` | **Leer/servir** el archivo (con control de nivel). Lo usa el dashboard. |
+
+Los archivos se guardan en **Cloudflare R2**; el dashboard los sirve por
+`/api/file/:id` respetando el nivel. Para el libro, se sube uno por idioma
+(ES/EN/PT); para la app o un curso, uno solo.
 
 Los niveles por sección viven en `worker/access.js` (misma tabla que el frontend
 `src/lib/access.js`). El contenido (enlaces, textos) vive en D1, editable desde
@@ -22,13 +29,15 @@ Los niveles por sección viven en `worker/access.js` (misma tabla que el fronten
 cd worker
 # 1) Crear la base D1 y pegar el database_id en wrangler.toml
 npx wrangler d1 create aceai
-# 2) Crear la tabla y sembrar las 20 secciones
+# 2) Crear las tablas y sembrar las 20 secciones
 npx wrangler d1 execute aceai --file=./schema.sql
 npx wrangler d1 execute aceai --file=./seed.sql
-# 3) Secretos del gestor
+# 3) Crear el bucket R2 para los archivos subidos
+npx wrangler r2 bucket create aceai-files
+# 4) Secretos del gestor
 npx wrangler secret put ADMIN_PASSWORD
 npx wrangler secret put AUTH_SECRET
-# 4) Desplegar
+# 5) Desplegar
 npx wrangler deploy
 ```
 
