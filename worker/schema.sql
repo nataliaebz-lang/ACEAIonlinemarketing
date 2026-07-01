@@ -15,6 +15,9 @@ CREATE TABLE IF NOT EXISTS resources (
   desc_es     TEXT NOT NULL DEFAULT '',
   desc_en     TEXT NOT NULL DEFAULT '',
   desc_pt     TEXT NOT NULL DEFAULT '',
+  body_es     TEXT NOT NULL DEFAULT '',      -- cuerpo/contenido largo (editable en /admin)
+  body_en     TEXT NOT NULL DEFAULT '',
+  body_pt     TEXT NOT NULL DEFAULT '',
   active      INTEGER NOT NULL DEFAULT 1,
   sort_order  INTEGER NOT NULL DEFAULT 0,
   updated_at  TEXT NOT NULL DEFAULT (datetime('now'))

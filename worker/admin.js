@@ -64,7 +64,8 @@ async function isAdmin(request, env) {
 }
 
 const FIELDS = ["route", "area", "type", "link", "image_url",
-  "title_es", "title_en", "title_pt", "desc_es", "desc_en", "desc_pt", "active", "sort_order"];
+  "title_es", "title_en", "title_pt", "desc_es", "desc_en", "desc_pt",
+  "body_es", "body_en", "body_pt", "active", "sort_order"];
 
 export async function handleAdmin(request, env, url, cors) {
   const path = url.pathname.replace(/\/+$/, "") || "/";

@@ -51,6 +51,7 @@ export async function handleResources(request, env, cors, levels) {
       image_url: r.image_url,
       title: r[`title_${lang}`] || r.title_es,
       description: r[`desc_${lang}`] || r.desc_es,
+      body: locked ? "" : (r[`body_${lang}`] || ""),
       i18n: {
         es: { title: r.title_es, description: r.desc_es },
         en: { title: r.title_en, description: r.desc_en },

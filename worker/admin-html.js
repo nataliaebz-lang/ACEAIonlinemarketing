@@ -105,6 +105,10 @@ function render(items){
           "<div class='field'><label>EN</label><textarea data-f='desc_en' rows='2'>"+esc(res.desc_en)+"</textarea></div>"+
           "<div class='field'><label>PT</label><textarea data-f='desc_pt' rows='2'>"+esc(res.desc_pt)+"</textarea></div>"+
         "</div>"+
+        "<h3>Contenido de la sección (texto largo)</h3>"+
+        "<div class='field'><label>ES</label><textarea data-f='body_es' rows='5'>"+esc(res.body_es)+"</textarea></div>"+
+        "<div class='field'><label>EN</label><textarea data-f='body_en' rows='5'>"+esc(res.body_en)+"</textarea></div>"+
+        "<div class='field'><label>PT</label><textarea data-f='body_pt' rows='5'>"+esc(res.body_pt)+"</textarea></div>"+
         "<div style='display:flex;align-items:center;gap:12px;margin-top:8px'>"+
           "<label style='display:flex;align-items:center;gap:6px;text-transform:none'><input data-f='active' type='checkbox' style='width:auto' "+(res.active?"checked":"")+"> Visible</label>"+
           "<button style='margin-left:auto' data-save>Guardar</button>"+
