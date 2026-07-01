@@ -3,6 +3,7 @@ const _jsxFileName = ""; function _nullishCoalesce(lhs, rhsFn) { if (lhs != null
 import { BookOpen, Download, Upload, CheckCircle2, AlertCircle, Loader2, ChevronDown, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/language";
+import { useResource } from "@/context/resources";
 
 const BASE = import.meta.env.BASE_URL;
 const API = "/api";
@@ -84,6 +85,7 @@ export default function Ebook() {
   const { lang } = useLanguage();
   const l = (es, en, pt) =>
     lang === "pt" ? (_nullishCoalesce(pt, () => ( es))) : lang === "en" ? en : es;
+  const managed = useResource("/proposito/ebook");
 
   const [info, setInfo] = useState(null);
   const [downloading, setDownloading] = useState(false);
@@ -102,23 +104,14 @@ export default function Ebook() {
       .catch(() => setInfo({ exists: false, admin: false }));
   }, []);
 
-  async function handleDownload() {
-    setDownloading(true);
-    try {
-      const r = await fetch(`${API}/books/numina/download`, { headers: authHeader() });
-      if (!r.ok) throw new Error("not found");
-      const blob = await r.blob();
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "Numina-El-Acorde-13.pdf";
-      a.click();
-      URL.revokeObjectURL(url);
-    } catch (e2) {
-      alert(l("PDF no disponible aún.", "PDF not available yet.", "PDF ainda não disponível."));
-    } finally {
-      setDownloading(false);
-    }
+  // URL del libro en el idioma actual. Si el gestor /admin tiene un PDF asignado
+  // (link gestionado) se usa; si no, el PDF estático servido desde /books.
+  function bookUrl() {
+    return (managed && managed.link) || `${BASE}books/numina-${lang}.pdf`;
+  }
+  // Abre el libro para leerlo (visor PDF del navegador; desde ahí se descarga).
+  function handleDownload() {
+    window.open(bookUrl(), "_blank", "noopener");
   }
 
   async function handleUpload(file) {
@@ -182,7 +175,7 @@ export default function Ebook() {
               , downloading
                 ? React.createElement(Loader2, { className: "w-3.5 h-3.5 animate-spin"  , __self: this, __source: {fileName: _jsxFileName, lineNumber: 182}} )
                 : React.createElement(Download, { className: "w-3.5 h-3.5" , __self: this, __source: {fileName: _jsxFileName, lineNumber: 183}} )
-              , l("Descargar PDF", "Download PDF", "Baixar PDF")
+              , l("Leer / Descargar", "Read / Download", "Ler / Baixar")
             )
           )
 
