@@ -1,6 +1,7 @@
 import * as React from "react";
 const _jsxFileName = "";import { Lock, Calendar, Bell } from "lucide-react";
 import { useLanguage } from "@/context/language";
+import { SectionUpload } from "@/components/section-upload";
 
 export default function Curso7Dias() {
   const { lang } = useLanguage();
@@ -10,6 +11,7 @@ export default function Curso7Dias() {
 
   return (
     React.createElement('div', { className: "px-6 py-10 md:px-10 md:py-14"   , 'data-testid': "curso-7-dias", __self: this, __source: {fileName: _jsxFileName, lineNumber: 11}}
+      , React.createElement(SectionUpload, { route: "/proposito/curso-7-dias" })
       /* Header */
       , React.createElement('div', { className: "mb-10", __self: this, __source: {fileName: _jsxFileName, lineNumber: 13}}
         , React.createElement('p', { className: "text-xs uppercase tracking-[0.25em] text-secondary mb-2"    , __self: this, __source: {fileName: _jsxFileName, lineNumber: 14}}

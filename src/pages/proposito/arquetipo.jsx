@@ -4,6 +4,7 @@ import { ArrowLeft, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { useLanguage } from "@/context/language";
+import { SectionUpload } from "@/components/section-upload";
 
 
 const getArchetypes = (l) => ({
@@ -281,6 +282,7 @@ export default function ArquetipoApp() {
   const q = questions[current];
   return (
     React.createElement('div', { className: "px-6 py-10 md:px-10 md:py-14 max-w-2xl mx-auto"     , 'data-testid': "arquetipo-quiz", __self: this, __source: {fileName: _jsxFileName, lineNumber: 282}}
+      , React.createElement(SectionUpload, { route: "/proposito/arquetipo" })
       , React.createElement('div', { className: "mb-8", __self: this, __source: {fileName: _jsxFileName, lineNumber: 283}}
         , React.createElement('p', { className: "text-xs uppercase tracking-[0.25em] text-muted-foreground mb-4"    , __self: this, __source: {fileName: _jsxFileName, lineNumber: 284}}
           , l("Pregunta", "Question"), " " , current + 1, " " , l("de", "of"), " " , questions.length

@@ -3,6 +3,7 @@ const _jsxFileName = ""; function _nullishCoalesce(lhs, rhsFn) { if (lhs != null
 import { Play, Pause, SkipBack, SkipForward, Volume2, Music, Sparkles } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import { useLanguage } from "@/context/language";
+import { SectionUpload } from "@/components/section-upload";
 
 const BASE = import.meta.env.BASE_URL;
 
@@ -189,6 +190,7 @@ export default function Dayllu() {
 
   return (
     React.createElement('div', { className: "px-0 py-0" , 'data-testid': "dayllu-page", __self: this, __source: {fileName: _jsxFileName, lineNumber: 190}}
+      , React.createElement('div', { className: "px-6 pt-6" }, React.createElement(SectionUpload, { route: "/proposito/dayllu" }))
       , React.createElement('audio', {
         ref: audioRef,
         onTimeUpdate: handleTimeUpdate,

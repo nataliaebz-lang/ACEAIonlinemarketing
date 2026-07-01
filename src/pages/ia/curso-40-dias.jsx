@@ -1,6 +1,7 @@
 import * as React from "react";
 const _jsxFileName = "";import { Brain, Calendar } from "lucide-react";
 import { useLanguage } from "@/context/language";
+import { SectionUpload } from "@/components/section-upload";
 
 export default function Curso40DiasIA() {
   const { lang } = useLanguage();
@@ -8,6 +9,7 @@ export default function Curso40DiasIA() {
 
   return (
     React.createElement('div', { className: "px-6 py-10 md:px-10 md:py-14 flex flex-col items-center justify-center min-h-[60vh] text-center"         , 'data-testid': "curso-40-dias-ia", __self: this, __source: {fileName: _jsxFileName, lineNumber: 9}}
+      , React.createElement('div', { className: "w-full" }, React.createElement(SectionUpload, { route: "/ia/curso-40-dias" }))
       , React.createElement('div', { className: "w-16 h-16 rounded-full bg-red-50 border border-primary/30 flex items-center justify-center mb-6 shadow-sm"          , __self: this, __source: {fileName: _jsxFileName, lineNumber: 10}}
         , React.createElement(Brain, { className: "w-7 h-7 text-primary"  , __self: this, __source: {fileName: _jsxFileName, lineNumber: 11}} )
       )
